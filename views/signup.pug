@@ -1,0 +1,49 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  title Happy Hoe Grocery - Register
+  link(href='https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.1/css/boxicons.min.css' rel='stylesheet')
+  link(rel='stylesheet' href='/css/you.css')
+  link(rel='stylesheet' href='/bootstrap5/css/bootstrap.css')
+header
+  p
+    | Go back to 
+    a(href='index.html') Home Page
+main.form-section
+  h1 Register
+  form#register-form(onsubmit='submitForm()' action="/addUser" method="POST")
+    label(for='username') Username:
+    input#username(type='text' name='username' required='')
+    label(for='email') Email
+    input#email(type='email' name='email' required='')
+    label(for='password') Password
+    input#password(type='password' name='password' required='')
+    label(for='corfirmpassword') Corfirm Password
+    input#corfirmpassword(type='password' name='corfirmpassword' required='')
+    label(for='branch') Branch
+    select#branch(name='branch' required='')
+      option(value="") choose
+      option(value='both') bothBranches
+      option(value='matuga') Matuga
+      option(value='maganjo') Maganjo
+    label(for='role') Role
+    select#role(name='role' required='')
+      option(value="") choose
+      option(value='manager') Manager
+      option(value='sales_agent') Sales Agent
+      option(value='administrator') Administrator
+    input#form.btn.btn-primary.custom-button(type='submit' value='register')
+    p
+      | Already have an account? 
+      a(href='login.html') Login here
+footer(style='background-color: #343a40; color: #fff; padding: 20px; text-align: center;')
+  div(style='margin-bottom: 10px;')
+    a(href='#' style='color: #bbb; text-decoration: none; margin-right: 15px;') Privacy Policy
+    a(href='#' style='color: #bbb; text-decoration: none; margin-right: 15px;') Terms of Service
+    a(href='#' style='color: #bbb; text-decoration: none;') Contact Us
+  div(style='margin-bottom: 10px;')
+    span &copy; 2024 Happy Hoe Grocery Ltd. All rights reserved.
+  div
+    span Developed by the IT Team | Version 1.0.0
+script(src='/js/main.js')

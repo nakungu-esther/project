@@ -1,0 +1,152 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  title Document
+  // <link rel="stylesheet" href="assets/bootstrap-5.3.3-dist/css/bootstrap.css">
+  // <link rel="stylesheet" href="assets/css/main.css">
+  link(rel='stylesheet' href='https://unpkg.com/swiper/swiper-bundle.min.css')
+  // <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  link(rel='stylesheet' href='/css/cereals.css')
+  link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css')
+header
+  img(style='width: 40px; height: 40px; border-radius: 50%;' src='/images/download (3).png')
+  .agent-profile
+    span.agent-name Welcome page
+nav
+  input#check(type='checkbox')
+  label(for='check')
+    i#btn.fas.fa-bars
+    i#cancel.fas.fa-times
+  .siderbar
+    img(style='width: 40px; height: 40px; border-radius: 50%;' src='/images/download (3).png')
+    ul
+      li
+        a(href='index.html')
+          i.fas.fa-stream
+          |  Home
+      li
+        a(href='login.html')
+          i.fas.fa-qrcode
+          |  Admin
+      li
+        a(href='login.html')
+          i.fas.fa-qrcode.slider-h
+          |  manager
+      li
+        a(href='login.html')
+          i.fas.fa-qrcode
+          |  SalesAgent
+    //
+      <a href="index.html" class="logout-btn">
+      <i class="fas fa-sign-out-alt"></i> Logout
+      </a>
+main#main(action="/" method="POST")
+  section.hero
+    .hero-content
+      h1 Welcome to ultimate Happy Hoe grocery
+      p
+        | Our innovative web application is designed
+        br
+        |  to make grocery work easier, you can browse our vast
+        |           selection
+        |           of products.
+      // <button class="cta-button">view</button>
+  section.featured-products
+    h2 Categories
+    br
+    br
+    .product-grid
+      .product-card
+        img(src='/images/product1.jpg' alt='Product 1')
+        h3 Fruits
+        p
+          | Freshness guaranteed, with regular deliveries and quality control
+          | .
+      .product-card
+        img(src='/images/images.jpeg' alt='Product 2')
+        h3 Grains
+        p
+          | Gluten-free options like rice, corn, and millet, catering to dietary needs
+          | ct.
+      .product-card
+        img(src='/images/product3.jpeg' alt='Product 3')
+        h3 Sea Food
+        p
+          | Fresh catches: salmon, tilapia, cod, shrimp, scallops, and more
+          | .
+section#stock.py-5
+  .text-center(style='color: hsl(30, 3%, 11%);')
+    h2 Grain stock
+  br
+  br
+  .statistics.container-fluid
+    .swiper.mySwiper
+      .swiper-wrapper
+        .swiper-slide
+          a(style='text-decoration: none;' href='/beans.html')
+            .card.mb-4
+              img.card-img-top(src='/images/stock2.webp' style='width:266px;height: 200px; ' alt='...')
+              .card-body
+                h3.card-title BEANS
+                button View More
+        br
+        br
+        .swiper-slide
+          a(style='text-decoration: none;' href='/rice.html')
+            .card.mb-4
+              img.card-img-top(src='/images/j.jpg' style='width: 299px; height:200px;' alt='...')
+              .card-body
+                h3.card-title RICE
+                button View More
+        br
+        br
+        .swiper-slide
+          a(style='text-decoration: none;' href='/maize.html')
+            .card.mb-4
+              img.card-img-top(src='/images/download (8).jpeg' style='width: 299px;height: 200px;' alt='Maize Image')
+              .card-body
+                h3.card-title MAIZE
+                button View More
+        br
+        br
+        .swiper-slide
+          a(style='text-decoration: none;' href='/cowpeas.html')
+            .card.mb-4
+              img.card-img-top(src='/images/images (8).jpeg' style='width: 299px; height:200px;' alt='...')
+              .card-body
+                h3.card-title PEAS
+                button View More
+        br
+        br
+        .swiper-slide
+          a(style='text-decoration: none;' href='/g.nuts.html')
+            .card.mb-4
+              img.card-img-top(src='/images/download (10).jpeg' style='width: 299px; height:200px;' alt='...')
+              .card-body
+                h3.card-title G.NUTS
+                button View More
+        br
+        br
+    script(src='https://unpkg.com/swiper/swiper-bundle.min.js')
+    script.
+      var swiper = new Swiper('.mySwiper', {
+      slidesPerView: 4,
+      spaceBetween: 10,
+      pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+      },
+      loop: true, // Enable continuous loop mode
+      autoplay: {
+      delay: 2500,
+      disableOnInteraction: false,
+      },
+      });
+  br
+  footer(style='background-color: #2c3e50; color: #fff; padding: 20px; text-align: center;')
+    div(style='margin-bottom: 10px;')
+      span &copy; 2024 Nakungu Esther. All rights reserved.
+  script(src='https://unpkg.com/swiper/swiper-bundle.min.js')
+  script(src='/js/main.js')
+  script(src='/bootstrap-5.3.3-dist/js/bootstrap.bundle.js')

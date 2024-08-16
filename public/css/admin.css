@@ -1,0 +1,280 @@
+/* Global Styles */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* Header */
+header {
+    background-color: #2c3e50;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+header .admin-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+header .admin-profile .admin-name {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+header .admin-profile a {
+    color: white;
+    text-decoration: none;
+    padding: 5px 10px;
+    background-color: #e74c3c;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    margin-right: 10%;
+}
+
+header .admin-profile a:hover {
+    background-color: #c0392b;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 220px;
+    background-color: #34495e;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding-top: 60px;
+    overflow-y: auto;
+}
+
+.sidebar nav ul {
+    list-style-type: none;
+    padding: 5px;
+}
+
+.sidebar nav ul li {
+    margin: 15px 0;
+}
+
+.sidebar nav ul li a {
+    color: #fef9f9;
+    text-decoration: none;
+    padding: 15px 20px;
+    display: block;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease;
+    margin-left: 10px;
+    border-radius: 10px; /* Moved border-radius to apply to all links */
+}
+
+.sidebar nav ul li a:hover {
+    background-color: #c0392b;
+}
+
+/*main*/
+/* .main-container{
+    grid-area: main;
+    overflow-y: auto;
+    padding: 20px 20px;
+} */
+
+.main-title{
+    display:flex;
+    justify-content: space-between;  
+}
+.main-title > p{
+    font-size: 20px;
+}
+.main-cards{
+   display: grid; 
+   grid-template-columns: 1fr 1fr 1fr 1fr;
+   position: relative;
+   margin-left: 250px;
+   margin-top: 100px;
+   width:1000px;
+   align-items: center;
+}
+.card{
+   display: flex;
+   flex-direction: column; 
+   justify-content: space-around;
+   padding: 20px;
+   background-color: #ffffff;
+   box-sizing: border-box;
+   border: 3px solid #d2d2d2;
+   border-radius: 15px;
+   box-shadow: 5px 6px 7px 7px gray;
+   margin-right: 1%;
+   
+   
+}
+
+.card:hover{
+    box-shadow: none;
+}
+.card:first-child{
+    border-left: 7px solid purple;
+    
+}
+.card:nth-child(2){
+    border-left: 7px solid orangered;
+}
+.card:nth-child(3){
+    border-left: 7px solid greenyellow;
+}
+
+
+.card:nth-child(4){
+    border-left: 7px solid #ff2f3d;
+}
+
+.card > span{
+    font-size: 20px;
+    font-weight:600 ;
+}
+.card-liner{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.card-liner > p{
+  font-size:10px ;  
+}
+.card-liner > span{
+    font-size: 35px;
+}
+
+.charts {
+    display: flex;
+    height: 200px;
+    margin-left: 300px;
+    margin-right: 30px;
+    justify-content:space-between; /* Aligns the chart to the left */
+    margin-top: 30px; /* Adjust the margin to fit your layout */
+}
+.charts-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 100px; /* Adjust the gap between columns as needed */
+  }
+
+
+.charts-card {
+    width: 400px; /* Set a reasonable width for the chart */
+    height: 400px;
+    background-color: #ffffff;
+    padding: 20px;
+    column-gap: 20px;
+    box-sizing: border-box;
+    border: 1px solid #f38c93;
+    border-radius: 8px;
+    box-shadow: 0 6px 7px 6px rgb(239, 137, 137);/* margin-right: 10px; Adds space between the chart and other elements */
+}
+
+.chart-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 200; /* Slightly increased weight for better visibility */
+    margin-bottom: 10px;
+}
+
+.charts {
+    height: 400px; /* Set a specific height for your chart */
+}
+#area-chart {
+    height: 100px; /* Adjust the height of the area chart */
+    width: 200px;
+}
+
+
+/* Details section styling */
+.details-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 20px;
+  align-items: center;
+
+}
+.details-card {
+  flex: 1;
+  background-color: white;
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  min-width: 200px;
+  max-width: 400px;
+ 
+ 
+
+
+}
+.details-card:hover{
+    box-shadow: 5px 6px 7px 7px gray;
+
+}
+.details-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Table styling */
+.details-card table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.details-card table th,
+.details-card table td {
+  text-align: left;
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.details-card table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+/* List styling */
+.details-card ul {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+.details-card ul li {
+  padding: 8px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Notification Badge Styling */
+.badge {
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 8px;
+  font-size: 12px;
+  vertical-align: top;
+}

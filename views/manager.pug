@@ -1,0 +1,101 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  title Manager Page - Happy Hoe Grocery Ltd.
+  link(rel='stylesheet' href='/css/manager.css')
+  link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css')
+header
+  img(style='width: 40px; height: 40px; border-radius: 50%;' src='/images/download (3).png')
+  .manager-profile
+    span.manager-name Welcome, Manager
+    a(href='index.html') Logout
+main
+  aside.sidebar
+    nav
+      ul
+        li
+          a(href='#')
+            i.fas.fa-clipboard-list(style='padding-right:9px;')
+            | Record procuments
+        //
+          <li><a href="#">  <i class="fas fa-file-archive" style="padding-right:9px;"></i>Procument Records</a></li>
+          <li><a href="#">  <i class="fas fa-chart-bar" style="padding-right:9px;"></i>Generate Reports</a></li>
+          <li><a href="#">  <i class="fas fa-bell" style="padding-right:9px;"></i>Notifications</a></li>
+main
+  // Procurement Form Section
+  section#procurementFormSection.dashboard-section
+    h2 Record Produce Procurement
+    form#procurementForm(action="/managerdashboard" method="POST")
+      label(for='produceName') Name of Produce:
+      input#produceName(type='text' name='produceName' required='')
+      label(for='produceType') Type of Produce:
+      input#produceType(type='text' name='produceType' required='' pattern='[A-Za-z]{2,}')
+      label(for='procureDate') Date:
+      input#procureDate(type='date' name='procureDate' required='')
+      label(for='procureTime') Time:
+      input#procureTime(type='time' name='procureTime' required='')
+      label(for='tonnage') Tonnage (in kg):
+      input#tonnage(type='number' name='tonnage' required='' min='100')
+      label(for='cost') Cost (in UgX):
+      input#cost(type='number' name='cost' required='' min='10000')
+      label(for='dealerName') Dealer Name:
+      select#dealerName(name='dealerName' required='' pattern='[A-Za-z0-9]{2,}')
+        option(value='')
+        option(value='Branch 1') Maganjo farm
+        option(value='Branch 2')
+          | Maganjo farm
+        option(value='dealer1') Individual
+        option(value='dealer2') Other campanies
+      label(for='branchName') Branch Name:
+      select#branchName(name='branchName' required='')
+        option(value='') select
+        option(value='Branch 1') Maganjo
+        option(value='Branch 2') Matuga
+      label(for='contact') Contact:
+      input#contact(type='tel' name='contact' required='' pattern='^\+256\d{9}$')
+      label(for='sellingPrice') Price to be Sold At:
+      input#sellingPrice(type='number' name='sellingPrice' required='')
+      button(type='submit') Submit
+  // Procurement Records Section
+  //
+    <section id="recordsSection" class="dashboard-section">
+    <h2>Procurement Records</h2>
+    <table id="procurementRecordsTable">
+    <thead>
+    <tr>
+    <th>Name of Produce</th>
+    <th>Type of Produce</th>
+    <th>Date</th>
+    <th>Time</th>
+    <th>Tonnage (kg)</th>
+    <th>Cost (UgX)</th>
+    <th>Dealer Name</th>
+    <th>Branch Name</th>
+    <th>Contact</th>
+    <th>Selling Price</th>
+    <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+  // Records will be dynamically inserted here
+  //
+    </tbody>
+    </table>
+    </section>
+  // Reports Section
+  //
+    <section id="reportsSection" class="dashboard-section">
+    <h2>Generate Reports</h2>
+  // Add report generation form and options here
+  // </section>
+  // Notifications Section
+  //
+    <section id="notificationsSection" class="dashboard-section">
+    <h2>Notifications</h2>
+  // Add notifications and alerts here
+section
+  footer(style='background-color: #2c3e50; color: #fff; padding: 20px; text-align: center; margin-top: 0%')
+    div(style='margin-bottom: 10px;')
+      span &copy; 2024 Nakungu Esther. All rights reserved.
+script(src='/js/manager.js')
