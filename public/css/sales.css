@@ -77,7 +77,7 @@ header .agent-profile a:hover {
 .sidebar nav ul li a {
     color: #fef9f9;
     text-decoration: none;
-    padding: 15px 20px;
+    padding: 15px 10px;
     display: block;
     font-size: 1.1em;
     transition: background-color 0.3s ease;
@@ -87,7 +87,7 @@ header .agent-profile a:hover {
 .sidebar nav ul li a:hover {
     background-color: #c0392b;
     padding-left: 5px;
-    border-radius: 10px;
+    border-radius: 20px;
 }
 
 /* Main Content */
@@ -103,6 +103,9 @@ h1 {
 }
 
 form {
+    display: grid;
+    grid-template-columns: repeat(2, 2fr);
+    gap: 25px;
     background-color: hsl(120, 24%, 96%);
     padding: 20px;
     border-radius: 8px;
@@ -131,6 +134,8 @@ form {
 button[type="submit"] {
     padding: 10px 15px;
     background-color: #27ae60;
+    margin-top: 80px;
+    margin-left: 100px;
     color: white;
     border: none;
     border-radius: 5px;

@@ -3,7 +3,7 @@ const router = express.Router();
 
 const sign = require('../models/signup')
 
-router.get("/addUser", (req, res) => {
+router.get("/addUser" ,(req, res) => {
     res.render("signup");
 });
 // Register admin

@@ -1,0 +1,58 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  title Manager Dashboard Overview
+  link(rel='stylesheet' href='/css/mine.css')
+  link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css')
+header
+  img(style='width: 40px; height: 40px; border-radius: 50%;' src='/images/download (3).png')
+  .manager-profile
+    span.manager-name Welcome, Manager
+    a(href='index.html') Logout
+main
+  aside.sidebar
+    nav
+      ul
+        li
+          a(href='#')
+            i.fas.fa-clipboard-list(style='padding-right:9px;')
+            | Overview
+        li
+          a(href='/managerdashboard')
+            i.fas.fa-file-archive(style='padding-right:9px;')
+            |   Procuments
+        li
+          a(href='#')
+            i.fas.fa-chart-bar(style='padding-right:9px;')
+            | Total Sales
+        li
+          a(href='#')
+            i.fas.fa-print(style='padding-right:9px;')
+            | produceList
+.dashboard(action='/overView' method='POST')
+  h1 Manager Dashboard Overview
+  .overview-row
+    .card
+      h2 Total Procurements
+      p#total-procurements 150
+    .card
+      h2 Total Sales
+      p#total-sales 120
+    .card
+      h2 Total Stock
+      p#total-stock 500 kg
+  // <button class="add-btn">Add New Record</button>
+  .charts
+    .chart-container
+      h2 Procurement Trends
+      canvas#procurement-trends-chart
+    .chart-container
+      h2 Sales Distribution
+      canvas#sales-distribution-chart
+footer(style='background-color: #2c3e50; color: #fff; padding: 20px; text-align: center;')
+  div(style='margin-bottom: 10px;')
+    span &copy; 2024 Nakungu Esther. All rights reserved.
+// Include Chart.js
+script(src='https://cdn.jsdelivr.net/npm/chart.js')
+script(src='/js/mine.js')

@@ -1,6 +1,27 @@
+document.addEventListener('DOMContentLoaded', () => {
+  const socket = io();
+
+  socket.on('updateData', (data) => {
+    // Update cards
+    document.querySelector('.card:nth-child(1) .font-weight-bold').textContent = `${data.products}%`;
+    document.querySelector('.card:nth-child(2) .font-weight-bold').textContent = `${data.procurements}%`;
+    document.querySelector('.card:nth-child(3) .font-weight-bold').textContent = `${data.sales}%`;
+    document.querySelector('.card:nth-child(4) .font-weight-bold').textContent = `${data.creditSales}%`;
+
+    // Update charts
+    ApexCharts.exec('bar-chart', 'updateSeries', [{
+      data: data.charts.topProducts
+    }]);
+
+    ApexCharts.exec('area-chart', 'updateSeries', [{
+      data: data.charts.salesOverTime
+    }]);
+  });
+});
+
 let barChartOptions = {
     series: [{
-      data: [15, 10, 8, 6, 4]
+      data: [15, 10, 8, 6, 4, 2]
     }],
     chart: {
       type: 'bar',
@@ -9,11 +30,11 @@ let barChartOptions = {
         show: false
       }
     },
-    colors: ['#246dec', '#800000', '#FF9100', '#00712D', '#982B1C'],
+    colors: ['#246dec', '#800000', '#FF9100', '#00712D', '#982B1C','#E85C0D'],
     plotOptions: {
       bar: {
         distributed: true,
-        borderRadius: 4,
+        borderRadius: 5,
         horizontal: false,
         columnWidth: '40%' // Use percentage for consistent width
       }
@@ -22,7 +43,7 @@ let barChartOptions = {
       enabled: false
     },
     xaxis: {
-      categories: ['Maize', 'Soya', 'Beans', 'Cowpeas', 'Rice']
+      categories: ['Maize', 'Soya', 'Beans', 'Cowpeas', 'Rice','G.nuts']
     },
     yaxis: {
       title: {
@@ -99,6 +120,25 @@ let barChartOptions = {
         list.appendChild(listItem);
       });
     }
+
+
+    let notificationCount = 0;
+
+function addNotification() {
+  notificationCount++;
+  document.getElementById('notificationCount').innerText = notificationCount;
+  const popup = document.getElementById('notificationPopup');
+  popup.innerHTML = `<p>You have ${notificationCount} new notification${notificationCount > 1 ? 's' : ''}</p>`;
+}
+
+document.getElementById('notificationButton').addEventListener('click', function() {
+  const popup = document.getElementById('notificationPopup');
+  popup.classList.toggle('active');
+});
+
+// Example to simulate notifications being added
+setInterval(addNotification, 5000);
+
   
     // Function to fetch data from the server
     async function fetchData() {

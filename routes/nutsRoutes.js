@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 
 // GET request for the home page
-router.get('/', (req, res) => {
-    res.render('home_page'); // Ensure that 'home_page' view exists in your views directory
+router.get('/g.nut_file', (req, res) => {
+    res.render('gnuts'); 
 });
 
 module.exports = router;

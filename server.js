@@ -1,47 +1,50 @@
 //dependencies
-const express = require('express')
-const path = require('path')
-const mongoose = require('mongoose')
+const express = require('express');
+const path = require('path');
+const mongoose = require('mongoose');
+const moment = require('moment');
 
-
-
-//added
 
 const passport = require("passport");
 const expressSession = require("express-session")({
-secret: "secret",
-resave: false,//donot save their session after login
-saveUninitialized: false//the session didnot start donot save
+  secret: "secret",
+  resave: false,
+  saveUninitialized: false
 });
-
-
-
 
 require('dotenv').config();
 
 //import models
+const Signup  = require('./models/signup');
 
-const Signup  = require('./models/signup')
 
 //importing routes
-const homeRoutes = require('./routes/homeRoutes')
-const managerRoutes = require('./routes/managerRoutes')
-const signRoutes = require('./routes/signRoutes')
-const loginRoutes = require('./routes/loginRoutes')
+const agentRoutes = require('./routes/agentRoutes');
+const beanRoutes = require('./routes/beanRoutes');
+const riceRoutes = require('./routes/riceRoutes');
+const homeRoutes = require('./routes/homeRoutes');
+const managerRoutes = require('./routes/managerRoutes');
+const signRoutes = require('./routes/signRoutes');
+const loginRoutes = require('./routes/loginRoutes');
+const adminRoutes = require('./routes/adminRoutes');
+const cowRoutes = require('./routes/cowRoutes');
+const nutsRoutes = require('./routes/nutsRoutes');
+const maizeRoutes = require('./routes/maizeRoutes');
+const procurementRoutes = require('./routes/procurementRoutes');
+const mineRoutes = require('./routes/mineRoutes');
 
 //instantiations
 const app = express();
 const port = 5000;
 
-
-
+// Create HTTP server and attach Socket.io
+const http = require('http').createServer(app);
+const io = require('socket.io')(http);
 
 //configurations
-// set db connection to mongoose
-mongoose.connect(process.env.DATABASE_LOCAL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(process.env.DATABASE_LOCAL, 
+ 
+);
 
 mongoose.connection
   .once("open", () => {
@@ -52,53 +55,57 @@ mongoose.connection
   });
 
 
-
-
+  app.locals.moment = moment
 
 //set view engine to pug
-
-app.set("view engine", "pug");// specify the view engine
-app.set("views", path.join(__dirname, "views"));// specify the view directory
-
-
-
-
-
-
+app.set("view engine", "pug");
+app.set("views", path.join(__dirname, "views"));
 
 //middleware
-app.use(express.static(path.join(__dirname, "public")));//specify a folder for static files
-app.use(express.urlencoded({ extended: true }));// helps to parse data from forms
-app.use(express.json());// helps to capture data in json
+app.use(express.static(path.join(__dirname, "public")));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
-
-
-
-//added
 // express session configs
-app.use(expressSession);// express session
-app.use(passport.initialize());//intialize passport
-app.use(passport.session());//use passport session
+app.use(expressSession);
+app.use(passport.initialize());
+app.use(passport.session());
 
 // passport configs
-passport.use(Signup.createStrategy());// use the local strategy
-passport.serializeUser(Signup.serializeUser());// assign a serial number to a user in the system
-passport.deserializeUser(Signup.deserializeUser());// the serial number is destroyed on log out
-
-
-
+passport.use(Signup.createStrategy());
+passport.serializeUser(Signup.serializeUser());
+passport.deserializeUser(Signup.deserializeUser());
 
 //Routes
-//use routes/use imported routes
-app.use('/', homeRoutes)
-app.use('/',managerRoutes)
-app.use('/', loginRoutes)
-app.use('/', signRoutes)
+app.use('/', homeRoutes);
+app.use('/', managerRoutes);
+app.use('/', loginRoutes);
+app.use('/', signRoutes);
+app.use('/', riceRoutes);
+app.use('/', adminRoutes);
+app.use('/', beanRoutes);
+app.use('/', cowRoutes);
+app.use('/', nutsRoutes);
+app.use('/', maizeRoutes);
+app.use('/', procurementRoutes);
+app.use('/', mineRoutes)
+app.use('/', agentRoutes)
 
 app.get("*", (req, res) => {
   res.send("error! page does not exist");
 });
 
+// Real-time notifications setup
+io.on('connection', (socket) => {
+  console.log('A user connected');
+  
+  // Example of sending a notification to the client
+  socket.emit('notification', { message: 'Welcome to the admin dashboard' });
+
+  socket.on('disconnect', () => {
+    console.log('A user disconnected');
+  });
+});
 
 //bootstraping a server
-app.listen(port, () => console.log(`listening on port ${port}`));// string interporation
+http.listen(port, () => console.log(`listening on port ${port}`));

@@ -1,0 +1,78 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  title Admin Dashboard - Grocery Store
+  link(rel='stylesheet' href='/css/admin.css')
+  link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css')
+  script(src='https://cdn.jsdelivr.net/npm/apexcharts')
+header
+  img(style='width: 40px; height: 40px; border-radius: 50%' src='/images/download (3).png' alt='Profile Picture')
+  .admin-profile
+    span.admin Welcome, CEO
+    a(href='/') Logout
+div(style='display: flex; flex: 1')
+  aside.sidebar
+    nav
+      ul
+        li
+          a(href='#')
+            i.fas.fa-clipboard-list(style='padding-right: 9px')
+            | Overview
+       
+        li
+          a(href='#')
+            i.fas.fa-file-archive(style='padding-right: 9px')
+            | Procurements
+        li
+          a(href='#')
+            i.fas.fa-chart-bar(style='padding-right: 9px')
+            | Sales Overview
+        li
+          a(href='#')
+            i.fas.fa-envelope-open(style='padding-right: 9px')
+            | Messages
+        li
+          a#notificationButton(href='#')
+            i.fas.fa-bell(style='padding-right: 9px')
+            |                 Notifications
+            span#notificationCount.notification-count 0
+          #notificationPopup.notification-popup
+            p No new notifications
+main
+  .main-cards(action="/admindashboard" method='POST')
+    .card
+      .card-inner
+        p.text-primary Products
+        span.material-icons-outlined.text-green.icon-right
+      span.text-primary.font-weight-bold 90%
+    .card
+      .card-inner
+        p.text-primary Procurements
+        span.material-icons-outlined.text-blue.icon-right
+      span.text-primary.font-weight-bold 240%
+    .card
+      .card-inner
+        p.text-primary Sales
+        span.material-icons-outlined.text-orange.icon-right
+      span.text-primary.font-weight-bold 83%
+    .card
+      .card-inner
+        p.text-primary Credit Sales
+        span.material-icons-outlined.text-green.icon-right
+      span.text-primary.font-weight-bold 79%
+  .charts
+    .charts-card
+      p.chart-title Top 5 Products
+      #bar-chart
+    br
+    br
+    .charts-card
+      p.chart-title Sales Orders Over Time
+      #area-chart
+footer(style='background-color: #2c3e50; color: #fff; padding: 10px; text-align: center;')
+  div(style='margin-bottom: 10px;')
+    span &copy; 2024 Nakungu Esther. All rights reserved.
+script(src='https://cdn.jsdelivr.net/npm/apexcharts')
+script(src='https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.52.0/apexcharts.min.js')
+script(src='/js/admin.js')

@@ -15,14 +15,14 @@ router.post("/login",
         
         // Redirect based on the user's role
         if (req.user.role === "manager") {
-            res.redirect("/managerdashboard")
+            res.redirect("/overView")
         }
-         else if (req.user.role === "salesagent") {
-            res.redirect("/agent")
+         else if (req.user.role === "sales_agent") {
+            res.redirect("/agentdashboard")
         } 
         
         else if (req.user.role === "administrator"){
-            res.redirect("/admin")
+            res.redirect("/admindashboard")
         } 
         else {
             res.send("User with that role does not exist in the system");

@@ -1,78 +1,70 @@
-document.getElementById('procurementForm').addEventListener('submit', function(event) {
-    // Get form elements
-    const produceName = document.getElementById('produceName');
-    const produceType = document.getElementById('produceType');
-    const procureDate = document.getElementById('procureDate');
-    const procureTime = document.getElementById('procureTime');
-    const tonnage = document.getElementById('tonnage');
-    const cost = document.getElementById('cost');
-    const dealerName = document.getElementById('dealerName');
-    const branchName = document.getElementById('branchName');
-    const contact = document.getElementById('contact');
-    const sellingPrice = document.getElementById('sellingPrice');
-    
-    let isValid = true;
+try {
+    document.getElementById('procurementForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent form submission
 
-    // Validate produce name (should not be empty)
-    if (produceName.value.trim() === '') {
-        isValid = false;
-        alert('Please enter the name of the produce.');
-    }
+        // Get form values
+        const produceName = document.getElementById('produceName').value.trim();
+        const produceType = document.getElementById('produceType').value.trim();
+        const procureDate = document.getElementById('procureDate').value;
+        const procureTime = document.getElementById('procureTime').value;
+        const tonnage = parseFloat(document.getElementById('tonnage').value);
+        const cost = parseFloat(document.getElementById('cost').value);
+        const dealerName = document.getElementById('dealerName').value;
+        const branchName = document.getElementById('branchName').value;
+        const contact = document.getElementById('contact').value.trim();
+        const sellingPrice = parseFloat(document.getElementById('sellingPrice').value);
 
-    // Validate produce type (should match the pattern)
-    const produceTypePattern = /^[A-Za-z]{2,}$/;
-    if (!produceTypePattern.test(produceType.value)) {
-        isValid = false;
-        alert('Please enter a valid type of produce (letters only, at least 2 characters).');
-    }
+        // Validate form fields
+        if (produceName === '' || !/^[A-Za-z0-9\s]+$/.test(produceName)) {
+            alert('Please enter a valid produce name.');
+            return;
+        }
+        if (produceType === '' || !/^[A-Za-z]{2,}$/.test(produceType)) {
+            alert('Please enter a valid produce type (at least 2 letters).');
+            return;
+        }
+        if (procureDate === '') {
+            alert('Please select a procurement date.');
+            return;
+        }
+        if (procureTime === '') {
+            alert('Please select a procurement time.');
+            return;
+        }
+        if (isNaN(tonnage) || tonnage < 100) {
+            alert('Please enter a valid tonnage (at least 100 kg).');
+            return;
+        }
+        if (isNaN(cost) || cost < 10000) {
+            alert('Please enter a valid cost (at least 10,000 UgX).');
+            return;
+        }
+        if (dealerName === '') {
+            alert('Please select a dealer name.');
+            return;
+        }
+        if (branchName === '') {
+            alert('Please select a branch name.');
+            return;
+        }
+        if (contact === '' || !/^\+256\d{9}$/.test(contact)) {
+            alert('Please enter a valid contact number (+256XXXXXXXXX).');
+            return;
+        }
+        if (isNaN(sellingPrice)) {
+            alert('Please enter a valid selling price.');
+            return;
+        }
 
-    // Validate procurement date (should not be in the future)
-    const today = new Date().toISOString().split('T')[0];
-    if (procureDate.value > today) {
-        isValid = false;
-        alert('The procurement date cannot be in the future.');
-    }
+        alert("Procurement recorded successfully!");
+        clearForm('procurementForm'); // Clear the form after successful submission
+    });
 
-    // Validate procurement time (should not be empty)
-    if (procureTime.value.trim() === '') {
-        isValid = false;
-        alert('Please enter the procurement time.');
+    // Function to clear the form
+    function clearForm(formId) {
+        document.getElementById(formId).reset();
     }
-
-    // Validate tonnage (should be at least 100kg)
-    if (tonnage.value < 100) {
-        isValid = false;
-        alert('The tonnage must be at least 100kg.');
-    }
-
-    // Validate cost (should be at least 10,000 UgX)
-    if (cost.value < 10000) {
-        isValid = false;
-        alert('The cost must be at least 10,000 UgX.');
-    }
-
-    // Validate dealer name (should match the pattern)
-    const dealerNamePattern = /^[A-Za-z0-9]{2,}$/;
-    if (!dealerNamePattern.test(dealerName.value)) {
-        isValid = false;
-        alert('Please enter a valid dealer name (letters and numbers, at least 2 characters).');
-    }
-
-    // Validate contact (should match Ugandan phone number pattern)
-    const contactPattern = /^\+256\d{9}$/;
-    if (!contactPattern.test(contact.value)) {
-        isValid = false;
-        alert('Please enter a valid Ugandan contact number (e.g., +256712345678).');
-    }
-
-    // Validate selling price (should not be empty)
-    if (sellingPrice.value <= 0) {
-        isValid = false;
-        alert('Please enter a valid selling price.');
-    }
-
-    // Prevent form submission if validation fails
-    if (!isValid) {
-        event.preventDefault();
-    }
-});
+} catch (error) {
+    console.log(error);
+    alert('An error occurred while processing the form. Please try again.');
+}
