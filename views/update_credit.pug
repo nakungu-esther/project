@@ -1,0 +1,51 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  title Credit Sales Form
+  link(rel='stylesheet' type='text/css' href='/css/credit.css')
+.form-container
+  .form-header
+    h1 Credit Sales Form
+  form(name='salesForm', onsubmit='return validateForm()', action='/updateCredit?id='+credit._id method='POST')
+    .form-row
+      .form-column
+        label(for='buyerName') Buyer Name:
+        input#buyerName(type='text' name='buyerName')
+        label(for='nationalId') National ID (NIN):
+        input#nationalId(type='text' name='nationalid')
+        label(for='location') Location:
+        input#location(type='text' name='location')
+        label(for='contacts') Contacts:
+        input#contacts(type='text' name='contact')
+        label(for='amountDue') Amount Due (UGX):
+        input#amountDue(type='text' name='amountDue')
+        label(for='salesAgent') Sales Agent Name:
+        input#salesAgent(type='text' name='salesagent')
+      .form-column
+        label(for='dueDate') Due Date:
+        input#dueDate(type='date' name='dueDate')
+        label(for='branch') Branch Name:
+        select#branch(name='branch' required='')
+          option(value='') Select Branch
+          option(value='Maganjo'  selected = credit.branch  === "Maganjo") Maganjo
+          option(value='Matugga'  selected = credit.branch  === "Matugga") Matugga
+        label(for='produceName') Produce Name:
+        select#produceName(type='text' name='produceName')
+          option(value='') Select Produce
+          option(value='Rice' selected = credit.produceName === "Rice") Rice
+          option(value='beans' selected = credit.produceName === "beans") beans
+          option(value='Maize' selected = credit.produceName === "Maize") grain maize
+          option(value='cowpeas' selected = credit.produceName === "cowpeas") Cowpeas
+          option(value='soyabeans' selected = credit.produceName === "soyapeas") Soyabeans
+          option(value='gnut' selected = credit.produceName === "gnut") G-nuts
+        label(for='produceType') Type of Produce:
+        input#produceType(type='text' name='produceType')
+        label(for='tonnage') Tonnage:
+        input#tonnage(type='number' name='tonnage')
+        label(for='dispatchDate') Date of Dispatch:
+        input#dispatchDate(type='date' name='dispatchDate')
+    .submit
+      button(type='submit') Submit
+  #result
+script(src='/js/credit.js')

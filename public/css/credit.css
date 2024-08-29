@@ -1,14 +1,16 @@
-/* Global Styles */
-body, html {
-    margin: 0;
-    padding: 0;
+/* sale.css */
+
+body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
-    color: #333;
-}
-
-/* Header */
-header {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  header {
     background-color: #2c3e50;
     color: white;
     display: flex;
@@ -20,9 +22,8 @@ header {
     width: 100%;
     top: 0;
     z-index: 1000;
-}
-
-.logo {
+  }
+  .logo {
     font-size: 24px;
     font-weight: bold;
 }
@@ -47,13 +48,13 @@ header .agent-profile a {
     border-radius: 4px;
     transition: background-color 0.3s ease;
     margin-right: 10%;
+    
 }
 
 header .agent-profile a:hover {
     background-color: #c0392b;
 }
-/* Sidebar */
-/* Sidebar Styling */
+
 .sidebar {
     width: 250px;
     background-color: #34495e;
@@ -90,62 +91,67 @@ header .agent-profile a:hover {
     border-radius: 20px;
 }
 
-/* Main Content */
-.content {
-    margin-left: 240px;
-    padding: 80px ;
-    position: absolute;
-    left: 100px;
-    top: -20px;
-    
+
   
-}
-
-
-h1 {
-    font-size: 20px;
-    margin-bottom: 10px;
-   
-}
-form {
-    display: grid;
-    grid-template-columns: repeat(3, 4fr);
-    gap: 30px;
-    background-color: hwb(0 2% 90% / 0.459);
+.form-container {
+    margin-left: 240px;
     padding: 20px;
+    gap:30px;
+    position: absolute;
+    left: 110px;
+    margin-top: 90px; /* Adjusted to give space at the top */
+    background-color: rgba(25, 9, 9, 0.26); /* White background with some transparency */
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(14, 1, 1, 0.123);
-    max-width: 700px;
-    min-height: 50px; /* Adjust as needed */
-}
-
-
-
-.form-group {
-    margin-bottom: 15px;
-    color: #000;
-}
-
-.form-group label {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: calc(90% - 200px); /* Adjust width to fit within the screen */
+    max-width: 800px; /* Max width to prevent it from stretching too wide */
+    height: auto; /* Auto height to fit content */
+    overflow: hidden; /* Prevent content overflow */
+    box-sizing: border-box; /* Include padding in the width and height */
+    
+  }
+  
+  
+  .form-header h1 {
+    margin-bottom: 20px;
+    font-size: 20px;
+    
+  }
+  
+  .form-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .form-column {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+  }
+  
+  .form-column label {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
     color: #000;
 }
-
-.form-group input {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #843b3b;
+  
+  
+  .form-column input,
+  .form-column select {
+    width: calc(350px - 22px);
+    padding: 10px;
+    margin-bottom: 12px;
+    border: 1px solid #5a2626;
     border-radius: 4px;
-    font-size: 16px;
-}
-
-button[type="submit"] {
-
+  }
+  
+  /* .submit {
+    text-align: right;
     background-color: #27ae60;
     margin-top: 20px;
-    margin-left: 215px;
+    margin-left: 100px;
     color: white;
     border: none;
     width: 80%;
@@ -154,73 +160,44 @@ button[type="submit"] {
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.3s
-
-    
-}
-/*update*/
-h1 {
-    color: #333;
-}
-
-label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-    color: #000;
-}
-
-input[type="text"],
-input[type="number"] {
-    width: calc(100% - 22px);
-    padding: 10px;
-    margin-bottom: 12px;
-    border: 1px solid #5a2626;
-    border-radius: 4px;
-}
-
-button {
+  }
+   */
+  .submit button {
     background-color: #007bff;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 25px;
 }
 
-button:hover {
-    background-color: #0056b3;
-}
+  
+  .submit button:hover {
+    background-color: #218838;
+  }
+ 
 
-#result {
-    margin-top: 20px;
-    font-size: 16px;
-}
+  /* credit.css */
 
-/* Error messages styling */
-
-
-/* Footer Styling */
 footer {
     background-color: #2c3e50;
-    color: white;
-    text-align: center;
+    color: #fff;
     padding: 20px;
+    text-align: center;
     margin-top: 20px;
     position: relative;
     bottom: 0;
-    left: 0;
     width: 100%;
-}
-/* 
-.video-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 95%;
-    overflow: hidden;
-    z-index: -1;
-  } */
+    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  footer div {
+    margin-bottom: 10px;
+  }
+  
+  footer span {
+    font-size: 14px;
+  }
   
   .video-container video {
     min-width: 10%;
@@ -234,17 +211,3 @@ footer {
     transform: translate(-50%, -50%);
     /* z-index: -1; */
   }
-   
-/* Responsive Design */
-@media (max-width: 768px) {
-    .sidebar {
-        width: 100%;
-        height: auto;
-        position: relative;
-    }
-    main {
-        margin-left: 0;
-    }
-}
-
-

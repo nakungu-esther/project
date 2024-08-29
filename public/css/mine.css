@@ -90,6 +90,7 @@ main {
 
 .sidebar nav ul li a:hover {
     background-color: orangered;
+    padding-left: 5px;
 }
 
 

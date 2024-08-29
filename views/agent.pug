@@ -2,96 +2,65 @@ doctype html
 head
   meta(charset='UTF-8')
   meta(name='viewport' content='width=device-width, initial-scale=1.0')
-  title Sales Agent Page - Happy Hoe Grocery Ltd.
+  title Produce Sales Form
   link(rel='stylesheet' href='/css/sales.css')
   link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css')
-header
-  img(style='width: 40px; height: 40px; border-radius: 50%;' src='/images/download (3).png')
-  .agent-profile
-    span.agent-name Welcome, Sales Agent
-    a(href='/') Logout
-aside.sidebar
-  nav
-    ul
-      li
-        a#showSalesFormBtn(href='#')
-          i.fas.fa-shopping-cart(style='padding-right:15px;')
-          | Record Sales
-      li
-        a#showCreditFormBtn(href='#')
-          i.fas.fa-credit-card(style='padding-right:15px;')
-          |  Credit Sales
-     
-main#form.content(action='/agentdashboard' method='POST')
-  section#sales-form-container.record-sales.form-container
-    h1 Record Sales 
-    form#sales-form
-      .form-group
-        label(for='produce-name') Produce Name:
-        input#produce-name(type='text' name='produce-name' required='')
-      .form-group
-        label(for='tonnage') Tonnage (kg):
-        input#tonnage(type='number' name='tonnage' required='')
-      .form-group
-        label(for='amount-paid') Amount Paid (Ugx):
-        input#amount-paid(type='number' name='amount-paid' required='')
-      .form-group
-        label(for='buyer-name') Buyer&apos;s Name:
-        input#buyer-name(type='text' name='buyer-name' required='')
-      .form-group
-        label(for='agent-name') Sales Agent&apos;s Name:
-        input#agent-name(type='text' name='agent-name' required='')
-      .form-group
-        label(for='sale-date') Date:
-        input#sale-date(type='date' name='sale-date' required='')
-      .form-group
-        label(for='sale-time') Time:
-        input#sale-time(type='time' name='sale-time' required='')
-      a(href='generate.html')
-        button(type='submit' onclick='generateReceipt()') Generate Receipt
-  section#credit-form-container.handle-credit-sales.form-container
-    h1 Credit Sales
-    form#credit-sales-form
-      .form-group
-        label(for='credit-buyer-name') Buyer&apos;s Name:
-        input#credit-buyer-name(type='text' name='credit-buyer-name' required='')
-        span#credit-buyer-name-error
-      .form-group
-        label(for='nin') National ID (NIN):
-        input#nin(type='text' name='nin' required='')
-        span#nin-error
-      .form-group
-        label(for='location') Location:
-        input#location(type='text' name='location' required='')
-        span#location-error
-      .form-group
-        label(for='contact') Contact:
-        input#contact(type='tel' name='contact' required='')
-        span#contact-error
-      .form-group
-        label(for='amount-due') Amount Due (Ugx):
-        input#amount-due(type='number' name='amount-due' required='')
-        span#amount-due-error
-      .form-group
-        label(for='credit-agent-name') Sales Agent&apos;s Name:
-        input#credit-agent-name(type='text' name='credit-agent-name' required='')
-        span#credit-agent-name-error
-      .form-group
-        label(for='due-date') Due Date:
-        input#due-date(type='date' name='due-date' required='')
-      .form-group
-        label(for='produce') Produce:
-        input#produce(type='text' name='produce' required='')
-        span#produce-error
-      .form-group
-        label(for='tonnage') Tonnage (kg):
-        input#credit-tonnage(type='number' name='tonnage' required='')
-      .form-group
-        label(for='dispatch-date') Date of Dispatch:
-        input#dispatch-date(type='date' name='dispatch-date' required='')
-      button(type='submit') Record Credit Sale
- 
-footer(style='background-color: #2c3e50; color: #fff; padding: 10px; text-align: center;')
-  div(style='margin-bottom: 10px;')
-    span &copy; 2024 Nakungu Esther. All rights reserved.
-script(src='/js/sales.js')
+body
+   .video-container(style='height: 600px;')
+      video(autoplay muted loop)
+        source(src='/images/202407310754 (1).mp4' type='video/mp4')
+    header
+      img(style='width: 40px; height: 40px; border-radius: 50%;' src='/images/download (3).png')
+      .agent-profile
+        span.agent-name Welcome, Sales Agent
+        a(href='/') Logout
+    aside.sidebar
+      nav
+        ul
+          li
+            a#showSalesFormBtn(href='#')
+              i.fas.fa-shopping-cart(style='padding-right:15px;')
+              | Record Sales
+          li
+            a#showCreditFormBtn(href='/debit')
+              i.fas.fa-credit-card(style='padding-right:15px;')
+              | Credit Sales
+br
+br
+br
+form#Form(action=`/userSale/${produce ? procurement._id : ''}` method='POST' name='sale')
+  h1 Sales Form
+  .form-container
+    .form-group
+      label(for='') Name of Produce:
+      select#produceName(name='produceName' type='text')
+        option(value=procurement._id) #{procurement.produceName}
+    .form-group
+      label(for='tonnage') Tonnage (kgs):
+      input#tonnage(type='number' name='tonnage')
+    .form-group
+      label(for='amountPaid') Amount Paid (UGX per kg):
+      input#amountPaid(type='text' name='amountPaid')
+    .form-group
+      label(for='buyerName') Buyer's Name:
+      input#buyerName(type='text' name='buyername')
+    .form-group
+      label(for='salesAgentName') SalesAgent's Name:
+      select#salesAgent.form-control(name='salesAgent')
+            if agents.length
+               each agent in agents
+                 option(value=agent._id) #{agent.firstName + " " + agent.lastName}
+    .form-group
+      label(for='branch') Branch Name:
+      select#branch(name='branch')
+        option(value='') Select Branch
+        option(value='Maganjo') Maganjo
+        option(value='Matugga') Matugga
+    .form-group
+      label(for='dateTime') Date and Time:
+      input#dateTime(type='datetime-local' name='dateTime')
+    .form-group
+      label(for='totalpayment') Total Payment:
+      input#totalpayment(type='number' name='totalpayment')  
+  button(type='submit') Mak Sale
+script(src='/js/ddd.js')

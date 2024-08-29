@@ -183,14 +183,14 @@ button:hover {
 }
   
   /* Error messages styling */
-  .error {
+  .error-message {
     color: #e74c3c;
     font-size: 0.9em;
     margin-bottom: 10px;
   }
   
   /* Success message styling */
-  .error {
+  .success-message {
     color: #28a745;
     font-size: 0.9em;
     margin-top: 10px;

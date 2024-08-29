@@ -4,33 +4,69 @@ const router = express.Router();
 const Procurement = require('../models/procurement'); // Ensure correct capitalization
 
 // Route to render the manager dashboard form page
-router.get("/addprocurement", (req, res) => {
+router.get("/addProcurement", (req, res) => {
   res.render("manager"); 
 });
 
-// POST request handler for saving procurement data
-router.post("/addprocurement", async (req, res) => {
+// POST request handler for registration
+router.post("/addProcurement", async (req, res) => {
   try {
-    // Debugging: Log the incoming form data
-    console.log("Received data:", req.body);
-    
-    // Create a new Procurement record using the data from the form
     const newProcurement = new Procurement(req.body);
-
-    // Debugging: Log the constructed procurement object
-    console.log("Constructed Procurement object:", newProcurement);
-
-    // Save the record to the database
+    console.log("This is the data being sent to the DB:", newProcurement);
     await newProcurement.save();
-
-    // Redirect to the procurement list page or another desired page after saving
-    res.redirect("/procurementList");
+    res.redirect("/cropProcurementList");
   } catch (error) {
-    // Log any errors that occur during the save operation
-    console.error("Error registering the produce:", error);
+    console.error("Error registering the crops:", error);
+    res.status(400).send("An error occurred while registering the crop.");
+  }
+});
 
-    // Send an error response if something goes wrong
-    res.status(400).send("An error occurred while entering the produce.");
+//RETRIEVE user from the database
+router.get("/cropProcurementList", async (req, res) => {
+  try {
+    const procurements = await Procurement.find().sort({ $natural: -1 });
+    res.render("procurement-List", {
+      title: "procurement List",
+      procurements: procurements,
+    });
+  } catch (error) {
+    res.status(400).send("Unable to find items in the database");
+  }
+});
+
+
+// get produce update form
+router.get("/updateProcurement/:id", async (req, res) => {
+  try {
+    const item = await Procurement.findOne({ _id: req.params.id });
+    res.render("Update_procurement", {
+      title: "Update procurement",
+      procurement: item,
+    });
+  } catch (err) {
+    res.status(400).send("Unable to find item in the database");
+  }
+});
+
+// post updated produce
+router.post("/updateProcurement", async (req, res) => {
+  try {
+    await Procurement.findOneAndUpdate({ _id: req.query.id }, req.body);
+    io.emit('updateData'); // Notify clients to update data
+    res.redirect("/cropProcurementList");
+  } catch (err) {
+    res.status(404).send("Unable to update item in the database");
+  }
+});
+
+
+// delete Produce
+router.post("/deleteProcurement", async (req, res) => {
+  try {
+    await Procurement.deleteOne({ _id: req.body.id });
+    res.redirect("back");
+  } catch (err) {
+    res.status(400).send("Unable to delete item in the database");
   }
 });
 

@@ -1,0 +1,44 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  title Produce Sales Form
+  link(rel='stylesheet' href='/css/sales.css')
+form#Form(action='/updateSales?id='+sales._id method='POST')
+  h1 Sales Form
+  label(for='produceName') Name of Produce:
+  select#produceName(type='text' name='produceName' required='')
+    option(value='') Select produce
+    option(value='beans' selected = sales.produceName === "beans") Beans 
+    option(value='maize' selected = sales.produceName === "maize") Maize 
+    option(value='rice' selected = sales.produceName === "rice") Rice 
+    option(value='soyabeans' selected = sales.produceName === "soyabeans") Soyabeans
+    option(value='cowpeas' selected = sales.produceName === "cowpeas") Cowpeas
+    option(value='gnuts' selected = sales.produceName === "gnuts") G-nuts
+  br
+  label(for='tonnage') Tonnage (kgs):
+  input#tonnage(type='number' name='tonnage' required='')
+  br
+  label(for='amountPaid') Amount Paid (UGX per kg):
+  input#amountPaid(type='text' name='amountPaid' required='')
+  br
+  label(for='buyerName') Buyer&apos;s Name:
+  input#buyerName(type='text' name='buyerName' required='')
+  br
+  label(for='salesAgentName') Sales Agent&rsquo;s Name:
+  input#salesAgentName(type='text' name='salesagent' required='')
+  br
+  label(for='branch') Branch Name:
+  select#branch(name='branch' required='')
+    option(value='Maganjo' selected = sales.branch === "Maganjo") Maganjo
+    option(value='Matugga' selected = sales.branch === "Matugga") Matugga
+  br
+  br
+  label(for='dateTime') Date and Time:
+  input#dateTime(type='datetime-local' name='dateTime' required='')
+  br
+  label(for='totalpayment') Total Payment:
+  input#totalpayment(type='number' name='totalpayment' required='')
+  br
+  button(type='submit') Submit
+script(src='/js/sales.js')

@@ -1,70 +1,122 @@
-try {
-    document.getElementById('procurementForm').addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent form submission
+document.getElementById('procurementForm').addEventListener('submit', async function(event) {
+    event.preventDefault(); // Prevent default form submission
 
-        // Get form values
-        const produceName = document.getElementById('produceName').value.trim();
-        const produceType = document.getElementById('produceType').value.trim();
-        const procureDate = document.getElementById('procureDate').value;
-        const procureTime = document.getElementById('procureTime').value;
-        const tonnage = parseFloat(document.getElementById('tonnage').value);
-        const cost = parseFloat(document.getElementById('cost').value);
-        const dealerName = document.getElementById('dealerName').value;
-        const branchName = document.getElementById('branchName').value;
-        const contact = document.getElementById('contact').value.trim();
-        const sellingPrice = parseFloat(document.getElementById('sellingPrice').value);
+    // Clear previous error messages
+    const errorElements = document.querySelectorAll('.error-message');
 
-        // Validate form fields
-        if (produceName === '' || !/^[A-Za-z0-9\s]+$/.test(produceName)) {
-            alert('Please enter a valid produce name.');
-            return;
-        }
-        if (produceType === '' || !/^[A-Za-z]{2,}$/.test(produceType)) {
-            alert('Please enter a valid produce type (at least 2 letters).');
-            return;
-        }
-        if (procureDate === '') {
-            alert('Please select a procurement date.');
-            return;
-        }
-        if (procureTime === '') {
-            alert('Please select a procurement time.');
-            return;
-        }
-        if (isNaN(tonnage) || tonnage < 100) {
-            alert('Please enter a valid tonnage (at least 100 kg).');
-            return;
-        }
-        if (isNaN(cost) || cost < 10000) {
-            alert('Please enter a valid cost (at least 10,000 UgX).');
-            return;
-        }
-        if (dealerName === '') {
-            alert('Please select a dealer name.');
-            return;
-        }
-        if (branchName === '') {
-            alert('Please select a branch name.');
-            return;
-        }
-        if (contact === '' || !/^\+256\d{9}$/.test(contact)) {
-            alert('Please enter a valid contact number (+256XXXXXXXXX).');
-            return;
-        }
-        if (isNaN(sellingPrice)) {
-            alert('Please enter a valid selling price.');
-            return;
-        }
-
-        alert("Procurement recorded successfully!");
-        clearForm('procurementForm'); // Clear the form after successful submission
+    errorElements.forEach(function(el) {
+        el.textContent = '';
     });
 
-    // Function to clear the form
-    function clearForm(formId) {
-        document.getElementById(formId).reset();
+    // Get form values
+    const formData = {
+        produceName: document.getElementById('produceName').value.trim(),
+        produceType: document.getElementById('produceType').value.trim(),
+        procureDate: document.getElementById('procureDate').value,
+        procureTime: document.getElementById('procureTime').value,
+        tonnage: document.getElementById('tonnage').value,
+        cost: document.getElementById('cost').value,
+        dealerName: document.getElementById('dealerName').value,
+        branchName: document.getElementById('branchName').value,
+        contact: document.getElementById('contact').value.trim(),
+        sellingPrice: document.getElementById('sellingPrice').value
+    };
+
+    let hasError = false;
+
+    // Validate form fields (add your validation checks here)
+    if (formData.produceName === '' || !/^[A-Za-z0-9\s]+$/.test(formData.produceName)) {
+        document.getElementById('produceNameError').textContent = 'Please enter a valid produce name.';
+        hasError = true;
     }
-} catch (error) {
-    console.log(error);
-    alert('An error occurred while processing the form. Please try again.');
-}
+    if (formData.produceType === '') {
+        document.getElementById('produceTypeError').textContent = 'Please select a produce type.';
+        hasError = true;
+    }
+    if (formData.procureDate === '') {
+        document.getElementById('procureDateError').textContent = 'Please select a procurement date.';
+        hasError = true;
+    }
+    if (formData.procureTime === '') {
+        document.getElementById('procureTimeError').textContent = 'Please select a procurement time.';
+        hasError = true;
+    }
+    if (isNaN(formData.tonnage) || formData.tonnage < 100) {
+        document.getElementById('tonnageError').textContent = 'Please enter a valid tonnage (at least 100 kg).';
+        hasError = true;
+    }
+    if (isNaN(formData.cost) || formData.cost < 10000) {
+        document.getElementById('costError').textContent = 'Please enter a valid cost (at least 10,000 UgX).';
+        hasError = true;
+    }
+    if (formData.dealerName === '') {
+        document.getElementById('dealerNameError').textContent = 'Please select a dealer name.';
+        hasError = true;
+    }
+    if (formData.branchName === '') {
+        document.getElementById('branchNameError').textContent = 'Please select a branch name.';
+        hasError = true;
+    }
+    if (formData.contact === '' || !/^\+256\d{9}$/.test(formData.contact)) {
+        document.getElementById('contactError').textContent = 'Please enter a valid contact number (+256XXXXXXXXX).';
+        hasError = true;
+    }
+    if (isNaN(formData.sellingPrice)) {
+        document.getElementById('sellingPriceError').textContent = 'Please enter a valid selling price.';
+        hasError = true;
+    }
+
+    document.querySelector('form').addEventListener('submit', async (e) => {
+        e.preventDefault(); // Prevent the default form submission
+      
+        const formData = new FormData(e.target);
+        
+        try {
+          const response = await fetch('/addProcurement', {
+            method: 'POST',
+            body: formData,
+          });
+      
+          if (response.ok) {
+            clearForm('procurementForm'); // Clear the form after successful submission
+            alert('form successfully subumitted')
+            window.location.href = '/cropProcurementList'; // Redirect to the procurement list
+          } else {
+            alert('Error submitting form');
+          }
+        } catch (error) {
+          console.error('Error:', error);
+          alert('An error occurred while submitting the form.');
+        }
+      });
+      
+      function clearForm(formId) {
+        const form = document.getElementById(formId);
+        if (form) {
+          form.reset(); // Resets all form fields to their default values
+        }
+      }
+      
+});
+
+// // Function to clear the form
+// function clearForm(formId) {
+//     document.getElementById(formId).reset();
+// }
+
+// const socket = io();
+
+// // Listen for update events from the server
+// socket.on('updateData', () => {
+//     fetchData(); // Refresh the counts on the cards
+// });
+
+// async function fetchData() {
+//     const procurementCount = await fetch('/api/procurements/count').then(res => res.json());
+//     document.getElementById('total-procurements').innerText = procurementCount.count;
+
+//     const salesCount = await fetch('/api/sales/count').then(res => res.json());
+//     document.getElementById('total-sales').innerText = salesCount.count;
+// }
+
+// fetchData(); // Call this function when the page loads

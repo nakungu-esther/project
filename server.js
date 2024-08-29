@@ -19,11 +19,10 @@ const Signup  = require('./models/signup');
 
 
 //importing routes
-const agentRoutes = require('./routes/agentRoutes');
+
 const beanRoutes = require('./routes/beanRoutes');
 const riceRoutes = require('./routes/riceRoutes');
 const homeRoutes = require('./routes/homeRoutes');
-const managerRoutes = require('./routes/managerRoutes');
 const signRoutes = require('./routes/signRoutes');
 const loginRoutes = require('./routes/loginRoutes');
 const adminRoutes = require('./routes/adminRoutes');
@@ -32,6 +31,10 @@ const nutsRoutes = require('./routes/nutsRoutes');
 const maizeRoutes = require('./routes/maizeRoutes');
 const procurementRoutes = require('./routes/procurementRoutes');
 const mineRoutes = require('./routes/mineRoutes');
+const salesRoutes = require('./routes/salesRoutes');
+const creditRoutes = require('./routes/creditRoutes');
+
+// const { Manager } = require('session');
 
 //instantiations
 const app = express();
@@ -78,7 +81,6 @@ passport.deserializeUser(Signup.deserializeUser());
 
 //Routes
 app.use('/', homeRoutes);
-app.use('/', managerRoutes);
 app.use('/', loginRoutes);
 app.use('/', signRoutes);
 app.use('/', riceRoutes);
@@ -88,8 +90,9 @@ app.use('/', cowRoutes);
 app.use('/', nutsRoutes);
 app.use('/', maizeRoutes);
 app.use('/', procurementRoutes);
-app.use('/', mineRoutes)
-app.use('/', agentRoutes)
+app.use('/', mineRoutes);
+app.use('/', salesRoutes);
+app.use('/', creditRoutes);
 
 app.get("*", (req, res) => {
   res.send("error! page does not exist");
