@@ -5,7 +5,7 @@ const Procurement = require('../models/procurement'); // Ensure correct capitali
 
 // Route to render the manager dashboard form page
 router.get("/addProcurement", (req, res) => {
-  res.render("manager"); 
+  res.render("manager"),{ title: 'Procurement'} 
 });
 
 // POST request handler for registration
@@ -24,6 +24,7 @@ router.post("/addProcurement", async (req, res) => {
 //RETRIEVE user from the database
 router.get("/cropProcurementList", async (req, res) => {
   try {
+    // console.log("Request body:", req.body);  
     const procurements = await Procurement.find().sort({ $natural: -1 });
     res.render("procurement-List", {
       title: "procurement List",
@@ -52,7 +53,7 @@ router.get("/updateProcurement/:id", async (req, res) => {
 router.post("/updateProcurement", async (req, res) => {
   try {
     await Procurement.findOneAndUpdate({ _id: req.query.id }, req.body);
-    io.emit('updateData'); // Notify clients to update data
+    io.emit('updateProcurement'); // Notify clients to update data
     res.redirect("/cropProcurementList");
   } catch (err) {
     res.status(404).send("Unable to update item in the database");

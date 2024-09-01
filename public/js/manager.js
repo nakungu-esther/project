@@ -1,3 +1,4 @@
+
 document.getElementById('procurementForm').addEventListener('submit', async function(event) {
     event.preventDefault(); // Prevent default form submission
 
@@ -24,7 +25,7 @@ document.getElementById('procurementForm').addEventListener('submit', async func
 
     let hasError = false;
 
-    // Validate form fields (add your validation checks here)
+    // Validate form fields
     if (formData.produceName === '' || !/^[A-Za-z0-9\s]+$/.test(formData.produceName)) {
         document.getElementById('produceNameError').textContent = 'Please enter a valid produce name.';
         hasError = true;
@@ -66,57 +67,38 @@ document.getElementById('procurementForm').addEventListener('submit', async func
         hasError = true;
     }
 
-    document.querySelector('form').addEventListener('submit', async (e) => {
-        e.preventDefault(); // Prevent the default form submission
-      
-        const formData = new FormData(e.target);
-        
-        try {
-          const response = await fetch('/addProcurement', {
+    // If there are errors, stop submission
+    if (hasError) {
+        return;
+    }
+
+    // Proceed with form submission if no errors
+    try {
+        const response = await fetch('/addProcurement', {
             method: 'POST',
-            body: formData,
-          });
-      
-          if (response.ok) {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        });
+
+        if (response.ok) {
             clearForm('procurementForm'); // Clear the form after successful submission
-            alert('form successfully subumitted')
+            alert('Form successfully submitted');
             window.location.href = '/cropProcurementList'; // Redirect to the procurement list
-          } else {
+        } else {
             alert('Error submitting form');
-          }
-        } catch (error) {
-          console.error('Error:', error);
-          alert('An error occurred while submitting the form.');
         }
-      });
-      
-      function clearForm(formId) {
-        const form = document.getElementById(formId);
-        if (form) {
-          form.reset(); // Resets all form fields to their default values
-        }
-      }
-      
+    } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred while submitting the form.');
+    }
 });
 
-// // Function to clear the form
-// function clearForm(formId) {
-//     document.getElementById(formId).reset();
-// }
-
-// const socket = io();
-
-// // Listen for update events from the server
-// socket.on('updateData', () => {
-//     fetchData(); // Refresh the counts on the cards
-// });
-
-// async function fetchData() {
-//     const procurementCount = await fetch('/api/procurements/count').then(res => res.json());
-//     document.getElementById('total-procurements').innerText = procurementCount.count;
-
-//     const salesCount = await fetch('/api/sales/count').then(res => res.json());
-//     document.getElementById('total-sales').innerText = salesCount.count;
-// }
-
-// fetchData(); // Call this function when the page loads
+// Function to clear the form
+function clearForm(formId) {
+    const form = document.getElementById(formId);
+    if (form) {
+        form.reset(); // Resets all form fields to their default values
+    }
+}

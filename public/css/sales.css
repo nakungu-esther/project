@@ -19,7 +19,7 @@ header {
     position: fixed;
     width: 100%;
     top: 0;
-    z-index: 1000;
+    z-index: 2000;
 }
 
 .logo {
@@ -55,7 +55,7 @@ header .agent-profile a:hover {
 /* Sidebar */
 /* Sidebar Styling */
 .sidebar {
-    width: 250px;
+    width: 200px;
     background-color: #34495e;
     height: 100vh;
     position: fixed;
@@ -63,11 +63,12 @@ header .agent-profile a:hover {
     left: 0;
     padding-top: 60px;
     overflow-y: auto;
+    z-index: 1000;
 }
 
 .sidebar nav ul {
     list-style-type: none;
-    padding: 10px;
+    padding: 0;
 }
 
 .sidebar nav ul li {
@@ -97,26 +98,34 @@ header .agent-profile a:hover {
     position: absolute;
     left: 100px;
     top: -20px;
+
     
   
 }
 
 
-h1 {
+form#Form h2 {
     font-size: 20px;
     margin-bottom: 10px;
    
 }
-form {
-    display: grid;
-    grid-template-columns: repeat(3, 4fr);
-    gap: 30px;
-    background-color: hwb(0 2% 90% / 0.459);
+ .form-container {
+    margin-left: 240px;
     padding: 20px;
+    gap:10px;
+    grid-template-columns: repeat(2, 1fr);
+    position: absolute;
+    left: 110px;
+    bottom: -150px;
+    /* top: -10px; */
+    background-color: rgba(25, 9, 9, 0.26); /* White background with some transparency */
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(14, 1, 1, 0.123);
-    max-width: 700px;
-    min-height: 50px; /* Adjust as needed */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: calc(90% - 200px); /* Adjust width to fit within the screen */
+    max-width: 800px; /* Max width to prevent it from stretching too wide */
+    height: 600px; /* Auto height to fit content */
+    overflow: hidden; /* Prevent content overflow */
+    box-sizing: border-box; /* Include padding in the width and height */
 }
 
 
@@ -134,22 +143,22 @@ form {
 }
 
 .form-group input {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #843b3b;
+    width: calc(100px - 22px);
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #5a2626;
     border-radius: 4px;
-    font-size: 16px;
 }
 
 button[type="submit"] {
 
     background-color: #27ae60;
-    margin-top: 20px;
-    margin-left: 215px;
+    /* margin-top: 20px; */
+    margin-left: 500px;
     color: white;
     border: none;
-    width: 80%;
-    height: 45px;
+    width: 30%;
+    height: 35px;
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
@@ -178,7 +187,7 @@ input[type="number"] {
     border-radius: 4px;
 }
 
-button {
+/* button {
     background-color: #007bff;
     color: white;
     border: none;
@@ -194,7 +203,7 @@ button:hover {
 #result {
     margin-top: 20px;
     font-size: 16px;
-}
+} */
 
 /* Error messages styling */
 
@@ -210,6 +219,7 @@ footer {
     bottom: 0;
     left: 0;
     width: 100%;
+   
 }
 /* 
 .video-container {

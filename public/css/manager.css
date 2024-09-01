@@ -103,7 +103,7 @@ header .manager-profile a:hover {
   /* Header styling */
   #procurementFormSection h2 {
     text-align: center;
-    color: #343a40;
+    color: #070a0c;
     margin-bottom: 20px;
     font-size: 1.5em;
   }
@@ -113,7 +113,7 @@ header .manager-profile a:hover {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(100px, 2fr));
     gap: 11px;
-    background-color: hwb(0 5% 89% / 0.249);
+    background-color: hwb(0 11% 87% / 0.479);
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(61, 2, 2, 0.123);
@@ -126,11 +126,13 @@ header .manager-profile a:hover {
   /* Ensure each label/input pair is on its own grid column */
   #procurementForm label {
     grid-column: span 1;
+    color: aliceblue;
   }
   
   #procurementForm input,
   #procurementForm select {
     grid-column: span 2; /* Each input/select spans 2 columns */
+    border-radius: 10px;
   }
   
   
@@ -147,6 +149,7 @@ header .manager-profile a:hover {
     #procurementForm button {
       grid-column: span 1; /* Full width on small screens */
       color: #470202;
+      
     }
   }
   
@@ -183,14 +186,14 @@ button:hover {
 }
   
   /* Error messages styling */
-  .error {
+  .error-message {
     color: #e74c3c;
     font-size: 0.9em;
     margin-bottom: 10px;
   }
   
   /* Success message styling */
-  .error {
+  .success-message {
     color: #28a745;
     font-size: 0.9em;
     margin-top: 10px;

@@ -1,19 +1,19 @@
 const mongoose = require('mongoose');
 
 const saleSchema = new mongoose.Schema({
-    produceName: {
+    producename: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Procurement'
     },
-    saleTonnage: {
+    tonnage: {
         type: Number,
         trim: true,
     },
-    amount: {
+    amountPaid: {
         type: Number,
         trim: true,
     },
-    buyername: {
+    buyerName: {
         type:String,
         trim: true,
     },
@@ -21,12 +21,12 @@ const saleSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Signup',
     },
-    saleDate:{
+    dateTime:{
         type:Date,
         trim:true,
     },
-    saleTime:{
-        type:String,
+    Totalpayment:{
+        type:Number,
         trim:true,
     }
 })

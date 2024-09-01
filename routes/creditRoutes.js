@@ -15,14 +15,14 @@ router.post('/debit', async (req, res) => {
     try{
         const newCredit = new Credit(req.body);
         await newCredit.save();
-        res.redirect('/Alist');
+        res.redirect('/mylist');
     } catch (error) {
         res.status(404).send("unable to save produce to db");
         console.log("Error saving produce",error);
     }
 
 })
-router.get('/Alist', async (req, res) => {
+router.get('/mylist', async (req, res) => {
     try{
        const creditItems = await Credit.find();
        res.render('credit_list', {
@@ -72,7 +72,7 @@ router.get("/updateCredit/:id", async (req, res) => {
 router.post("/updateCredit", async (req, res) => {
     try {
         await Credit.findOneAndUpdate({ _id: req.query.id }, req.body);
-        res.redirect("/Alist");
+        res.redirect("/mylist");
     } catch (err) {
         res.status(404).send("Unable to update item in the database");
     }
@@ -94,12 +94,12 @@ router.post("/deleteCredit", async (req, res) => {
    //for the sell button
    router.get("/debit/:id", async(req, res) => {
     try {
-    const agents = await Signup.find({ role: "salesagent" });
-    const procure = await Procure.findOne({ _id: req.params.id })
+    const agents = await Signup.find({ role: "sales_agent" });
+    const procurement = await Procurement.findOne({ _id: req.params.id })
     res.render("credit", {
     title: "credit",
     agents: agents,
-    procure: procure
+    procurement: procurement
     });
     } catch (error) {
     res.status(400).send("Unable to find sales agents in the database");
@@ -110,21 +110,21 @@ router.post("/deleteCredit", async (req, res) => {
     try {
     const { tonnage } = req.body;
     // saleTonnage is the same as req.body.saleTonnage, it's an input name in the add sale pug file
-    const procure = await Procure.findById({ _id: req.params.id });
-    if (!procure) {
+    const procurement = await Procurement.findById({ _id: req.params.id });
+    if (!procurement) {
     return res.status(404).send('produce not found');
     }
     
-    if (procure.tonnage < tonnage ) {
-    return res.status(400).send(`Not enough tones in stock,there are ${procure.tonnage} Kgs in stock`);
+    if (procurement.tonnage < tonnage ) {
+    return res.status(400).send(`Not enough tones in stock,there are ${procurement.tonnage} Kgs in stock`);
     }
-    if (procure && procure.tonnage > 0) {
+    if (procurement && procurement.tonnage > 0) {
     const newCredit = new Credit(req.body);
     await newCredit.save();
-    procure.tonnage -= tonnage; // short form of what is below
+    procurement.tonnage -= tonnage; // short form of what is below
     // produce.tonnage = produce.tonnage - saleTonnage // long form of the above
-    await procure.save();
-    res.redirect("/Alist");
+    await procurement.save();
+    res.redirect("/mylist");
     } else {
     return res.status(404).json({ error: 'Produce out of stock' });
     }
@@ -136,7 +136,7 @@ router.post("/deleteCredit", async (req, res) => {
 
 
 // retrieve sales from the database
-router.get("/Alist", async (req, res) => {
+router.get("/mylist", async (req, res) => {
     try {
     const credit = await Credit.find()
     .sort({$natural:-1})

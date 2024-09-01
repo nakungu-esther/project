@@ -1,79 +1,79 @@
-//Routes for making sale
 const express = require("express");
 const router = express.Router();
-
 const connectEnsureLogin = require("connect-ensure-login");
 
+// Assuming Procurement, Sale, and Signup models are correctly imported
 const Procurement = require("../models/procurement");
 const Sale = require("../models/sale");
 const Signup = require("../models/signup");
 
-router.get(
-  "/userSale/:id",
-    connectEnsureLogin.ensureLoggedIn(),
-  async (req, res) => {
-    try {
-      const agents = await Signup.find({ role: "sales_agent" });
-      const procurement = await Procurement.findOne({ _id: req.params.id });
-      const count = await Sale.countDocuments();
-      res.json({ count });
-      res.render("agent", {
-        title: "Sale",
-        agents: agents,
-        procurement: procurement,
+// Route for displaying the sales form
+// Route for displaying the sales form without an ID
+// Route for displaying the sales form with an ID
+// Route to handle displaying the sales form with specific sale ID
+
+// Route for displaying the sales form without an ID
+router.get('/sales-form', async (req, res) => {
+  try {
+    const procurements = await Procurement.find();
+    const agents = await Signup.find({ role: 'sales_agent' });
+
+    res.render('agent', { procurements, agents });
+  } catch (err) {
+    console.error('Error fetching procurements or agents:', err);
+    res.status(500).send('Server Error');
+  }
+});
+
+// Route to handle sales submission
+// Route to handle sales submission without an ID
+router.post('/sales-form', connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
+  try {
+    const { saleTonnage, procurementId } = req.body;
+    const procurement = await Procurement.findById(procurementId);
+
+    if (!procurement) {
+      return res.status(404).send("Procurement not found");
+    }
+
+    if (procurement.tonnage < saleTonnage) {
+      return res
+        .status(400)
+        .send(
+          `Not enough tones in stock, there are ${procurement.tonnage} Kgs in stock`
+        );
+    }
+
+    if (procurement && procurement.tonnage > 0) {
+      const newsale = new Sale({
+        ...req.body,
+        produceName: procurement.producename,
+        salesAgent: req.user._id // Assuming the logged-in user is the sales agent
       });
-    } catch (error) {
-      res.status(400).send("Unable to find sales agents in the database");
+      await newsale.save();
+      procurement.tonnage -= saleTonnage;
+      await procurement.save();
+      res.redirect("/salesList");
+    } else {
+      return res.status(404).json({ error: "Procurement out of stock" });
     }
+  } catch (error) {
+    console.error("Error processing sale:", error);
+    return res.status(500).json({ error: "Internal server error" });
   }
-);
+});
 
-router.post(
-  "/userSale/:id",
-    connectEnsureLogin.ensureLoggedIn(),
-  async (req, res) => {
-    try {
-      const { saleTonnage } = req.body;
-      // saleTonnage is the same as req.body.saleTonnage, it's an input name in the add sale pug file
-      const procurement = await Procurement.findById({ _id: req.params.id });
-      if (!procurement) {
-        return res.status(404).send("procurement not found");
-      }
 
-      if (procurement.tonnage < saleTonnage) {
-        return res
-          .status(400)
-          .send(
-            `Not enough tones in stock,there are ${procurement.tonnage} Kgs in stock`
-          );
-      }
-      if (procurement && procurement.tonnage > 0) {
-        const newsale = new Sale(req.body);
-        await newsale.save();
-        procurement.tonnage -= saleTonnage; // short form of what is below
-        // procurement.tonnage = procurement.tonnage - saleTonnage // long form of the above
-        await procurement.save();
-        res.redirect("/salesList");
-      } else {
-        return res.status(404).json({ error: "procurement out of stock" });
-      }
-    } catch (error) {
-      console.error("Error saling procurement:", error);
-      return res.status(500).json({ error: "Internal server error" });
-    }
-  }
-);
-
-// retrieve sales from the database
+// Route to display the list of sales
 router.get("/salesList", async (req, res) => {
   try {
     const sales = await Sale.find()
       .sort({ $natural: -1 })
       .populate("procurementName", "procurementName")
-      .populate("salesAgent", "firstName lastName");
+      .populate("salesAgent", "username");
     res.render("sales_List", {
       title: "Sales List",
-      sales: sales,
+      sales,
     });
   } catch (error) {
     res.status(400).send("Unable to find items in the database");

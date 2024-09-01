@@ -1,12 +1,38 @@
 doctype html
-head
-  meta(charset='UTF-8')
-  meta(name='viewport' content='width=device-width, initial-scale=1.0')
-  title Credit Sales Form
-  link(rel='stylesheet' type='text/css' href='/css/credit.css')
+html
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    title Credit Sales Form
+    link(rel='stylesheet' type='text/css' href='/css/credit.css')
+    link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css')
+  body
+    .video-container(style='height: 600px; position:relative;')
+      video(autoplay muted loop)
+        source(src='/images/202407310754 (1).mp4' type='video/mp4')
+    header
+      img(src='/images/download (3).png' style='width: 40px; height: 40px; border-radius: 50%;')
+      .manager-profile
+        span.manager-name Welcome, Manager
+    main
+      aside.sidebar
+        nav
+          ul
+            li
+              a(href='/overView')
+                i.fas.fa-clipboard-list(style='padding-right: 9px;')
+                | Overview
+            li
+              a(href='/addProcurement')
+                i.fas.fa-file-archive(style='padding-right: 9px;')
+                | Procurements
+            li
+              a(href='#')
+                i.fas.fa-chart-bar(style='padding-right: 9px;')
+                | Reports
 .form-container
   .form-header
-    h1 Credit Sales Form
+    h1 update Credit Sales Form
   form(name='salesForm', onsubmit='return validateForm()', action='/updateCredit?id='+credit._id method='POST')
     .form-row
       .form-column
@@ -46,6 +72,6 @@ head
         label(for='dispatchDate') Date of Dispatch:
         input#dispatchDate(type='date' name='dispatchDate')
     .submit
-      button(type='submit') Submit
+      button(type='submit') update
   #result
 script(src='/js/credit.js')

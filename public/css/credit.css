@@ -96,16 +96,17 @@ header .agent-profile a:hover {
 .form-container {
     margin-left: 240px;
     padding: 20px;
-    gap:30px;
+    gap:20px;
     position: absolute;
     left: 110px;
-    margin-top: 90px; /* Adjusted to give space at the top */
+    bottom: 10px;
+    top: 40px;/* Adjusted to give space at the top */
     background-color: rgba(25, 9, 9, 0.26); /* White background with some transparency */
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     width: calc(90% - 200px); /* Adjust width to fit within the screen */
     max-width: 800px; /* Max width to prevent it from stretching too wide */
-    height: auto; /* Auto height to fit content */
+    height: 600px; /* Auto height to fit content */
     overflow: hidden; /* Prevent content overflow */
     box-sizing: border-box; /* Include padding in the width and height */
     
@@ -140,9 +141,9 @@ header .agent-profile a:hover {
   
   .form-column input,
   .form-column select {
-    width: calc(350px - 22px);
+    width: calc(300px - 22px);
     padding: 10px;
-    margin-bottom: 12px;
+    margin-bottom: 15px;
     border: 1px solid #5a2626;
     border-radius: 4px;
   }
@@ -162,17 +163,18 @@ header .agent-profile a:hover {
     transition: background-color 0.3s
   }
    */
-  .submit button {
+   button {
     background-color: #007bff;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     font-size: 25px;
+    bottom: 30px;
 }
 
   
-  .submit button:hover {
+   button:hover {
     background-color: #218838;
   }
  

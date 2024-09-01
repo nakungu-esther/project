@@ -18,7 +18,7 @@ router.post("/login",
             res.redirect("/overView")
         }
          else if (req.user.role === "sales_agent") {
-            res.redirect("/userSale")
+            res.redirect("/sales-form")
         } 
         
         else if (req.user.role === "administrator"){

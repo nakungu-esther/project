@@ -19,6 +19,7 @@ html
             th(scope='col') Sales Agent 
             th(scope='col') Action 
             th 
+            th
         tbody
           if sales.length
             each sale in sales
@@ -28,7 +29,7 @@ html
                 td #{sale.amount}
                 td #{sale.buyername}
                 td #{moment(sale.saledate. 'YYYY-MM-DO'). format('DO-MM-YYYY')}
-                td #{sale.salesAgent.firstName+''+sale.salesAgent.lastName}
+                td #{sale.salesagent.username}
                 td
                   a.btn.btn-primary.btn-sm(href='/updatesale/' +sale._id) Update
                 td

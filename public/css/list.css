@@ -89,6 +89,7 @@ table td {
   color: #fff;
   display: inline-block;
   text-align: center;
+  cursor: pointer;
 }
 
 .btn-primary {

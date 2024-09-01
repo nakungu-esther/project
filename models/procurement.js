@@ -2,19 +2,19 @@
 const mongoose = require('mongoose');
 
 const procurementSchema = new mongoose.Schema({
-  producename: {
+  produceName: {
     type: String,
     trim: true,
   },
-  producetype: {
+  produceType: {
     type: String,
     trim: true,
   },
-  procuredate: {
+  procureDate: {
     type: Date,
     trim: true,
   },
-  procuretime: {
+  procureTime: {
     type: String,
     trim: true,
   },
@@ -26,11 +26,11 @@ const procurementSchema = new mongoose.Schema({
     type: Number,
     trim: true,
   },
-  dealername: {
+  dealerName: {
     type: String,
     trim: true,
   },
-  branchname: {
+  branchName: {
     type: String,
     trim: true,
   },
@@ -38,7 +38,7 @@ const procurementSchema = new mongoose.Schema({
     type: String,
     trim: true,
   },
-  sellingprice: {
+  sellingPrice: {
     type: Number,
     trim: true,
   },
