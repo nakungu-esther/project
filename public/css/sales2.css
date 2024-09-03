@@ -1,0 +1,192 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+  }
+  
+  header {
+    background-color: #2c3e50;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 2000;
+  }
+  
+  header img {
+    margin-right: 20px;
+  }
+  
+  header .agent-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+header .agent-profile .agent-name {
+    font-size: 1.2em;
+    font-weight: bold;
+   
+}
+
+header .agent-profile a {
+    color: white;
+    text-decoration: none;
+    padding: 5px 10px;
+    background-color: #e74c3c;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    margin-right: 10%;
+}
+
+header .agent-profile a:hover {
+    background-color: #c0392b;
+}
+  
+  .sidebar {
+    width: 200px;
+    background-color: #34495e;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding-top: 60px;
+    overflow-y: auto;
+    z-index: 1000;
+  }
+  
+  .sidebar nav ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .sidebar nav ul li {
+    margin: 15px 0;
+  }
+  
+  .sidebar nav ul li a {
+    color: #fef9f9;
+    text-decoration: none;
+    padding: 15px 20px;
+    display: block;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease;
+    margin-left: 10px;
+  }
+  
+  .sidebar nav ul li a:hover {
+    background-color: #c0392b;
+    padding-left: 5px;
+    border-radius: 20px;
+  }
+  
+  /* .sidebar nav ul li a i {
+    margin-right: 10px;
+  }
+  
+  .sidebar nav ul li a#showSalesFormBtn, 
+  .sidebar nav ul li a#showCreditFormBtn {
+    display: inline-block;
+    padding: 10px;
+    background-color: #e74c3c;
+    border-radius: 5px;
+  }
+  
+  .sidebar nav ul li a#showSalesFormBtn:hover, 
+  .sidebar nav ul li a#showCreditFormBtn:hover {
+    background-color: #c0392b;
+  } */
+  
+  .video-container {
+    position: relative;
+    width: 100%;
+    height: 600px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .video-container {
+    position: relative; /* Ensure the container is positioned relative */
+    height: 600px; /* Adjust the height as needed */
+    width: 100%; /* Full width of the container */
+  }
+  
+  h1 {
+    position: absolute; /* Position the title absolutely within the container */
+    top: 50px; /* Adjust vertical position from the top */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Center the title horizontally */
+    font-size: 2em; /* Adjust font size as needed */
+    color: #f6f2f2d6; /* Title color */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Add shadow for readability */
+  }
+  form {
+    position: absolute; /* Position the form absolutely within the container */
+    top: 60%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Adjust to exact center */
+    padding: 20px;
+    display: block; /* Use block layout to ensure no columns */
+    gap: 10px; /* Space between items, can be removed if using block */
+    background-color: rgba(124, 116, 116, 0.212); /* Slightly transparent white background */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 90%; /* Adjust width to fit within the screen */
+    max-width: 800px; /* Max width to prevent it from stretching too wide */
+    max-height: 80vh; /* Max height to fit within the viewport */
+    overflow-y: auto; /* Enable vertical scrolling if content exceeds height */
+    box-sizing: border-box; /* Include padding in the width and height */
+  }
+  
+  form label {
+    display: block; /* Ensure labels are block-level elements */
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #fef9f9;
+  }
+  
+  form input, 
+  form select {
+    width: 100%; /* Full width of the form container */
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    box-sizing: border-box; /* Ensure padding is included in width */
+  }
+  
+  
+  form button[type="submit"] {
+    grid-column: span 2; /* Span across both columns */
+    padding: 10px;
+    background-color: #0af31a;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  form button[type="submit"]:hover {
+    background-color: #0c0cf5;
+  }
+  
+  
+ 
+  footer.footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    background-color: #2c3e50;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+  }
+  

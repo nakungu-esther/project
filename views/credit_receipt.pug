@@ -1,0 +1,84 @@
+doctype html
+html
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    title Credit Receipt
+    link(rel='stylesheet' href='/css/receipt.css')
+  body
+    .receipt
+      h2.text-center Happy Hoe Grocery Ltd.
+      p.text-center
+        | Address Line Here
+        br
+        | Phone: 070-862-2600 | Fax: 443-443-123456
+        br
+        | Email: happyhoe00@gmail.com | Website: www.happyhoe.com
+
+      hr
+
+      //- p
+      //-   strong Cash Receipt #: 
+      //-   span #{credit._id}
+      //- p
+      //-   strong Date: 
+      //-   span #{credit.dispatchDate || 'DD/MM/YYYY'}
+
+      //- p
+      //-   strong Cash Received From: 
+      //-   span ____________________________________________
+      //- p
+      //-   strong of $: 
+      //-   span ____________________________________________
+      //- p
+      //-   strong For: 
+      //-   span ____________________________________________
+
+      //- hr
+
+      table.table-bordered
+        thead
+          tr
+            th Produce Name 
+            th Tonnage Sold (kg) 
+            th Amount Due (UGX) 
+            th Buyer's Name 
+            th Sales Agent 
+            th Due Date 
+        tbody#items
+          each credit in receipt.credits
+            tr
+              td #{credit.produceName.produceName}
+              td #{credit.tonnage}
+              td #{credit.amountDue}
+              td #{credit.buyerName}
+              td #{credit.salesAgent.username}
+              td #{credit.dueDate}
+        
+      p.text-right
+        strong Total Amount Due: 
+        span UGX #{receipt.grandTotal}
+      //- p.text-right
+      //-   strong Amount Received: 
+      //-   span UGX ____________________________
+      //- p.text-right
+      //-   strong Balance Due: 
+      //-   span #{credit.amountDue}
+
+      p.text-right
+        a.btn-print(href='#' onclick='window.print(); return false;') Print Receipt
+      
+      // Back Button
+      p.text-right
+        a.btn-print(href='javascript:history.back();') Back
+
+      hr
+
+      p.text-center
+        | Thank you for shopping with us!
+
+      //- footer(style='background-color: #2c3e50; color: #fff; padding: 20px; text-align: center;')
+      //-   div(style='margin-bottom: 10px;')
+      //-     span &copy; 2024 Nakungu Esther. All rights reserved.
+
+    script(src='/js/receipt.js')

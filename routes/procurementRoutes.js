@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const connectEnsureLogin = require("connect-ensure-login");
 
 const Procurement = require('../models/procurement'); // Ensure correct capitalization
 
@@ -22,7 +23,7 @@ router.post("/addProcurement", async (req, res) => {
 });
 
 //RETRIEVE user from the database
-router.get("/cropProcurementList", async (req, res) => {
+router.get("/cropProcurementList",  connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
   try {
     // console.log("Request body:", req.body);  
     const procurements = await Procurement.find().sort({ $natural: -1 });
@@ -37,12 +38,13 @@ router.get("/cropProcurementList", async (req, res) => {
 
 
 // get produce update form
-router.get("/updateProcurement/:id", async (req, res) => {
+router.get("/updateProcurement/:id",  connectEnsureLogin.ensureLoggedIn(),  async (req, res) => {
   try {
-    const item = await Procurement.findOne({ _id: req.params.id });
-    res.render("Update_procurement", {
+    const  procurement = await Procurement.findOne({ _id: req.params.id });
+    const manager = await Signup.find({ role: 'manager' });
+    res.render("Update_procurement",  {
       title: "Update procurement",
-      procurement: item,
+      procurement:  procurement,
     });
   } catch (err) {
     res.status(400).send("Unable to find item in the database");
@@ -53,7 +55,7 @@ router.get("/updateProcurement/:id", async (req, res) => {
 router.post("/updateProcurement", async (req, res) => {
   try {
     await Procurement.findOneAndUpdate({ _id: req.query.id }, req.body);
-    io.emit('updateProcurement'); // Notify clients to update data
+    // io.emit('updateProcurement'); // Notify clients to update data
     res.redirect("/cropProcurementList");
   } catch (err) {
     res.status(404).send("Unable to update item in the database");

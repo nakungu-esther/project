@@ -19,12 +19,12 @@ html
             th(scope='col') Contact
             th(scope='col') Amount Due
             th(scope='col') Sales Agent Name
-            th(scope='col') Due Date
+            //- th(scope='col') Due Date
             th(scope='col') Branch Name
             th(scope='col') Produce Name
             th(scope='col') Produce Type 
             th(scope='col') Tonnage
-            th(scope='col') Date of Dispatch
+            //- th(scope='col') Date of Dispatch
             th(scope='col') Actions
            
             //- th(scope='col') View Receipt
@@ -38,12 +38,13 @@ html
                 td #{credit.contact}
                 td #{credit.amountDue}
                 td #{credit.salesAgent}
-                td #{credit.dueDate}
+                //- td #{credit.dueDate}
+                td #{credit.branch}
                 td #{credit.produceName}
                 td #{credit.produceType}
                 td #{credit.tonnage}
-                td #{credit.dispatchDate}
-                td #{credit.contact}
+                //- td #{credit.dispatchdate}
+                //- td #{credit.contact}
                 td
                   a.btn.btn-primary.btn-sm(href='/updateCredit/' +credit._id) Update
                 td
@@ -51,14 +52,14 @@ html
                     input(type="hidden", name="id", value=credit._id)
                     button.btn.btn-danger.btn-sm(type="submit") Delete
                 td 
-                  a.btn.btn-secondary.btn-sm(href='/credit_receipt/'+credit._id) Receipt    
+                  a.btn.btn-secondary.btn-sm(href='/receipt/'+credit._id) Receipt    
           else
             tr
               td(colspan="8", class="text-center") No debts yet :()
-    .submit
-      a.button(href='/dash') Manager's board
-    .submit2
-      a.button(href='/dash2') SalesAgent's board
+    //- .submit
+    //-   a.button(href='/dash') Manager's board
+    //- .submit2
+    //-   a.button(href='/dash2') SalesAgent's board
     footer(style='background-color: #2c3e50; color: #fff; padding: 20px; text-align: center; margin-top: 20px;')
       div(style='margin-bottom: 10px;')
         span &copy; 2024 Nakungu Esther. All rights reserved.  

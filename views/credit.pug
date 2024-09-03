@@ -29,7 +29,7 @@ html
     br
     br
     br
-    form(name='salesForm' onsubmit='return validateCreditForm()' action=`/debit/${produce ? procurement._id : ''}` method='POST')
+    form#creditForm(name='salesForm' onsubmit='return validateCreditForm()' action=`/debit/${produce ? procurement._id : ''}` method='POST')
       .form-container
         .form-header
           h1 Credit Sales Form
@@ -37,34 +37,34 @@ html
           .form-column
             label(for='buyerName') Buyer Name:
             input#buyerName(type='text' name='buyerName')
-            span.error#buyerNameError
+            small.error#buyerNameError
             label(for='nationalId') National ID (NIN):
-            input#nationalId(type='text' name='nationalid')
-            span.error#nationalIdError
+            input#nationalId(type='text' name='nationalId')
+            small.error#nationalIdError
             label(for='location') Location:
             input#location(type='text' name='location')
-            span.error#locationError
+            small.error#locationError
             label(for='contacts') Contacts:
-            input#contacts(type='text' name='contact')
-            span.error#contactsError
+            input#contacts(type='text' name='contacts')
+            small.error#contactsError
             label(for='amountDue') Amount Due (UGX):
             input#amountDue(type='text' name='amountDue')
-            span.error#amountDueError
-            label(for='salesagent') Sales Agent Name:
+            small.error#amountDueError
+            label(for='salesAgent') Sales Agent Name:
             input#salesAgent(type='text' name='salesAgent')
-            span.error#salesAgentError
+            small.error#salesAgentError
           .form-column
             label(for='dueDate') Due Date:
             input#dueDate(type='date' name='dueDate')
-            span.error#dueDateError
+            small.error#dueDateError
             label(for='branch') Branch Name:
             select#branch(name='branch')
               option(value='') Select Branch
               option(value='Maganjo') Maganjo
               option(value='Matugga') Matugga
-            span.error#branchError
+            small.error#branchError
             label(for='produceName') Produce Name:
-            select#produceName(type='text' name='produceName')
+            select#produceName(name='produceName')
               option(value='') Select Produce
               option(value='Rice') Rice
               option(value='beans') Beans
@@ -72,21 +72,24 @@ html
               option(value='cowpeas') Cowpeas
               option(value='soyabeans') Soyabeans
               option(value='gnut') G-nuts
-            span.error#produceNameError
+            small.error#produceNameError
             label(for='produceType') Type of Produce:
-            input#produceType(type='text' name='produceType')
-            span.error#produceTypeError
+            select#produceType(name='produceType')
+              option(value='') Select
+              option(value='Grain') Grains
+              option(value='Cereals') Cereals
+              option(value='Legume') Legumes
+            small.error#produceTypeError
             label(for='tonnage') Tonnage:
             input#tonnage(type='number' name='tonnage')
-            span.error#tonnageError
+            small.error#tonnageError
             label(for='dispatchDate') Date of Dispatch:
-            input#dispatchDate(type='date' name='dispatchDate')
-            span.error#dispatchDateError
-      
-        button(type='submit') Submit
-    
-  footer(style='background-color: #2c3e50; color: #fff; padding: 20px; text-align: center; margin-top: 0%;')
-    div(style='margin-bottom: 10px;')
-      span &copy; 2024 Nakungu Esther. All rights reserved.
-  script(src='/js/credit.js')
-   
+            input#dispatchDate(type='date' name='dispatchdate')
+            small.error#dispatchDateError
+        .form-actions
+          button(type='submit') Submit
+          button(type='button' onclick='clearForm()') Clear Form
+    footer(style='background-color: #2c3e50; color: #fff; padding: 20px; text-align: center; margin-top: 0%;')
+      div(style='margin-bottom: 10px;')
+        span &copy; 2024 Nakungu Esther. All rights reserved.
+    script(src='/js/credit.js')

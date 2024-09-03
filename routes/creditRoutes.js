@@ -53,20 +53,6 @@ router.get("/updateCredit/:id", async (req, res) => {
     }
 });
 
-router.get("/updateCredit/:id", async (req, res) => {
-    try {
-        const item = await Credit.findOne({ _id: req.params.id })
-        res.render("update_credit", {
-            credit: item,
-            title: "Update Produce",
-        })
-    } catch(error) {
-        res.status(400).send("Unable to find item in the database");
-    }
-    
-    
-});
-
 
 // post updated produce
 router.post("/updateCredit", async (req, res) => {
@@ -152,25 +138,34 @@ router.get("/mylist", async (req, res) => {
     });
 
    
+// Sample data for demonstration; replace with actual database queries
 
-    router.get("/receipt1/:id", async (req, res) => {
-        try{
-            const credit = await Credit.findOne({_id: req.params.id})
-            .populate("produceName","produceName")
-            .populate("salesAgent","name");
-            console.log("my sale",credit)
-            // const formattedDate = formatDate(sale.saledate);
-            res.render("receipt1",{
-                credit,
-                // formattedDate,
-                title: "Receipt"
-            });
-        } catch (error) {
-            res.status(400).send("The item isn't in the database")
-        }
-
-    })
-
+ // Route to display a specific receipt
+ router.get('/receipt/:id', async (req, res) => {
+    try {
+      const credit = await Credit.findOne({ _id: req.params.id })
+        .populate('produceName', 'produceName')
+        .populate('salesAgent', 'username');
+      
+      if (!credit) {
+        return res.status(404).send('Receipt not found');
+      }
+  
+      const receipt = {
+        credits: [credit], // If you have a collection, use the actual array here
+        grandTotal: credit.amountDue // or calculate accordingly
+      };
+  
+      res.render('credit_receipt', {
+        receipt, // Pass the receipt object to the template
+        title: 'Receipt',
+      });
+    } catch (error) {
+      console.error('Error retrieving receipt:', error);
+      res.status(400).send('An error occurred while retrieving the receipt');
+    }
+  });
+  
 
 
 

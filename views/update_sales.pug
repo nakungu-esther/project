@@ -1,44 +1,64 @@
 doctype html
-head
-  meta(charset='UTF-8')
-  meta(name='viewport' content='width=device-width, initial-scale=1.0')
-  title Produce Sales Form
-  link(rel='stylesheet' href='/css/sales.css')
-form#Form(action='/updateSales?id='+sales._id method='POST')
-  h1 Sales Form
-  label(for='produceName') Name of Produce:
-  select#produceName(type='text' name='produceName' required='')
-    option(value='') Select produce
-    option(value='beans' selected = sales.produceName === "beans") Beans 
-    option(value='maize' selected = sales.produceName === "maize") Maize 
-    option(value='rice' selected = sales.produceName === "rice") Rice 
-    option(value='soyabeans' selected = sales.produceName === "soyabeans") Soyabeans
-    option(value='cowpeas' selected = sales.produceName === "cowpeas") Cowpeas
-    option(value='gnuts' selected = sales.produceName === "gnuts") G-nuts
-  br
-  label(for='tonnage') Tonnage (kgs):
-  input#tonnage(type='number' name='tonnage' required='')
-  br
-  label(for='amountPaid') Amount Paid (UGX per kg):
-  input#amountPaid(type='text' name='amountPaid' required='')
-  br
-  label(for='buyerName') Buyer&apos;s Name:
-  input#buyerName(type='text' name='buyerName' required='')
-  br
-  label(for='salesAgentName') Sales Agent&rsquo;s Name:
-  input#salesAgentName(type='text' name='salesagent' required='')
-  br
-  label(for='branch') Branch Name:
-  select#branch(name='branch' required='')
-    option(value='Maganjo' selected = sales.branch === "Maganjo") Maganjo
-    option(value='Matugga' selected = sales.branch === "Matugga") Matugga
-  br
-  br
-  label(for='dateTime') Date and Time:
-  input#dateTime(type='datetime-local' name='dateTime' required='')
-  br
-  label(for='totalpayment') Total Payment:
-  input#totalpayment(type='number' name='totalpayment' required='')
-  br
-  button(type='submit') Submit
-script(src='/js/sales.js')
+html
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    title Produce Sales Form
+    link(rel='stylesheet' href='/css/sales2.css')
+    link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css')
+  body
+    .video-container(style='height: 600px;')
+      video(autoplay muted loop)
+        source(src='/images/202407310754 (1).mp4' type='video/mp4')
+    header
+      img(style='width: 40px; height: 40px; border-radius: 50%;' src='/images/download (3).png')
+      .agent-profile
+        span.agent-name Welcome, Sales Agent
+        a(href='/') Logout
+    aside.sidebar
+      nav
+        ul
+          li
+            a#showSalesFormBtn(href='#')
+              i.fas.fa-shopping-cart(style='padding-right:15px;')
+              | Record Sales
+          li
+            a#showCreditFormBtn(href='/debit')
+              i.fas.fa-credit-card(style='padding-right:15px;')
+              | Credit Sales
+    h1 Edit Sales
+    form#Form(action='/updateSales' method='POST')
+      input(type='hidden' name='id' value=sales._id)  // Hidden field for ID
+      label(for='produceName') Name of Produce:
+      select#produceName(type='text' name='producename')
+        option(value=sales.producename._id) #{sales.producename.producename}
+      br
+      label(for='tonnage') Tonnage (kgs):
+      input#tonnage(type='number' name='tonnage' value=sales.tonnage)
+      br
+      label(for='amountPaid') Amount Paid (UGX per kg):
+      input#amountPaid(type='text' name='amountPaid' value=sales.amountPaid)
+      br
+      label(for='buyerName') Buyer&apos;s Name:
+      input#buyerName(type='text' name='buyerName' value=sales.buyerName)
+      br
+      label(for='salesAgentName') Sales Agent&rsquo;s Name:
+      input#salesAgentName(type='text' name='salesAgent' value=sales.salesAgent._id)
+      br
+      label(for='branch') Branch Name:
+      select#branch(name='branch')
+        option(value='Maganjo' selected=sales.branch === 'Maganjo') Maganjo
+        option(value='Matugga' selected=sales.branch === 'Matugga') Matugga
+      br
+      br
+      label(for='dateTime') Date and Time:
+      input#dateTime(type='datetime-local' name='dateTime' value=sales.dateTime)
+      br
+      label(for='totalpayment') Total Payment:
+      input#totalpayment(type='number' name='totalpayment' value=sales.totalpayment)
+      br
+      button(type='submit') Update
+    footer.footer
+      div(style='margin-bottom: 10px;')
+        span &copy; 2024 Nakungu Esther. All rights reserved.
+    script(src='/js/sales.js')

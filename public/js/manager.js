@@ -93,6 +93,10 @@ document.getElementById('procurementForm').addEventListener('submit', async func
         console.error('Error:', error);
         alert('An error occurred while submitting the form.');
     }
+
+    
+
+  
 });
 
 // Function to clear the form

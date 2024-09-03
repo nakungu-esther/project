@@ -92,26 +92,48 @@ header .agent-profile a:hover {
 }
 
 
-  
 .form-container {
-    margin-left: 240px;
-    padding: 20px;
-    gap:20px;
-    position: absolute;
-    left: 110px;
-    bottom: 10px;
-    top: 40px;/* Adjusted to give space at the top */
-    background-color: rgba(25, 9, 9, 0.26); /* White background with some transparency */
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: calc(90% - 200px); /* Adjust width to fit within the screen */
-    max-width: 800px; /* Max width to prevent it from stretching too wide */
-    height: 600px; /* Auto height to fit content */
-    overflow: hidden; /* Prevent content overflow */
-    box-sizing: border-box; /* Include padding in the width and height */
-    
-  }
-  
+  margin-left: 240px;
+  padding: 20px;
+  gap: 20px;
+  position: absolute;
+  left: 110px;
+  bottom: 10px;
+  top: 40px;
+  background-color: rgba(25, 9, 9, 0.26);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: calc(90% - 200px);
+  max-width: 900px; /* Increased max width to accommodate more columns */
+  height: auto; /* Let the height adjust based on content */
+  overflow-x: auto; /* Allow horizontal scrolling if content overflows */
+  box-sizing: border-box;
+}
+
+table {
+  width: 100%; /* Make the table take full width of the container */
+  border-collapse: collapse; /* Merge borders for a cleaner look */
+}
+
+th, td {
+  padding: 10px 15px; /* Adjust padding for better spacing */
+  text-align: left;
+  border: 1px solid #ddd; /* Add a border around cells */
+  white-space: nowrap; /* Prevent text from wrapping */
+}
+
+th {
+  background-color: #f4f4f4; /* Light gray background for table headers */
+}
+
+td {
+  background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent white background for table cells */
+}
+
+tr:nth-child(even) {
+  background-color: rgba(240, 240, 240, 0.5); /* Alternate row background color */
+}
+
   
   .form-header h1 {
     margin-bottom: 20px;
@@ -135,7 +157,7 @@ header .agent-profile a:hover {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
-    color: #000;
+    color: hwb(0 95% 4% / 0.993);
 }
   
   
@@ -148,21 +170,23 @@ header .agent-profile a:hover {
     border-radius: 4px;
   }
   
-  /* .submit {
-    text-align: right;
-    background-color: #27ae60;
-    margin-top: 20px;
-    margin-left: 100px;
-    color: white;
-    border: none;
-    width: 80%;
-    height: 45px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s
-  }
-   */
+  /* Style for the error messages */
+small.error {
+  color: red; /* Red color to indicate error */
+  font-size: 0.875rem; /* Slightly smaller than normal text */
+  margin-top: 0.25rem; /* Space between input and error message */
+  display: block; /* Ensure it appears on a new line */
+}
+
+input:invalid, select:invalid {
+  border-color: red; /* Red border for invalid fields */
+}
+
+input:valid, select:valid {
+  border-color: green; /* Green border for valid fields */
+}
+
+  
    button {
     background-color: #007bff;
     color: white;
@@ -213,3 +237,26 @@ footer {
     transform: translate(-50%, -50%);
     /* z-index: -1; */
   }
+
+  button[type='button'] {
+    background-color: #007bff; /* Blue background */
+    color: #fff; /* White text */
+    border: none; /* Remove default border */
+    border-radius: 4px; /* Rounded corners */
+    padding: 10px 20px; /* Add padding */
+    font-size: 16px; /* Adjust font size */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transitions */
+    margin: 10px; /* Space around the button */
+    margin-left: 600px;
+}
+
+button[type='button']:hover {
+    background-color: #04852a; /* Darker blue on hover */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow on hover */
+}
+
+button[type='button']:focus {
+    outline: none; /* Remove default focus outline */
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5); /* Custom focus outline */
+}

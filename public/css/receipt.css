@@ -1,0 +1,93 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: black;
+}
+
+.receipt {
+  width: 600px;
+  height: 500px;
+  margin: 20px auto; /* Added margin for spacing from top */
+  padding: 20px; /* Added padding inside the receipt */
+  border: 1px solid #ddd;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #f3f0f0; /* Added background color for better contrast */
+}
+
+.text-center {
+  text-align: center;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid #ddd;
+  margin: 20px 0;
+}
+
+p {
+  margin: 10px 0;
+}
+
+strong {
+  font-weight: bold;
+}
+
+.table-bordered {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.table-bordered th, .table-bordered td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.table-bordered th {
+  background-color: #f8f8f8;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.btn-print {
+  display: inline-block;
+  padding: 10px 20px;
+  margin-top: 20px;
+  font-size: 14px;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s; /* Added transition for smooth effect */
+}
+
+.btn-print:hover {
+  background-color: #0056b3;
+  transform: scale(1.05); /* Added scale effect on hover */
+}
+
+.footer {
+  margin-top: 40px;
+}
+
+footer {
+  background-color: #d71063;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+  font-size: 12px;
+}
+
+footer div {
+  margin-bottom: 10px;
+}
+
+footer span {
+  display: block;
+}

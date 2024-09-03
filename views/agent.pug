@@ -30,48 +30,49 @@ html
     br
     br
     form#Form(action='/sales-form' method='POST' name='sale' onsubmit='return validateSaleForm()')
-  h1 Sales Form
-  .form-container
-    .form-group
-      label(for='produceName') Name of Produce:
-      select#produceName(name='producename' type='text')
-        if procurements.length
-          each procurement in procurements
-            option(value=procurement._id) #{procurement.produceName}
-        else
-          option(value='') No produce available
-      span.error#produceNameError
-    .form-group
-      label(for='tonnage') Tonnage (kgs):
-      input#tonnage(type='number' name='tonnage')
-      span.error#tonnageError
-    .form-group
-      label(for='amountPaid') Amount Paid (UGX per kg):
-      input#amountPaid(type='text' name='amountPaid')
-      span.error#amountPaidError
-    .form-group
-      label(for='buyerName') Buyer's Name:
-      input#buyerName(type='text' name='buyerName')
-      span.error#buyerNameError
-    .form-group
-      label(for='salesAgentName') Sales Agent's Name:
-      select#salesAgent.form-control(name='salesAgent')
-        if agents.length
-          each agent in agents
-            option(value=agent._id) #{agent.username}
-        else
-          option(value='') No agents available
-      span.error#salesAgentError
-    .form-group 
-      label(for='dateTime') Date and Time: 
-      input#dateTime(type='Number' name='dateTime')
-      span.error#dateTimeError
-    .form-group 
-      label(for='totalpayment') Totalpayment: 
-      input#totalpayment(type='Number' name='totalpayment')
-      span.error#totalpaymentError  
-    button(type='submit') Make Sale
-footer(style='background-color: #2c3e50; color: #fff; padding: 20px; text-align: center; margin-top: 0%;')
-    div(style='margin-bottom: 10px;')
-      span &copy; 2024 Nakungu Esther. All rights reserved.
-script(src='/js/sales.js')
+      h1 Sales Form
+      .form-container
+        .form-group
+          label(for='produceName') Name of Produce:
+          select#produceName(name='producename' type='text' style='width: 250px')
+            if procurements.length
+              each procurement in procurements
+                option(value=procurement._id) #{procurement.produceName}
+            else
+              option(value='') No produce available
+          small.error#produceNameError
+        .form-group
+          label(for='tonnage') Tonnage (kgs):
+          input#tonnage(type='number' name='tonnage')
+          small.error#tonnageError
+        .form-group
+          label(for='amountPaid') Amount Paid (UGX per kg):
+          input#amountPaid(type='text' name='amountPaid')
+          small.error#amountPaidError
+        .form-group
+          label(for='buyerName') Buyer's Name:
+          input#buyerName(type='text' name='buyerName')
+          small.error#buyerNameError
+        .form-group
+          label(for='salesAgentName') Sales Agent's Name:
+          select#salesAgent.form-control(name='salesAgent' style='width: 250px')
+            if agents.length
+              each agent in agents
+                option(value=agent._id) #{agent.username}
+            else
+              option(value='') No agents available
+          small.error#salesAgentError
+        .form-group
+          label(for='dateTime') Date and Time:
+          input#dateTime(type='datetime-local' name='dateTime' style='width: 250px;')
+          small.error#dateTimeError
+        .form-group
+          label(for='totalpayment') Total Payment:
+          input#totalpayment(type='number' name='Totalpayment')
+          small.error#totalpaymentError
+        button(type='submit') Add sales
+        //-  button(type='button' onclick='clearForm()') Reset
+    footer(style='background-color: #2c3e50; color: #fff; padding: 20px; text-align: center; margin-top: 0%;')
+      div(style='margin-bottom: 10px;')
+        span &copy; 2024 Nakungu Esther. All rights reserved.
+    script(src='/js/sales.js')

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const saleSchema = new mongoose.Schema({
     producename: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         ref: 'Procurement'
     },
     tonnage: {

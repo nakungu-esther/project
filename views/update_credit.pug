@@ -37,20 +37,20 @@ html
     .form-row
       .form-column
         label(for='buyerName') Buyer Name:
-        input#buyerName(type='text' name='buyerName')
+        input#buyerName(type='text' name='buyerName' value=credit.buyerName)
         label(for='nationalId') National ID (NIN):
-        input#nationalId(type='text' name='nationalid')
+        input#nationalId(type='text' name='nationalid' value=credit.nationalid)
         label(for='location') Location:
-        input#location(type='text' name='location')
+        input#location(type='text' name='location' value=credit.ocation)
         label(for='contacts') Contacts:
-        input#contacts(type='text' name='contact')
+        input#contacts(type='text' name='contact' value=credit.contact)
         label(for='amountDue') Amount Due (UGX):
-        input#amountDue(type='text' name='amountDue')
+        input#amountDue(type='text' name='amountDue' value=credit.amountDue)
         label(for='salesAgent') Sales Agent Name:
-        input#salesAgent(type='text' name='salesagent')
+        input#salesAgent(type='text' name='salesagent' value=credit.salesagent)
       .form-column
         label(for='dueDate') Due Date:
-        input#dueDate(type='date' name='dueDate')
+        input#dueDate(type='date' name='dueDate' value=creditdueDate)
         label(for='branch') Branch Name:
         select#branch(name='branch' required='')
           option(value='') Select Branch
@@ -58,19 +58,17 @@ html
           option(value='Matugga'  selected = credit.branch  === "Matugga") Matugga
         label(for='produceName') Produce Name:
         select#produceName(type='text' name='produceName')
-          option(value='') Select Produce
-          option(value='Rice' selected = credit.produceName === "Rice") Rice
-          option(value='beans' selected = credit.produceName === "beans") beans
-          option(value='Maize' selected = credit.produceName === "Maize") grain maize
-          option(value='cowpeas' selected = credit.produceName === "cowpeas") Cowpeas
-          option(value='soyabeans' selected = credit.produceName === "soyapeas") Soyabeans
-          option(value='gnut' selected = credit.produceName === "gnut") G-nuts
+          option(value=credit._id) #{credit.produceName.produceName}
+          
         label(for='produceType') Type of Produce:
-        input#produceType(type='text' name='produceType')
+        select#produceType(name='produceType')
+          option(value='Cereals' selected=produceType === 'cereals') Cereals
+          option(value='Grains' selected=produceType === 'grains') Grains
+          option(value='Iegumes' selected=produceType === 'legumes') Legumes
         label(for='tonnage') Tonnage:
-        input#tonnage(type='number' name='tonnage')
+        input#tonnage(type='number' name='tonnage' value=credit.tonnage)
         label(for='dispatchDate') Date of Dispatch:
-        input#dispatchDate(type='date' name='dispatchDate')
+        input#dispatchDate(type='date' name='dispatchDate' value=credit.dispatchDate)
     .submit
       button(type='submit') update
   #result

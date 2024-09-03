@@ -1,139 +1,132 @@
-document.addEventListener('DOMContentLoaded', function() {
-  const tonnageInput = document.getElementById('tonnage');
-  const costInput = document.getElementById('cost');
-  const totalCostInput = document.getElementById('totalcost');
+document.addEventListener('DOMContentLoaded', function () {
+  const submitButton = document.querySelector('button[type="submit"]');
+  
+  // Attach event listener to the submit button
+  submitButton.addEventListener('click', function (event) {
+    // Call the validation function
+    const isValid = validateCreditForm();
 
-  function calculateTotalCost() {
-    const tonnage = parseFloat(tonnageInput.value) || 0;
-    const cost = parseFloat(costInput.value) || 0;
-    const totalCost = tonnage * cost;
-    totalCostInput.value = totalCost.toFixed(2); // Keeping two decimal places
-  }
-
-  // Event listeners to recalculate total cost when tonnage or cost changes
-  tonnageInput.addEventListener('input', calculateTotalCost);
-  costInput.addEventListener('input', calculateTotalCost);
+    // If the form is not valid, prevent submission
+    if (!isValid) {
+      event.preventDefault();
+    }
+  });
 });
 
-function validateForm() {
+function validateCreditForm() {
   let isValid = true;
 
-  const buyerName = document.getElementById('buyerName');
-  const nationalId = document.getElementById('nationalId');
-  const location = document.getElementById('location');
-  const contacts = document.getElementById('contacts');
-  const amountDue = document.getElementById('amountDue');
-  const salesAgent = document.getElementById('salesAgent');
-  const dueDate = document.getElementById('dueDate');
-  const produceName = document.getElementById('produceName');
-  const produceType = document.getElementById('produceType');
-  const tonnage = document.getElementById('tonnage');
-  const dispatchDate = document.getElementById('dispatchDate');
-
-  const buyerNameError = document.getElementById('buyerNameError');
-  const nationalIdError = document.getElementById('nationalIdError');
-  const locationError = document.getElementById('locationError');
-  const contactsError = document.getElementById('contactsError');
-  const amountDueError = document.getElementById('amountDueError');
-  const salesAgentError = document.getElementById('salesAgentError');
-  const dueDateError = document.getElementById('dueDateError');
-  const produceNameError = document.getElementById('produceNameError');
-  const produceTypeError = document.getElementById('produceTypeError');
-  const tonnageError = document.getElementById('tonnageError');
-  const dispatchDateError = document.getElementById('dispatchDateError');
-
-  // Validation logic
-  if (!buyerName.value || buyerName.value.length < 2) {
-    buyerNameError.textContent = 'Buyer\'s name should be at least 2 characters.';
+  // Buyer Name Validation
+  const buyerName = document.getElementById('buyerName').value;
+  if (!/^[a-zA-Z0-9 ]{2,}$/.test(buyerName)) {
+    document.getElementById('buyerNameError').textContent = 'Buyer name must be at least 2 characters.';
     isValid = false;
   } else {
-    buyerNameError.textContent = '';
+    document.getElementById('buyerNameError').textContent = '';
   }
 
-  if (!nationalId.value || !/^[A-Z0-9]{13}$/.test(nationalId.value)) {
-    nationalIdError.textContent = 'National ID must be a valid NIN format (13 characters, alphanumeric).';
+  // National ID Validation
+  const nationalId = document.getElementById('nationalId').value;
+  if (!/^[A-Z0-9]{13}$/.test(nationalId)) {
+    document.getElementById('nationalIdError').textContent = 'Enter a valid NIN.';
     isValid = false;
   } else {
-    nationalIdError.textContent = '';
+    document.getElementById('nationalIdError').textContent = '';
   }
 
-  if (!location.value || location.value.length < 2) {
-    locationError.textContent = 'Location should be at least 2 characters.';
+  // Location Validation
+  const location = document.getElementById('location').value;
+  if (!/^[a-zA-Z0-9 ]{2,}$/.test(location)) {
+    document.getElementById('locationError').textContent = 'Location must be at least 2 characters.';
     isValid = false;
   } else {
-    locationError.textContent = '';
+    document.getElementById('locationError').textContent = '';
   }
 
-  if (!contacts.value || !/^\d{10}$/.test(contacts.value)) {
-    contactsError.textContent = 'Contacts must be a valid phone number format (10 digits).';
+  // Contacts Validation
+  const contacts = document.getElementById('contacts').value;
+  if (!/^\+?\d{10,15}$/.test(contacts)) {
+    document.getElementById('contactsError').textContent = 'Enter a valid phone number.';
     isValid = false;
   } else {
-    contactsError.textContent = '';
+    document.getElementById('contactsError').textContent = '';
   }
 
-  if (!amountDue.value || amountDue.value.length < 5) {
-    amountDueError.textContent = 'Amount due should be at least 5 characters.';
+  // Amount Due Validation
+  const amountDue = document.getElementById('amountDue').value;
+  if (!/^\d{5,}$/.test(amountDue)) {
+    document.getElementById('amountDueError').textContent = 'Amount must be at least 5 digits.';
     isValid = false;
   } else {
-    amountDueError.textContent = '';
+    document.getElementById('amountDueError').textContent = '';
   }
 
-  if (!salesAgent.value || salesAgent.value.length < 2) {
-    salesAgentError.textContent = 'Sales agent\'s name should be at least 2 characters.';
+  // Sales Agent Name Validation
+  const salesAgent = document.getElementById('salesAgent').value;
+  if (!/^[a-zA-Z0-9 ]{2,}$/.test(salesAgent)) {
+    document.getElementById('salesAgentError').textContent = 'Sales agent name must be at least 2 characters.';
     isValid = false;
   } else {
-    salesAgentError.textContent = '';
+    document.getElementById('salesAgentError').textContent = '';
   }
 
-  if (!dueDate.value) {
-    dueDateError.textContent = 'Due date cannot be empty.';
+  // Due Date Validation
+  const dueDate = document.getElementById('dueDate').value;
+  if (!dueDate) {
+    document.getElementById('dueDateError').textContent = 'Due date is required.';
     isValid = false;
   } else {
-    dueDateError.textContent = '';
+    document.getElementById('dueDateError').textContent = '';
   }
 
-  if (!produceName.value) {
-    produceNameError.textContent = 'Produce name cannot be empty.';
+  // Produce Name Validation
+  const produceName = document.getElementById('produceName').value;
+  if (produceName === '') {
+    document.getElementById('produceNameError').textContent = 'Please select a produce.';
     isValid = false;
   } else {
-    produceNameError.textContent = '';
+    document.getElementById('produceNameError').textContent = '';
   }
 
-  if (!produceType.value) {
-    produceTypeError.textContent = 'Type of produce cannot be empty.';
+  // Produce Type Validation
+  const produceType = document.getElementById('produceType').value;
+  if (!/^[a-zA-Z0-9 ]{2,}$/.test(produceType)) {
+    document.getElementById('produceTypeError').textContent = 'Type of produce must be at least 2 characters.';
     isValid = false;
   } else {
-    produceTypeError.textContent = '';
+    document.getElementById('produceTypeError').textContent = '';
   }
 
-  if (!tonnage.value || tonnage.value <= 0) {
-    tonnageError.textContent = 'Tonnage must be a positive number.';
+  // Tonnage Validation
+  const tonnage = document.getElementById('tonnage').value;
+  if (!/^\d+$/.test(tonnage)) {
+    document.getElementById('tonnageError').textContent = 'Tonnage must be a valid number.';
     isValid = false;
   } else {
-    tonnageError.textContent = '';
+    document.getElementById('tonnageError').textContent = '';
   }
 
-  if (!dispatchDate.value) {
-    dispatchDateError.textContent = 'Date of dispatch cannot be empty.';
+  // Dispatch Date Validation
+  const dispatchDate = document.getElementById('dispatchDate').value;
+  if (!dispatchDate) {
+    document.getElementById('dispatchDateError').textContent = 'Date of dispatch is required.';
     isValid = false;
   } else {
-    dispatchDateError.textContent = '';
-  }
-
-  if (!isValid) {
-    alert('Please correct the errors in the form.');
-  } else {
-    alert('Form submitted successfully.');
-    clearForm();
+    document.getElementById('dispatchDateError').textContent = '';
   }
 
   return isValid;
 }
 
 function clearForm() {
-  document.querySelector('form').reset();
-  const errorMessages = document.querySelectorAll('.error');
-  errorMessages.forEach((error) => {
-    error.textContent = '';
-  });
+  const form = document.getElementById('creditForm');
+  if (form) {
+    form.reset(); // Reset all form fields
+
+    // Clear all error messages
+    const errorMessages = document.querySelectorAll('small.error');
+    errorMessages.forEach(function (error) {
+      error.textContent = '';
+    });
+  }
 }

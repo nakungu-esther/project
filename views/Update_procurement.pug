@@ -53,37 +53,37 @@ html
           .form-row
             .form-group
               label(for='entrydate') Date:
-              input#entry-date(type='date' name='procuredate' )
+              input#entry-date(type='date' name='procureDate' value=procurement.procureDate )
             .form-group
               label(for='entrytime') Time:
-              input#entry-time(type='time' name='procuretime')
+              input#entry-time(type='time' name='procureTime' value=procurement.procureTime)
           .form-row
             .form-group
               label(for='tonnage') Tonnage (in kg):
-              input#tonnage(type='number' name='tonnage')
+              input#tonnage(type='number' name='tonnage' value=procurement.tonnage)
             .form-group
               label(for='cost') Cost (in Ugx):
-              input#cost(type='number' name='cost')
+              input#cost(type='number' name='cost' value=procurement.cost)
           .form-row
             .form-group
               label(for='dealername') Dealer:
-              select#branch-name(name='dealername')
+              select#branch-name(name='dealerName')
                 option(value='Matuga farm ' selected=dealerName === 'Matuga farm') Matuga farm
                 option(value='Maganjo farm' selected=dealerName === 'Maganjo farm') Maganjo farm
                 option(value='Individual' selected=dealerName === 'Individual') Individual
                 option(value='Other companies' selected=dealerName === 'Other companies') Other companies
             .form-group
               label(for='branchname') Branch:
-              select#branch-name(name='branchname')
+              select#branch-name(name='branchName')
                 option(value='Maganjo' selected=branchName === 'Maganjo') Maganjo
                 option(value='Matugga' selected=branchName === 'Matugga') Matugga
           .form-row
             .form-group
               label(for='contact') Contact:
-              input#contact(type='tel' name='contact')
+              input#contact(type='tel' name='contact' value=procurement.contact)
             .form-group
               label(for='selling-price') Sold Price:
-              input#selling-price(type='number' name='sellingPrice')
+              input#selling-price(type='number' name='sellingPrice' value=procurement.sellingPrice)
              
           button(type='submit') Update
     footer(style='background-color: #2c3e50; color: #fff; padding: 20px; text-align: center; margin-top: 0%;')

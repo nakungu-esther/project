@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const mongoose = require('mongoose')
 const connectEnsureLogin = require("connect-ensure-login");
 
 // Assuming Procurement, Sale, and Signup models are correctly imported
@@ -7,16 +8,18 @@ const Procurement = require("../models/procurement");
 const Sale = require("../models/sale");
 const Signup = require("../models/signup");
 
-// Route for displaying the sales form
-// Route for displaying the sales form without an ID
-// Route for displaying the sales form with an ID
-// Route to handle displaying the sales form with specific sale ID
+
 
 // Route for displaying the sales form without an ID
-router.get('/sales-form', async (req, res) => {
+// Route to display sales form
+router.get('/sales-form', connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
   try {
     const procurements = await Procurement.find();
     const agents = await Signup.find({ role: 'sales_agent' });
+
+    // Log retrieved data
+    console.log("Procurements:", procurements);
+    console.log("Agents:", agents);
 
     res.render('agent', { procurements, agents });
   } catch (err) {
@@ -24,61 +27,141 @@ router.get('/sales-form', async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
-
-// Route to handle sales submission
-// Route to handle sales submission without an ID
 router.post('/sales-form', connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
   try {
-    const { saleTonnage, procurementId } = req.body;
-    const procurement = await Procurement.findById(procurementId);
+    const { producename, tonnage, amountPaid, buyerName, dateTime, Totalpayment } = req.body;
 
+    const saleTonnage = Number(tonnage);
+    const totalPayment = Number(Totalpayment);
+
+    if (isNaN(saleTonnage) || isNaN(totalPayment)) {
+      return res.status(400).send("Invalid number values provided.");
+    }
+
+    if (!mongoose.Types.ObjectId.isValid(producename)) {
+      return res.status(400).send("Invalid Produce ID");
+    }
+
+    const procurement = await Procurement.findById(producename);
     if (!procurement) {
       return res.status(404).send("Procurement not found");
     }
 
     if (procurement.tonnage < saleTonnage) {
-      return res
-        .status(400)
-        .send(
-          `Not enough tones in stock, there are ${procurement.tonnage} Kgs in stock`
-        );
+      return res.status(400).send(`Not enough stock. Available: ${procurement.tonnage}, Required: ${saleTonnage}`);
     }
 
-    if (procurement && procurement.tonnage > 0) {
-      const newsale = new Sale({
-        ...req.body,
-        produceName: procurement.producename,
-        salesAgent: req.user._id // Assuming the logged-in user is the sales agent
-      });
-      await newsale.save();
-      procurement.tonnage -= saleTonnage;
-      await procurement.save();
-      res.redirect("/salesList");
-    } else {
-      return res.status(404).json({ error: "Procurement out of stock" });
-    }
+    const newSale = new Sale({
+      producename,
+      tonnage: saleTonnage,
+      amountPaid,
+      buyerName,
+      salesAgent: req.user._id,
+      dateTime: new Date(dateTime),
+      Totalpayment: totalPayment
+    });
+
+    await newSale.save();
+
+    procurement.tonnage -= saleTonnage;
+    await procurement.save();
+
+    res.redirect("/salesList");
   } catch (error) {
-    console.error("Error processing sale:", error);
-    return res.status(500).json({ error: "Internal server error" });
+    console.error("Error processing sale:", error.message);
+    res.status(500).send("Internal server error");
   }
 });
-
 
 // Route to display the list of sales
 router.get("/salesList", async (req, res) => {
   try {
     const sales = await Sale.find()
-      .sort({ $natural: -1 })
-      .populate("procurementName", "procurementName")
+      .sort({ $natural: -1 }) // Sort by the most recent documents
+      .populate("producename", "producename") // Correct field name here
       .populate("salesAgent", "username");
+
+
+      // Format date fields before passing to the template
+    // sales.forEach(sale => {
+    //   sale.formattedDate = moment(sale.dateTime).format('DD-MM-YYYY');
+    // });
+
+
+    // Check if sales data is empty
+    if (!sales.length) {
+      console.log("No sales data found.");
+      return res.status(404).send("No sales data found.");
+    }
+
     res.render("sales_List", {
       title: "Sales List",
       sales,
     });
   } catch (error) {
-    res.status(400).send("Unable to find items in the database");
+    console.error("Error fetching sales:", error.message);
+    res.status(500).send("Unable to find items in the database");
   }
 });
+
+router.get("/updateSales/:id", async (req, res) => {
+  try {
+    const item = await Sale.findById(req.params.id)
+                           .populate('producename')
+                           .populate('salesAgent');
+    
+    if (!item) {
+      return res.status(404).send("Item not found");
+    }
+
+    res.render("update_sales", {
+      title: "Update Sales",
+      sales: item,
+    });
+  } catch (err) {
+    res.status(500).send("An error occurred while fetching the item");
+  }
+});
+
+
+router.post("/updateSales", async (req, res) => {
+  try {
+    const { id, producename, tonnage, amountPaid, buyerName, salesAgent, dateTime, totalpayment } = req.body;
+
+    if (!id) {
+      return res.status(400).send("Sale ID is required");
+    }
+
+    await Sale.findByIdAndUpdate(id, {
+      producename,
+      tonnage,
+      amountPaid,
+      buyerName,
+      salesAgent,
+      dateTime,
+      totalpayment
+    });
+
+    res.redirect("/salesList");
+  } catch (err) {
+    res.status(500).send("An error occurred while updating the sale");
+  }
+});
+
+
+
+// delete Produce
+router.post("/deleteSales", async (req, res) => {
+  try {
+  await Sale.deleteOne({ _id: req.body.id });
+  res.redirect("back");
+  } catch (err) {
+  res.status(400).send("Unable to delete item in the database");
+  }
+  });
+
+
+
 
 //reports route
 

@@ -1,102 +1,87 @@
-document.addEventListener('DOMContentLoaded', function() {
-  const tonnageInput = document.getElementById('tonnage');
-  const costInput = document.getElementById('cost');
-  const totalCostInput = document.getElementById('totalcost');
-
-  function calculateTotalCost() {
-      const tonnage = parseFloat(tonnageInput.value) || 0;
-      const cost = parseFloat(costInput.value) || 0;
-      const totalCost = tonnage * cost;
-      totalCostInput.value = totalCost;
-  }
-
-  // Event listeners to recalculate total cost when tonnage or cost changes
-  tonnageInput.addEventListener('input', calculateTotalCost);
-  costInput.addEventListener('input', calculateTotalCost);
-});
-
-function validateForm() {
+// Function to validate the sales form
+function validateSaleForm() {
   let isValid = true;
 
-  const produceName = document.getElementById('produceName');
-  const tonnage = document.getElementById('tonnage');
-  const amountPaid = document.getElementById('amountPaid');
-  const buyerName = document.getElementById('buyerName');
-  const salesAgent = document.getElementById('salesAgent');
-  const dateTime = document.getElementById('dateTime');
-  const totalpayment = document.getElementById('totalpayment');
+  // Clear previous error messages
+  document.querySelectorAll('small.error').forEach(el => el.textContent = '');
+  document.querySelectorAll('small.success').forEach(el => el.textContent = '');
 
-  const produceNameError = document.getElementById('produceNameError');
-  const tonnageError = document.getElementById('tonnageError');
-  const amountPaidError = document.getElementById('amountPaidError');
-  const buyerNameError = document.getElementById('buyerNameError');
-  const salesAgentError = document.getElementById('salesAgentError');
-  const dateTimeError = document.getElementById('dateTimeError');
-  const totalpaymentError = document.getElementById('totalpaymentError');
+  // Get form values
+  const produceName = document.getElementById('produceName').value;
+  const tonnage = document.getElementById('tonnage').value;
+  const amountPaid = document.getElementById('amountPaid').value;
+  const buyerName = document.getElementById('buyerName').value;
+  const salesAgent = document.getElementById('salesAgent').value;
+  const dateTime = document.getElementById('dateTime').value;
+  const totalPayment = document.getElementById('totalpayment').value;
 
-  if (!produceName.value) {
-    produceNameError.textContent = 'Produce name cannot be empty.';
+  // Validate produceName
+  if (!produceName) {
+    document.getElementById('produceNameError').textContent = 'Please select a produce.';
     isValid = false;
-  } else {
-    produceNameError.textContent = '';
   }
 
-  if (!tonnage.value) {
-    tonnageError.textContent = 'Tonnage cannot be empty.';
+  // Validate tonnage
+  if (!tonnage || tonnage <= 0) {
+    document.getElementById('tonnageError').textContent = 'Please enter a valid tonnage.';
     isValid = false;
-  } else {
-    tonnageError.textContent = '';
   }
 
-  if (!amountPaid.value || amountPaid.value.length < 5) {
-    amountPaidError.textContent = 'Amount paid should be at least 5 characters.';
-    isValid = false
-  } else {
-    amountPaidError.textContent = '';
-  }
-
-  if (!buyerName.value || buyerName.value.length < 2) {
-    buyerNameError.textContent = 'Buyer\'s name should be at least 2 characters.';
+  // Validate amountPaid
+  if (!amountPaid || isNaN(amountPaid) || amountPaid <= 0) {
+    document.getElementById('amountPaidError').textContent = 'Please enter a valid amount paid.';
     isValid = false;
-  } else {
-    buyerNameError.textContent = '';
   }
 
-  if (!salesAgent.value || salesAgent.value.length < 2) {
-    salesAgentError.textContent = 'Sales agent\'s name should be at least 2 characters.';
+  // Validate buyerName
+  if (!buyerName) {
+    document.getElementById('buyerNameError').textContent = 'Please enter the buyer\'s name.';
     isValid = false;
-  } else {
-    salesAgentError.textContent = '';
   }
 
-  if (!dateTime.value) {
-    dateTimeError.textContent = 'Date and time cannot be empty.';
+  // Validate salesAgent
+  if (!salesAgent) {
+    document.getElementById('salesAgentError').textContent = 'Please select a sales agent.';
     isValid = false;
-  } else {
-    dateTimeError.textContent = '';
   }
 
-  if (!totalpayment.value) {
-    totalpaymentError.textContent = 'Total payment cannot be empty.';
+  // Validate dateTime
+  if (!dateTime) {
+    document.getElementById('dateTimeError').textContent = 'Please select a date and time.';
     isValid = false;
-  } else {
-    totalpaymentError.textContent = '';
   }
 
-  if (!isValid) {
-    alert('Please correct the errors in the form.');
-  } else {
-    alert('Form submitted successfully.');
-    clearForm();
+  // Validate totalPayment
+  if (!totalPayment || isNaN(totalPayment) || totalPayment < 0) {
+    document.getElementById('totalpaymentError').textContent = 'Please enter a valid total payment.';
+    isValid = false;
+  }
+
+  // Display success message if the form is valid
+  if (isValid) {
+    document.querySelector('form').insertAdjacentHTML('beforeend', '<small class="success">Form submitted successfully!</small>');
   }
 
   return isValid;
 }
 
+// Function to clear the form fields
 function clearForm() {
-  document.getElementById('Form').reset();
-  const errorMessages = document.querySelectorAll('.error');
-  errorMessages.forEach((error) => {
-    error.textContent = '';
-  });
+  document.getElementById('Form').reset(); // Resets the form fields to default values
+
+  // Clear any error or success messages
+  document.querySelectorAll('small.error').forEach(el => el.textContent = '');
+  document.querySelectorAll('small.success').forEach(el => el.textContent = '');
 }
+
+// Function to update the total payment automatically
+function updateTotalPayment() {
+  const tonnage = parseFloat(document.getElementById('tonnage').value) || 0;
+  const amountPaid = parseFloat(document.getElementById('amountPaid').value) || 0;
+  const totalPayment = tonnage * amountPaid;
+  document.getElementById('totalpayment').value = totalPayment.toFixed(2); // Update totalPayment field
+}
+
+// Add event listeners to update total payment on input changes
+document.getElementById('tonnage').addEventListener('input', updateTotalPayment);
+document.getElementById('amountPaid').addEventListener('input', updateTotalPayment);
