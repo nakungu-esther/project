@@ -49,8 +49,7 @@ header .agent-profile a {
 header .agent-profile a:hover {
     background-color: #c0392b;
 }
-  
-  .sidebar {
+.sidebar {
     width: 200px;
     background-color: #34495e;
     height: 100vh;
@@ -87,22 +86,33 @@ header .agent-profile a:hover {
     border-radius: 20px;
   }
   
-  /* .sidebar nav ul li a i {
-    margin-right: 10px;
-  }
-  
-  .sidebar nav ul li a#showSalesFormBtn, 
-  .sidebar nav ul li a#showCreditFormBtn {
+  a.btn.back {
     display: inline-block;
-    padding: 10px;
-    background-color: #e74c3c;
-    border-radius: 5px;
+    padding: 10px 20px;
+    background-color: hsl(10, 91%, 51%);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    margin-left: 20px;
   }
   
-  .sidebar nav ul li a#showSalesFormBtn:hover, 
-  .sidebar nav ul li a#showCreditFormBtn:hover {
-    background-color: #c0392b;
-  } */
+  a.btn.back:hover {
+    background-color:  #30b300; /* Darker blue background on hover */
+    color: #ecf0f1; /* Light text color on hover */
+    border-color:  #30b300; /* Even darker blue border on hover */
+  }
+  
+  a.btn.back:active {
+    background-color: #1c6ea4; /* Even darker blue when button is pressed */
+    border-color: #1a5276; /* Darker border when button is pressed */
+  }
+  
+  /* Adjust margin if needed */
+  a.btn.back {
+    margin-right: 20px; /* Space between the button and other elements */
+  }
+  
+
   
   .video-container {
     position: relative;

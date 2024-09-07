@@ -3,12 +3,16 @@ const router = express.Router();
 const connectEnsureLogin = require("connect-ensure-login");
 
 const Procurement = require('../models/procurement'); // Ensure correct capitalization
+const Sale = require('../models/sale');
 
 // Route to render the manager dashboard form page
 router.get("/addProcurement", (req, res) => {
-  res.render("manager"),{ title: 'Procurement'} 
+  res.render("manager"
+    
+  ),{ title: 'Procurement'}
+   
 });
-
+//let availableTonnage = totalProcurement - (totalCash + totalCredit)
 // POST request handler for registration
 router.post("/addProcurement", async (req, res) => {
   try {
@@ -27,9 +31,27 @@ router.get("/cropProcurementList",  connectEnsureLogin.ensureLoggedIn(), async (
   try {
     // console.log("Request body:", req.body);  
     const procurements = await Procurement.find().sort({ $natural: -1 });
+
+    let totalMaize = await Procurement.aggregate([
+      {$match: {produceName: "Maize"}},
+      {$group: {_id: "$all", totalQuatity: {$sum: "$tonnage"}, totalSelling:{$sum: "$sellingPrice"}
+      }}
+    ])
+    
+
+    let totalMaizeSell = await Sale.aggregate([
+      {$match: {producename: "Maize"}},
+      {$group: {_id: "$all", totalQuatity: {$sum: "$tonnage"},
+      }}
+    ])
+
+
+
     res.render("procurement-List", {
       title: "procurement List",
       procurements: procurements,
+      maizeTonnage: totalMaize[0],
+      maizeTonnageSell: totalMaizeSell[0],
     });
   } catch (error) {
     res.status(400).send("Unable to find items in the database");

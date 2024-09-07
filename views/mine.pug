@@ -1,4 +1,5 @@
 doctype html
+if user.role === "manager"
 head
   meta(charset='UTF-8')
   meta(name='viewport' content='width=device-width, initial-scale=1.0')
@@ -21,28 +22,32 @@ main
         li
           a(href='/addProcurement')
             i.fas.fa-file-archive(style='padding-right:9px;')
-            |   Procuments
+            | Procuments
         li
-          a(href='#')
+          a(href='/reports')
             i.fas.fa-chart-bar(style='padding-right:9px;')
-            | Total Sales
+            | Reports
         li
-          a(href='#')
+          a(href='/cropProcurementList')
             i.fas.fa-print(style='padding-right:9px;')
-            | produceList
+            | Produce List
+        li
+          a(href='/sales-form')
+            i.fas.fa-shopping-cart(style='padding-right:9px;')
+            | Record Sales   
 .dashboard(action='/overView' method='POST')
   h1 Manager Dashboard Overview
   .overview-row
     .card
-      h2 Total Procurements
-      p#total-procurements 150
+      h2 Total Credit
+      p#total-credit UGX #{totalCredit}
     .card
       h2 Total Sales
-      p#total-sales 120
+      p#total-sales #{totalSales}
     .card
       h2 Total Stock
-      p#total-stock 500 kg
-  // <button class="add-btn">Add New Record</button>
+      p#total-stock #{totalStock} kg
+
   .charts
     .chart-container
       h2 Procurement Trends

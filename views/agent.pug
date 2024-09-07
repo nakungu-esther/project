@@ -1,5 +1,6 @@
 doctype html
 html
+if user.role === "sales_agent"
   head
     meta(charset='UTF-8')
     meta(name='viewport' content='width=device-width, initial-scale=1.0')
@@ -35,11 +36,13 @@ html
         .form-group
           label(for='produceName') Name of Produce:
           select#produceName(name='producename' type='text' style='width: 250px')
-            if procurements.length
-              each procurement in procurements
-                option(value=procurement._id) #{procurement.produceName}
-            else
-              option(value='') No produce available
+           option(value='') Select
+           option(value='Beans') Beans
+           option(value='Rice') Rice
+           option(value='Maize') Maize
+           option(value='Cowpeas') Cowpeas
+           option(value='Soyapeas') Soyapeas
+           option(value='Groundnut') Groundnut
           small.error#produceNameError
         .form-group
           label(for='tonnage') Tonnage (kgs):
@@ -55,7 +58,7 @@ html
           small.error#buyerNameError
         .form-group
           label(for='salesAgentName') Sales Agent's Name:
-          select#salesAgent.form-control(name='salesAgent' style='width: 250px')
+          select#salesAgent.form-control(name='salesAgent' type='text' style='width: 250px')
             if agents.length
               each agent in agents
                 option(value=agent._id) #{agent.username}

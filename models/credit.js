@@ -7,7 +7,7 @@ const creditSchema = new mongoose.Schema({
         trim: true,
     },
     nationalid: {
-        type:Number,
+        type:String,
         trim: true,
     },
     location: {

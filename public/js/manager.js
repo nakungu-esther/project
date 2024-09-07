@@ -26,10 +26,11 @@ document.getElementById('procurementForm').addEventListener('submit', async func
     let hasError = false;
 
     // Validate form fields
-    if (formData.produceName === '' || !/^[A-Za-z0-9\s]+$/.test(formData.produceName)) {
+    if (formData.produceName.trim() === '' || !/^[A-Za-z\s]+$/.test(formData.produceName)) {
         document.getElementById('produceNameError').textContent = 'Please enter a valid produce name.';
         hasError = true;
     }
+    
     if (formData.produceType === '') {
         document.getElementById('produceTypeError').textContent = 'Please select a produce type.';
         hasError = true;

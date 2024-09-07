@@ -68,7 +68,7 @@ strong {
 }
 
 .btn-print:hover {
-  background-color: #0056b3;
+  background-color: #2eec11;
   transform: scale(1.05); /* Added scale effect on hover */
 }
 

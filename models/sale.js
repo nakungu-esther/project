@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
+const Procurement = require('./procurement')
 
 const saleSchema = new mongoose.Schema({
-    producename: {
+    producename:{
         type: String,
-        ref: 'Procurement'
+        trim: true,
     },
     tonnage: {
         type: Number,
@@ -18,7 +19,7 @@ const saleSchema = new mongoose.Schema({
         trim: true,
     },
     salesAgent:{
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         ref: 'Signup',
     },
     dateTime:{

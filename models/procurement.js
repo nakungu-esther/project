@@ -2,7 +2,8 @@
 const mongoose = require('mongoose');
 
 const procurementSchema = new mongoose.Schema({
-  produceName: {
+  
+  produceName:  {
     type: String,
     trim: true,
   },

@@ -1,39 +1,55 @@
 doctype html
-head
-  meta(charset='UTF-8')
-  meta(name='viewport' content='width=device-width, initial-scale=1.0')
-  title Receipt
-  link(rel='stylesheet' href='/css/generate.css')
-.receipt
-  h2 Happy Hoe Grocery Ltd.
-  p
-    strong Date:
-    span#date
-  p
-    strong Receipt No:
-    span#receipt-no
-  table
-    thead
-      tr
-        th Produce Name #{sale.produceName}
-        th Tonnage Sold (kg) #{sale.saleTonnage}
-        th Amount Paid (UGX) #{sale.amount}
-        th Buyer's Name #{sale.buyername}
-        th Sales Agent #{sale.salesagent}
-    tbody#items
-      // Items will be dynamically added here
-  p.total
-    | Grand Total: UGX 
-    span#grand-total
-  a.btn-print(href='#' onclick='window.print(); return false;') Print Receipt
-  .footer
-    p Thank you for shopping with us!
-br
-br
-br
-br
-  a(href='/salesList') Back
-footer(style='background-color: #2c3e50; color: #fff; padding: 20px; text-align: center;width: 10%px;')
-  div(style='margin-bottom: 10px;')
-    span &copy; 2024 Nakungu Esther. All rights reserved.
-script(src='/js/generate.js')
+html
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    title Sales Receipt
+    link(rel='stylesheet' href='/css/receipt2.css')
+  body
+    .receipt
+      h2.text-center Happy Hoe Grocery Ltd.
+      p.text-center
+        | Address Line Here
+        br
+        | Phone: 070-862-2600 | Fax: 443-443-123456
+        br
+        | Email: happyhoe00@gmail.com | Website: www.happyhoe.com
+
+      hr
+
+      table.table-bordered
+        thead
+          tr
+            th Produce Name 
+            th Tonnage Sold (kg) 
+            th Amount Paid (UGX) 
+            th Buyer's Name
+            th Due Date  
+            th Sales Agent 
+        tbody#items
+          each sale in receipt.sales
+            tr
+              td #{sale.producename}
+              td #{sale.tonnage}
+              td #{sale.amountPaid}  
+              td #{sale.buyerName}
+              td #{moment(sale.dueDate).format('DD-MM-YYYY')}
+              td #{sale.salesAgent.username}
+
+      p.text-right
+        strong Total Amount Paid: 
+        span UGX #{receipt.grandTotal} 
+
+      p.text-right
+        a.btn-print(href='#' onclick='window.print(); return false;') Print Receipt
+      
+      // Back Button
+      p.text-right
+        a.btn-print(href='javascript:history.back();') Back
+
+      hr
+
+      p.text-center
+        | Thank you for supporting us!
+
+    script(src='/js/receipt.js')

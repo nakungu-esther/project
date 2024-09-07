@@ -12,9 +12,7 @@ html
         source(src='/images/202407310754 (1).mp4' type='video/mp4')
     header
       img(style='width: 40px; height: 40px; border-radius: 50%;' src='/images/download (3).png')
-      .agent-profile
-        span.agent-name Welcome, Sales Agent
-        a(href='/') Logout
+      a.btn.back(href='javascript:history.back()', style='margin-right: 50px;') Back
     aside.sidebar
       nav
         ul
@@ -26,12 +24,18 @@ html
             a#showCreditFormBtn(href='/debit')
               i.fas.fa-credit-card(style='padding-right:15px;')
               | Credit Sales
+          // Add the back button here
+          
     h1 Edit Sales
-    form#Form(action='/updateSales' method='POST')
-      input(type='hidden' name='id' value=sales._id)  // Hidden field for ID
+    form#Form(action='/updateSale?id='+sales._id method='POST')
       label(for='produceName') Name of Produce:
       select#produceName(type='text' name='producename')
-        option(value=sales.producename._id) #{sales.producename.producename}
+        option(value='Maize ' selected=producename === 'maize') Maize 
+        option(value='Rice' selected=producename === 'Rice') Rice
+        option(value='Beans' selected=producename === ' Beans') Beans
+        option(value='Soyabeans' selected=producename === 'Soyabeans') Soyabeans
+        option(value='Cowpeas' selected=producename === 'Cowpeas') Cowpeas
+        option(value='Gunts' selected=producename === 'Groundnut') Groundnut
       br
       label(for='tonnage') Tonnage (kgs):
       input#tonnage(type='number' name='tonnage' value=sales.tonnage)
@@ -43,7 +47,7 @@ html
       input#buyerName(type='text' name='buyerName' value=sales.buyerName)
       br
       label(for='salesAgentName') Sales Agent&rsquo;s Name:
-      input#salesAgentName(type='text' name='salesAgent' value=sales.salesAgent._id)
+      input#salesAgentName(type='text' name='salesAgent' value=sales.salesAgent.username)
       br
       label(for='branch') Branch Name:
       select#branch(name='branch')

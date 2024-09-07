@@ -1,4 +1,5 @@
 doctype html
+if user.role === "administrator"
 head
   meta(charset='UTF-8')
   meta(name='viewport' content='width=device-width, initial-scale=1.0')
@@ -25,20 +26,20 @@ div(style='display: flex; flex: 1')
             i.fas.fa-file-archive(style='padding-right: 9px')
             | Procurements
         li
-          a(href='/userSale')
+          a(href='/salesList')
             i.fas.fa-chart-bar(style='padding-right: 9px')
             | Sales Overview
         li
           a(href='/reports')
             i.fas.fa-envelope-open(style='padding-right: 9px')
             | Reports
-        li
-          a#notificationButton(href='#')
-            i.fas.fa-bell(style='padding-right: 9px')
-            |                 Notifications
-            span#notificationCount.notification-count 0
-          #notificationPopup.notification-popup
-            p No new notifications
+        //- li
+        //-   a#notificationButton(href='#')
+        //-     i.fas.fa-bell(style='padding-right: 9px')
+        //-     |                 Notifications
+        //-     span#notificationCount.notification-count 0
+        //-   #notificationPopup.notification-popup
+        //-     p No new notifications
 main
   .main-cards(action="/admindashboard" method='POST')
     .card

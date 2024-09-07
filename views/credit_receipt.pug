@@ -17,25 +17,6 @@ html
 
       hr
 
-      //- p
-      //-   strong Cash Receipt #: 
-      //-   span #{credit._id}
-      //- p
-      //-   strong Date: 
-      //-   span #{credit.dispatchDate || 'DD/MM/YYYY'}
-
-      //- p
-      //-   strong Cash Received From: 
-      //-   span ____________________________________________
-      //- p
-      //-   strong of $: 
-      //-   span ____________________________________________
-      //- p
-      //-   strong For: 
-      //-   span ____________________________________________
-
-      //- hr
-
       table.table-bordered
         thead
           tr
@@ -48,23 +29,17 @@ html
         tbody#items
           each credit in receipt.credits
             tr
-              td #{credit.produceName.produceName}
+              td #{credit.produceName}
               td #{credit.tonnage}
               td #{credit.amountDue}
               td #{credit.buyerName}
-              td #{credit.salesAgent.username}
-              td #{credit.dueDate}
+              td #{credit.salesAgent}
+              td #{moment(credit.dueDate).format('DD-MM-YYYY')}
         
       p.text-right
         strong Total Amount Due: 
         span UGX #{receipt.grandTotal}
-      //- p.text-right
-      //-   strong Amount Received: 
-      //-   span UGX ____________________________
-      //- p.text-right
-      //-   strong Balance Due: 
-      //-   span #{credit.amountDue}
-
+     
       p.text-right
         a.btn-print(href='#' onclick='window.print(); return false;') Print Receipt
       
@@ -75,10 +50,6 @@ html
       hr
 
       p.text-center
-        | Thank you for shopping with us!
-
-      //- footer(style='background-color: #2c3e50; color: #fff; padding: 20px; text-align: center;')
-      //-   div(style='margin-bottom: 10px;')
-      //-     span &copy; 2024 Nakungu Esther. All rights reserved.
+        | Thank you for supporting  us!
 
     script(src='/js/receipt.js')

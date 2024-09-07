@@ -26,6 +26,15 @@ html
             a#showCreditFormBtn(href='#')
               i.fas.fa-credit-card(style='padding-right:15px;')
               | Credit Sales
+
+          li
+              a(href='#')
+                i.fas.fa-chart-bar(style='padding-right: 9px;')
+                | Reports
+          li(style='margin-top: 230px;') 
+            a.btn-back(href='javascript:history.back()')
+              i.fas.fa-arrow-left(style='padding-right:15px;')
+              | Back
     br
     br
     br
@@ -39,13 +48,13 @@ html
             input#buyerName(type='text' name='buyerName')
             small.error#buyerNameError
             label(for='nationalId') National ID (NIN):
-            input#nationalId(type='text' name='nationalId')
+            input#nationalId(type='text' name='nationalid')
             small.error#nationalIdError
             label(for='location') Location:
             input#location(type='text' name='location')
             small.error#locationError
             label(for='contacts') Contacts:
-            input#contacts(type='text' name='contacts')
+            input#contacts(type='text' name='contact')
             small.error#contactsError
             label(for='amountDue') Amount Due (UGX):
             input#amountDue(type='text' name='amountDue')
@@ -68,10 +77,10 @@ html
               option(value='') Select Produce
               option(value='Rice') Rice
               option(value='beans') Beans
-              option(value='Maize') Grain Maize
+              option(value='Maize')  Maize
               option(value='cowpeas') Cowpeas
               option(value='soyabeans') Soyabeans
-              option(value='gnut') G-nuts
+              option(value='Groundnut') Groundnut
             small.error#produceNameError
             label(for='produceType') Type of Produce:
             select#produceType(name='produceType')

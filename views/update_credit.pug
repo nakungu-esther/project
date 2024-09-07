@@ -12,8 +12,7 @@ html
         source(src='/images/202407310754 (1).mp4' type='video/mp4')
     header
       img(src='/images/download (3).png' style='width: 40px; height: 40px; border-radius: 50%;')
-      .manager-profile
-        span.manager-name Welcome, Manager
+      a.btn.back(href='javascript:history.back()', style='margin-right: 50px;') Back
     main
       aside.sidebar
         nav
@@ -21,15 +20,17 @@ html
             li
               a(href='/overView')
                 i.fas.fa-clipboard-list(style='padding-right: 9px;')
-                | Overview
+                | Record Sales
             li
               a(href='/addProcurement')
                 i.fas.fa-file-archive(style='padding-right: 9px;')
-                | Procurements
+                | Credit Sales
             li
               a(href='#')
                 i.fas.fa-chart-bar(style='padding-right: 9px;')
                 | Reports
+
+            
 .form-container
   .form-header
     h1 update Credit Sales Form

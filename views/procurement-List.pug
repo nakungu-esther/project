@@ -6,41 +6,33 @@ html
   body
     header
       img(src='/images/download (3).png', style='width: 40px; height: 40px; border-radius: 50%;')
+      a.btn.back(href='javascript:history.back()', style='margin-right: 50px') Back
     .container
       h2.text-center.mt-5.mb-4 All Procurement
+      h3 Total Procurement Maize: #{maizeTonnage.totalQuatity}
+      h3 Total Selling  Price: #{maizeTonnage.totalSelling}
+      //- h3 Maize in Stock: #{maizeTonnage.totalQuatity - maizeTonnageSell.totalQuatity}
       table.table.table-striped
         thead
           tr
             th(scope='col') Produce Name
-            
             th(scope='col') Type of Produce
-            
-            //- th(scope='col') Procure Date
             th(scope='col') Procure Time
             th(scope='col') Tonnage
-            
             th(scope='col') Cost
-            
             th(scope='col') Dealer Name
-            
             th(scope='col') Branch Name
-            
             th(scope='col') Contact
             th(scope='col') Selling Price
-            th 
-            th
-            th 
-            th
             th(scope='col') Action
+            th 
             th
-            
         tbody
           if procurements.length
             each procurement in procurements
               tr
                 td #{procurement.produceName}
                 td #{procurement.produceType}
-                //- td #{procurement.procureDate}
                 td #{procurement.procureTime}
                 td #{procurement.tonnage}
                 td #{procurement.cost}
@@ -49,17 +41,8 @@ html
                 td #{procurement.contact}
                 td #{procurement.sellingPrice}
                 td
-                td 
-                td 
                 td
-                td 
-                td
-                
-                  a.btn.btn-primary.btn-sm(href='/updateprocurement/' + procurement._id) view
-                
-                  a.btn.btn-danger.btn-sm(href='/debit/' + procurement._id) OnCredit
-                  
-                  a.btn.btn-secondary.btn-sm(href='/sales-form/' +procurement._id) Make Sale
+                  a.btn.btn-primary.btn-sm(href='/updateProcurement/' + procurement._id) View
                   form(method="POST", action='/deleteprocurement')
                     input(type="hidden", name="id", value=procurement._id)
                     button.btn.btn-danger.btn-sm(type="submit") Delete
