@@ -4,61 +4,26 @@ html
     meta(charset='UTF-8')
     meta(name='viewport' content='width=device-width, initial-scale=1.0')
     title Revenue Reports
-    link(rel='stylesheet' href='/css/report.css')
+    link(rel='stylesheet' href='/css/report.css') 
   body
-    .container
-      h2.text-center.mt-5.mb-4 Reports
-      .row
-        .col-md-4.mx-4
-          h4.mb-5 Grains Report
-          .card.card-custom.mx-2.mb-3.mt-3(style='width: 22rem;')
-            .card-body
-              h6 Quantity in Stock: #{grainsReport.quantityInStock}
-              h6 Total Expense: #{grainsReport.totalExpense}
-              h6 Projected Revenue: #{grainsReport.projectedRevenue}
-              h6 Projected Profits: #{grainsReport.projectedProfits}
-              p.card-text
-        .col-md-4.mx-4
-          h4.mb-5 Legumes Report
-          .card.card-custom.mx-2.mb-3.mt-3(style='width: 22rem;')
-            .card-body
-              h6 Quantity in Stock: #{legumesReport.quantityInStock}
-              h6 Total Expense: #{legumesReport.totalExpense}
-              h6 Projected Revenue: #{legumesReport.projectedRevenue}
-              h6 Projected Profits: #{legumesReport.projectedProfits}
-              p.card-text
-        .col-md-4.mx-4
-          h4.mb-5 Cereals Report
-          .card.card-custom.mx-2.mb-3.mt-3(style='width: 22rem;')
-            .card-body
-              h6 Quantity in Stock: #{cerealsReport.quantityInStock}
-              h6 Total Expense: #{cerealsReport.totalExpense}
-              h6 Projected Revenue: #{cerealsReport.projectedRevenue}
-              h6 Projected Profits: #{cerealsReport.projectedProfits}
-              p.card-text
-      .form-row
-        .col.form-group.col-md-12
-          br
-          form.search(action='/reports' method='POST')
-            .form-row
-              .col-md-8
-                select.form-control(name='searchProduce')
-                  option(value='') (Select produce)
-                  option(value='Beans') Beans
-                  option(value='Maize') Maize
-                  option(value='Cowpeas') Cowpeas
-                  option(value='Rice') Rice
-                  option(value='Soyabeans') Soya Beans
-              .col-md-4
-                input.btn.btn-primary.btn-block(type='submit' value='Search')
-      table.table.table-striped
-        thead
+    h1 Revenue Report
+
+    table.table
+      thead
+        tr
+          th Produce Name
+          th Total Tonnage
+          th Total Cost (UGX)
+          th Total Selling Price (UGX)
+          th Projected Revenue (UGX)
+      tbody
+        each item in procurements
           tr
-            th(scope='col') Produce Name
-            th(scope='col') Tonnage (Kg)
-            th(scope='col') Produce cost per Kg (UGX)
-            th(scope='col') Revenue Projected (UGX)
-            th(scope='col') Profits Projected (UGX)
-        tbody
-          // Your dynamic data will be rendered here
-    script(src='path/to/bootstrap.js')
+            td= item._id
+            td= item.totaltonnage
+            td= item.totalCost.toLocaleString('en-US', { style: 'currency', currency: 'UGX' })
+            td= item.totalSellingPrice.toLocaleString('en-US', { style: 'currency', currency: 'UGX' })
+            td= item.projectedRevenue.toLocaleString('en-US', { style: 'currency', currency: 'UGX' })
+
+    // Optional: Add a button or link to export the report or go back
+    a.btn.btn-primary(href='/') Back to Dashboard

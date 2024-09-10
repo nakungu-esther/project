@@ -1,21 +1,27 @@
 doctype html
 html
-if user.role === "sales_agent"
+if user.role === "sales_agent" 
   head
     meta(charset='UTF-8')
     meta(name='viewport' content='width=device-width, initial-scale=1.0')
     title Produce Sales Form
     link(rel='stylesheet' href='/css/sales.css')
     link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css')
+
   body
     .video-container(style='height: 600px;')
       video(autoplay muted loop)
         source(src='/images/202407310754 (1).mp4' type='video/mp4')
+
     header
       img(style='width: 40px; height: 40px; border-radius: 50%;' src='/images/download (3).png')
       .agent-profile
-        span.agent-name Welcome, Sales Agent
+        if user.role === 'sales_agent'
+          span.agent-name Welcome, Sales Agent
+        else if user.role === 'manager'
+          span.agent-name Welcome, Manager
         a(href='/') Logout
+
     aside.sidebar
       nav
         ul
@@ -23,39 +29,47 @@ if user.role === "sales_agent"
             a#showSalesFormBtn(href='#')
               i.fas.fa-shopping-cart(style='padding-right:15px;')
               | Record Sales
-          li
-            a#showCreditFormBtn(href='/debit')
-              i.fas.fa-credit-card(style='padding-right:15px;')
-              | Credit Sales
+          // Show credit option only to sales agents, not managers
+          if user.role === 'sales_agent'
+            li
+              a#showCreditFormBtn(href='/debit')
+                i.fas.fa-credit-card(style='padding-right:15px;')
+                | Credit Sales
+
     br
     br
     br
+
     form#Form(action='/sales-form' method='POST' name='sale' onsubmit='return validateSaleForm()')
       h1 Sales Form
       .form-container
         .form-group
           label(for='produceName') Name of Produce:
           select#produceName(name='producename' type='text' style='width: 250px')
-           option(value='') Select
-           option(value='Beans') Beans
-           option(value='Rice') Rice
-           option(value='Maize') Maize
-           option(value='Cowpeas') Cowpeas
-           option(value='Soyapeas') Soyapeas
-           option(value='Groundnut') Groundnut
+            option(value='') Select
+            option(value='Beans') Beans
+            option(value='Rice') Rice
+            option(value='Maize') Maize
+            option(value='Cowpeas') Cowpeas
+            option(value='Soyapeas') Soyapeas
+            option(value='Groundnut') Groundnut
           small.error#produceNameError
+
         .form-group
           label(for='tonnage') Tonnage (kgs):
           input#tonnage(type='number' name='tonnage')
           small.error#tonnageError
+
         .form-group
           label(for='amountPaid') Amount Paid (UGX per kg):
           input#amountPaid(type='text' name='amountPaid')
           small.error#amountPaidError
+
         .form-group
           label(for='buyerName') Buyer's Name:
           input#buyerName(type='text' name='buyerName')
           small.error#buyerNameError
+
         .form-group
           label(for='salesAgentName') Sales Agent's Name:
           select#salesAgent.form-control(name='salesAgent' type='text' style='width: 250px')
@@ -65,17 +79,22 @@ if user.role === "sales_agent"
             else
               option(value='') No agents available
           small.error#salesAgentError
+
         .form-group
           label(for='dateTime') Date and Time:
           input#dateTime(type='datetime-local' name='dateTime' style='width: 250px;')
           small.error#dateTimeError
+
         .form-group
           label(for='totalpayment') Total Payment:
           input#totalpayment(type='number' name='Totalpayment')
           small.error#totalpaymentError
+
         button(type='submit') Add sales
         //-  button(type='button' onclick='clearForm()') Reset
+
     footer(style='background-color: #2c3e50; color: #fff; padding: 20px; text-align: center; margin-top: 0%;')
       div(style='margin-bottom: 10px;')
         span &copy; 2024 Nakungu Esther. All rights reserved.
+
     script(src='/js/sales.js')

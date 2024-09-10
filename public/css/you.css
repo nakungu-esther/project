@@ -98,3 +98,20 @@ body {
 .footer{
   position: fixed;
 }
+
+input, select {
+  border: 1px solid grey; /* Grey border before entering */
+}
+
+input:focus, select:focus {
+  border-color: red; /* Red border when entering */
+}
+
+input.valid, select.valid {
+  border-color: green; /* Green border when valid */
+}
+
+input.invalid, select.invalid {
+  border-color: red; /* Red border when invalid */
+}
+

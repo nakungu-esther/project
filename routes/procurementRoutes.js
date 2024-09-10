@@ -14,7 +14,7 @@ router.get("/addProcurement", (req, res) => {
 });
 //let availableTonnage = totalProcurement - (totalCash + totalCredit)
 // POST request handler for registration
-router.post("/addProcurement", async (req, res) => {
+router.post("/addProcurement", connectEnsureLogin.ensureLoggedIn(),  async (req, res) => {
   try {
     const newProcurement = new Procurement(req.body);
     console.log("This is the data being sent to the DB:", newProcurement);
@@ -34,13 +34,70 @@ router.get("/cropProcurementList",  connectEnsureLogin.ensureLoggedIn(), async (
 
     let totalMaize = await Procurement.aggregate([
       {$match: {produceName: "Maize"}},
-      {$group: {_id: "$all", totalQuatity: {$sum: "$tonnage"}, totalSelling:{$sum: "$sellingPrice"}
+      {$group: {_id: "$all", totalQuatity: {$sum: "$tonnage"}, 
+      }}
+    ])
+    let totalRice = await Procurement.aggregate([
+      {$match: {produceName: "Rice"}},
+      {$group: {_id: "$all", totalQuatity: {$sum: "$tonnage"}, 
+      }}
+    ])
+    let totalBeans = await Procurement.aggregate([
+      {$match: {produceName: "Beans"}},
+      {$group: {_id: "$all", totalQuatity: {$sum: "$tonnage"}, 
+      }}
+    ])
+    let totalCowpeas = await Procurement.aggregate([
+      {$match: {produceName: "Cowpeas"}},
+      {$group: {_id: "$all", totalQuatity: {$sum: "$tonnage"}, 
+      }}
+    ])
+    let totalSoyapeas = await Procurement.aggregate([
+      {$match: {produceName: "Soyapeas"}},
+      {$group: {_id: "$all", totalQuatity: {$sum: "$tonnage"}, 
+      }}
+    ])
+    let totalGroundnut = await Procurement.aggregate([
+      {$match: {produceName: "Groundnut"}},
+      {$group: {_id: "$all", totalQuatity: {$sum: "$tonnage"}, 
       }}
     ])
     
 
+    
+
     let totalMaizeSell = await Sale.aggregate([
       {$match: {producename: "Maize"}},
+      {$group: {_id: "$all", totalQuatity: {$sum: "$tonnage"},
+      }}
+    ])
+    
+    let totalRiceSell = await Sale.aggregate([
+      {$match: {producename: "Rice"}},
+      {$group: {_id: "$all", totalQuatity: {$sum: "$tonnage"},
+      }}
+    ])
+    
+    let totalBeansSell = await Sale.aggregate([
+      {$match: {producename: "Beans"}},
+      {$group: {_id: "$all", totalQuatity: {$sum: "$tonnage"},
+      }}
+    ])
+    
+    let totalCowpeasSell = await Sale.aggregate([
+      {$match: {producename: "Cowpeas"}},
+      {$group: {_id: "$all", totalQuatity: {$sum: "$tonnage"},
+      }}
+    ])
+    
+    let totalSoyapeasSell = await Sale.aggregate([
+      {$match: {producename: "Soyapeas"}},
+      {$group: {_id: "$all", totalQuatity: {$sum: "$tonnage"},
+      }}
+    ])
+    
+    let totalGroundnutSell = await Sale.aggregate([
+      {$match: {producename: "Groungnut"}},
       {$group: {_id: "$all", totalQuatity: {$sum: "$tonnage"},
       }}
     ])
@@ -52,6 +109,17 @@ router.get("/cropProcurementList",  connectEnsureLogin.ensureLoggedIn(), async (
       procurements: procurements,
       maizeTonnage: totalMaize[0],
       maizeTonnageSell: totalMaizeSell[0],
+      riceTonnage: totalRice[0],
+      riceTonnageSell: totalRiceSell[0],
+      beanTonnage: totalBeans[0],
+      beanTonnageSell: totalBeansSell[0],
+      cowpeasTonnage: totalCowpeas[0],
+      coepeasTonnageSell: totalCowpeasSell[0],
+      soyapeasTonnage: totalSoyapeas[0],
+      sayapeasTonnageSell: totalSoyapeasSell[0],
+      groundnutTonnage: totalGroundnut[0],
+      groundnutTonnageSell: totalGroundnutSell[0],
+
     });
   } catch (error) {
     res.status(400).send("Unable to find items in the database");

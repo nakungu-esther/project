@@ -22,7 +22,7 @@ main
         li
           a(href='/addProcurement')
             i.fas.fa-file-archive(style='padding-right:9px;')
-            | Procuments
+            | Procurements
         li
           a(href='/reports')
             i.fas.fa-chart-bar(style='padding-right:9px;')
@@ -35,12 +35,12 @@ main
           a(href='/sales-form')
             i.fas.fa-shopping-cart(style='padding-right:9px;')
             | Record Sales   
-.dashboard(action='/overView' method='POST')
+.dashboard
   h1 Manager Dashboard Overview
   .overview-row
     .card
       h2 Total Credit
-      p#total-credit UGX #{totalCredit}
+      p#total-credit  #{totalCredit}
     .card
       h2 Total Sales
       p#total-sales #{totalSales}
@@ -55,9 +55,70 @@ main
     .chart-container
       h2 Sales Distribution
       canvas#sales-distribution-chart
+
 footer(style='background-color: #2c3e50; color: #fff; padding: 20px; text-align: center;')
   div(style='margin-bottom: 10px;')
     span &copy; 2024 Nakungu Esther. All rights reserved.
-// Include Chart.js
+
 script(src='https://cdn.jsdelivr.net/npm/chart.js')
 script(src='/js/mine.js')
+
+script.
+  // Pass data from the server to the frontend
+  const procurementData = !{JSON.stringify(procurementData)};
+  const salesData = !{JSON.stringify(salesData)};
+
+  // Procurement Chart (Bar Chart)
+  const ctxProcurement = document.getElementById('procurement-trends-chart').getContext('2d');
+  const procurementLabels = procurementData.map(item => item._id); // Produce names
+  const procurementTonnage = procurementData.map(item => item.totalTonnage); // Total tonnage
+
+  new Chart(ctxProcurement, {
+    type: 'bar',
+    data: {
+      labels: procurementLabels,
+      datasets: [{
+        label: 'Total Tonnage',
+        data: procurementTonnage,
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: { beginAtZero: true }
+      }
+    }
+  });
+
+  // Sales Chart (Pie Chart)
+  const ctxSales = document.getElementById('sales-distribution-chart').getContext('2d');
+  const salesLabels = salesData.map(item => item._id); // Produce names for sales
+  const salesTonnage = salesData.map(item => item.totalSales); // Total sales
+
+  new Chart(ctxSales, {
+    type: 'pie',
+    data: {
+      labels: salesLabels,
+      datasets: [{
+        label: 'Total Sales',
+        data: salesTonnage,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)'
+        ],
+        borderWidth: 1
+      }]
+    }
+  });

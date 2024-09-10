@@ -1,46 +1,82 @@
 doctype html
-head
-  meta(charset='UTF-8')
-  meta(name='viewport' content='width=device-width, initial-scale=1.0')
-  title Happy Hoe Grocery - Register
-  link(href='https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.1/css/boxicons.min.css' rel='stylesheet')
-  link(rel='stylesheet' href='/css/you.css')
-  link(rel='stylesheet' href='/bootstrap5/css/bootstrap.css')
-header
-  p
-    | Go back to 
-    a(href='index.html') Home Page
-main.form-section
-  h1 Register
-  form#register-form(onsubmit='submitForm()' action="/addUser" method="POST")
-    label(for='username') Username:
-    input#username(type='text' name='username')
-    label(for='email') Email
-    input#email(type='email' name='email')
-    label(for='password') Password
-    input#password(type='password' name='password')
-    label(for='corfirmpassword') Corfirm Password
-    input#corfirmpassword(type='password' name='corfirmpassword')
-    label(for='branch') Branch
-    select#branch(name='branch')
-      option(value="") choose
-      option(value='both') bothBranches
-      option(value='matuga') Matuga
-      option(value='maganjo') Maganjo
-    label(for='role') Role
-    select#role(name='role')
-      option(value="") choose
-      option(value='manager') Manager
-      option(value='sales_agent') Sales Agent
-      option(value='administrator') Administrator
-    input#form.btn.btn-primary.custom-button(type='submit' value='register')
-    p
-      | Already have an account? 
-      a(href='/login') Login here
-footer(style='background-color: #2c3e50; color: #fff; padding: 10px; text-align: center;')
-  div(style='margin-bottom: 10px;')
-  div(style='margin-bottom: 10px;')
-    span &copy; 2024 Happy Hoe Grocery Ltd. All rights reserved.
-  div
-    span Developed by Nakungu Esther
-script(src='/js/main.js')
+html
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    title Happy Hoe Grocery - Register
+    link(href='https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.1/css/boxicons.min.css' rel='stylesheet')
+    link(rel='stylesheet' href='/css/you.css')
+    link(rel='stylesheet' href='/bootstrap5/css/bootstrap.css')
+    style.
+      input, select {
+        border: 1px solid grey; /* Grey border before entering */
+      }
+      input:focus, select:focus {
+        border-color: red; /* Red border when entering */
+      }
+      input.valid, select.valid {
+        border-color: green; /* Green border when valid */
+      }
+      input.invalid, select.invalid {
+        border-color: red; /* Red border when invalid */
+      }
+  body
+    header
+      p
+        | Go back to 
+        a(href='index.html') Home Page
+    main.form-section
+      h1 Register
+      form#register-form(onsubmit='submitForm()' action="/addUser" method="POST")
+        label(for='username') Username:
+        input#username(type='text' name='username')
+        label(for='email') Email
+        input#email(type='email' name='email')
+        label(for='password') Password
+        input#password(type='password' name='password')
+        label(for='corfirmpassword') Confirm Password
+        input#corfirmpassword(type='password' name='corfirmpassword')
+        label(for='branch') Branch
+        select#branch(name='branch')
+          option(value="") choose
+          option(value='both') bothBranches
+          option(value='matuga') Matuga
+          option(value='maganjo') Maganjo
+        label(for='role') Role
+        select#role(name='role')
+          option(value="") choose
+          option(value='manager') Manager
+          option(value='sales_agent') Sales Agent
+          option(value='administrator') Administrator
+        input#form.btn.btn-primary.custom-button(type='submit' value='register')
+        p
+          | Already have an account? 
+          a(href='/login') Login here
+    footer(style='background-color: #2c3e50; color: #fff; padding: 10px; text-align: center;')
+      div(style='margin-bottom: 10px;')
+      div(style='margin-bottom: 10px;')
+        span &copy; 2024 Happy Hoe Grocery Ltd. All rights reserved.
+      div
+        span Developed by Nakungu Esther
+  
+    script.
+      document.addEventListener("DOMContentLoaded", function() {
+        const form = document.getElementById('register-form');
+        
+        form.addEventListener('input', function(e) {
+          const target = e.target;
+          if (target.id === 'username' || target.id === 'email' || target.id === 'password' || target.id === 'corfirmpassword' || target.id === 'branch' || target.id === 'role') {
+            validateInput(target);
+          }
+        });
+
+        function validateInput(input) {
+          if (input.value.trim() === '') {
+            input.classList.remove('valid');
+            input.classList.add('invalid');
+          } else {
+            input.classList.remove('invalid');
+            input.classList.add('valid');
+          }
+        }
+      });

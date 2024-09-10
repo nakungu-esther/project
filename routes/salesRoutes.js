@@ -43,21 +43,28 @@ const Signup = require("../models/signup");
 //Route to display sales form
 router.get('/sales-form', connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
   try {
+    // Retrieve procurements and agents
     const procurements = await Procurement.find();
     const agents = await Signup.find({ role: 'sales_agent' });
 
-    // Log retrieved data
+    // Log retrieved data for debugging
     console.log("Procurements:", procurements);
     console.log("Agents:", agents);
 
-    res.render('agent', { procurements, agents,
-    user: req.user
-  });
+    // Check if the user is either a sales agent or manager
+    if (req.user.role === 'sales_agent' || req.user.role === 'manager') {
+      // Render the sales form and pass the user role
+      res.render('agent', { procurements, agents, user: req.user, isManager: req.user.role === 'manager' });
+    } else {
+      // If the user is not authorized, send a 403 Forbidden response
+      res.status(403).send('Access Forbidden');
+    }
   } catch (err) {
     console.error('Error fetching procurements or agents:', err);
     res.status(500).send('Server Error');
   }
 });
+
 router.post('/sales-form', connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
   try {
     const { producename, tonnage, amountPaid, buyerName, dateTime, Totalpayment, salesAgent } = req.body;
@@ -182,72 +189,40 @@ router.post("/deleteSales", async (req, res) => {
 
 // For managers only
 // For managers only
-router.get("/reports", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
-  req.session.user = req.user;
-  if (req.user.role === 'manager') {
-    try {
-      let selectedProduce;
-      if (req.query.searchProduce) selectedProduce = req.query.searchProduce;
 
-      // Query for returning all tonnage and revenue of a produce
-      let items = await Procurement.find({ produceName: selectedProduce });
-
-      let totalGrains = await Procurement.aggregate([
-        { $match: { produceType: 'Grain' } },
-        { $group: { _id: "$all",
-          stockQuantity: { $sum: "$tonnage" },
-          totalExpense: { $sum: "$totalCost" },
-          totalProjectedRevenue: { $sum: { $multiply: ["$sellingPrice", "$tonnage"] } },
-        } }
+// Route to generate the report
+// Route to generate the report
+router.get('/reports', connectEnsureLogin.ensureLoggedIn(),  async (req, res) => {
+  try {
+      // Fetch and aggregate data from the Procurement model
+      const procurements = await Procurement.aggregate([
+          {
+              $group: {
+                  _id: '$produceName',
+                  totaltonnage: { $sum: '$tonnage' },
+                  totalCost: { $sum: '$cost' },
+                  totalSellingPrice: { $sum: '$sellingPrice' }
+              }
+          },
+          {
+              $addFields: {
+                  totalExpense: '$totalCost',
+                  projectedRevenue: {
+                      $subtract: ['$totalSellingPrice', '$totalCost']
+                  }
+              }
+          }
       ]);
 
-      let totalLegumes = await Procurement.aggregate([
-        { $match: { produceType: 'Legume' } },
-        { $group: { _id: "$all",
-          stockQuantity: { $sum: "$tonnage" },
-          totalExpense: { $sum: "$totalCost" },
-          totalProjectedRevenue: { $sum: { $multiply: ["$sellingPrice", "$tonnage"] } },
-        } }
-      ]);
-
-      let totalCereals = await Procurement.aggregate([
-        { $match: { produceType: 'Cereal' } },
-        { $group: { _id: "$all",
-          stockQuantity: { $sum: "$tonnage" },
-          totalExpense: { $sum: "$totalCost" },
-          totalProjectedRevenue: { $sum: { $multiply: ["$sellingPrice", "$tonnage"] } },
-        } }
-      ]);
-
-      let totalCrop = await Procurement.aggregate([
-        { $match: { produceName: selectedProduce } },
-        { $group: { _id: "$produceName",
-          stockQuantity: { $sum: "$tonnage" },
-          totalExpense: { $sum: "$totalCost" },
-          totalProjectedRevenue: { $sum: { $multiply: ["$sellingPrice", "$tonnage"] } },
-        } }
-      ]);
-
-      res.render("reports", {
-        title: 'Revenue Reports',
-        produces: items,
-        totalgrains: totalGrains[0] || {},
-        totallegumes: totalLegumes[0] || {},
-        totalCereals: totalCereals[0] || {},
-        totalcrop: totalCrop[0] || {},
-      });
-    } catch (error) {
-      res.status(400).send("Unable to find items in the database");
-      console.log(error);
-    }
-  } else {
-    res.send("This page is only accessed by managers");
+      // Render the report page with the fetched data
+      res.render('reports', { procurements,
+        user: req.user
+       });
+  } catch (error) {
+      console.error('Error generating report:', error);
+      res.status(500).send('Server Error');
   }
 });
-
-
-module.exports = router;
-
 
 // Route to display a specific receipt
 

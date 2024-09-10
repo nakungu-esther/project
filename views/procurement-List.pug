@@ -9,9 +9,23 @@ html
       a.btn.back(href='javascript:history.back()', style='margin-right: 50px') Back
     .container
       h2.text-center.mt-5.mb-4 All Procurement
-      h3 Total Procurement Maize: #{maizeTonnage.totalQuatity}
-      h3 Total Selling  Price: #{maizeTonnage.totalSelling}
-      //- h3 Maize in Stock: #{maizeTonnage.totalQuatity - maizeTonnageSell.totalQuatity}
+
+      //- Column layout for Total Procurement using Bootstrap
+      .col
+        .col-md-4
+          h3 Total Procurement Maize: #{maizeTonnage.totalQuatity}
+        .col-md-4
+          h3 Total Procurement Beans: #{beanTonnage.totalQuatity}
+        .col-md-4
+          h3 Total Procurement Rice: #{riceTonnage.totalQuatity}
+      .col
+        .col-md-4
+          h3 Total Procurement Cowpeas: #{cowpeasTonnage.totalQuatity}
+        .col-md-4
+          h3 Total Procurement Soyapeas: #{soyapeasTonnage.totalQuatity}
+        .col-md-4
+          h3 Total Procurement Groundnut: #{groundnutTonnage.totalQuatity}
+
       table.table.table-striped
         thead
           tr
@@ -49,6 +63,7 @@ html
           else
             tr
               td(colspan="10", class="text-center") No produce yet :(
+
     footer(style='background-color: #2c3e50; color: #fff; padding: 20px; text-align: center; margin-top: 20px;')
       div(style='margin-bottom: 10px;')
         span &copy; 2024 Nakungu Esther. All rights reserved.

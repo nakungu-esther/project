@@ -26,74 +26,73 @@ html
             a#showCreditFormBtn(href='#')
               i.fas.fa-credit-card(style='padding-right:15px;')
               | Credit Sales
-
-          li
-              a(href='#')
-                i.fas.fa-chart-bar(style='padding-right: 9px;')
-                | Reports
+          
           li(style='margin-top: 230px;') 
             a.btn-back(href='javascript:history.back()')
               i.fas.fa-arrow-left(style='padding-right:15px;')
               | Back
-    br
-    br
-    br
-    form#creditForm(name='salesForm' onsubmit='return validateCreditForm()' action=`/debit/${produce ? procurement._id : ''}` method='POST')
+
+    // Display eligibility error message if applicable
+    if errorMessage
+      .alert.alert-danger
+        | #{errorMessage}
+
+    form#creditForm(name='salesForm' onsubmit='return validateCreditForm()' action='/debit' method='POST')
       .form-container
         .form-header
           h1 Credit Sales Form
         .form-row
           .form-column
             label(for='buyerName') Buyer Name:
-            input#buyerName(type='text' name='buyerName')
+            input#buyerName(type='text' name='buyerName' required)
             small.error#buyerNameError
             label(for='nationalId') National ID (NIN):
-            input#nationalId(type='text' name='nationalid')
+            input#nationalId(type='text' name='nationalId' required)
             small.error#nationalIdError
             label(for='location') Location:
-            input#location(type='text' name='location')
+            input#location(type='text' name='location' required)
             small.error#locationError
             label(for='contacts') Contacts:
-            input#contacts(type='text' name='contact')
+            input#contacts(type='text' name='contacts' required)
             small.error#contactsError
             label(for='amountDue') Amount Due (UGX):
-            input#amountDue(type='text' name='amountDue')
+            input#amountDue(type='text' name='amountDue' required)
             small.error#amountDueError
             label(for='salesAgent') Sales Agent Name:
-            input#salesAgent(type='text' name='salesAgent')
+            input#salesAgent(type='text' name='salesAgent' required)
             small.error#salesAgentError
           .form-column
             label(for='dueDate') Due Date:
-            input#dueDate(type='date' name='dueDate')
+            input#dueDate(type='date' name='dueDate' required)
             small.error#dueDateError
             label(for='branch') Branch Name:
-            select#branch(name='branch')
+            select#branch(name='branch' required)
               option(value='') Select Branch
               option(value='Maganjo') Maganjo
               option(value='Matugga') Matugga
             small.error#branchError
             label(for='produceName') Produce Name:
-            select#produceName(name='produceName')
+            select#produceName(name='produceName' required)
               option(value='') Select Produce
               option(value='Rice') Rice
-              option(value='beans') Beans
-              option(value='Maize')  Maize
-              option(value='cowpeas') Cowpeas
-              option(value='soyabeans') Soyabeans
+              option(value='Beans') Beans
+              option(value='Maize') Maize
+              option(value='Cowpeas') Cowpeas
+              option(value='Soyabeans') Soyabeans
               option(value='Groundnut') Groundnut
             small.error#produceNameError
             label(for='produceType') Type of Produce:
-            select#produceType(name='produceType')
+            select#produceType(name='produceType' required)
               option(value='') Select
               option(value='Grain') Grains
               option(value='Cereals') Cereals
               option(value='Legume') Legumes
             small.error#produceTypeError
             label(for='tonnage') Tonnage:
-            input#tonnage(type='number' name='tonnage')
+            input#tonnage(type='number' name='tonnage' required)
             small.error#tonnageError
             label(for='dispatchDate') Date of Dispatch:
-            input#dispatchDate(type='date' name='dispatchdate')
+            input#dispatchDate(type='date' name='dispatchDate' required)
             small.error#dispatchDateError
         .form-actions
           button(type='submit') Submit
