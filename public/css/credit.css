@@ -40,8 +40,13 @@ header .agent-profile .agent-name {
    
 }
 
+.overdue {
+  background-color: red;
+  color: white; /* Optional: change text color */
+}
 
-.btn-back {
+
+a.btn.back {
   display: inline-block;
   padding: 10px 20px;
   background-color: hsl(10, 91%, 51%);
@@ -51,9 +56,23 @@ header .agent-profile .agent-name {
   margin-left: 20px;
 }
 
-.btn-back:hover {
-  background-color: #30b300;
+a.btn.back:hover {
+  background-color:  #30b300; /* Darker blue background on hover */
+  color: #ecf0f1; /* Light text color on hover */
+  border-color:  #30b300; /* Even darker blue border on hover */
 }
+
+a.btn.back:active {
+  background-color: #1c6ea4; /* Even darker blue when button is pressed */
+  border-color: #1a5276; /* Darker border when button is pressed */
+}
+
+/* Adjust margin if needed */
+a.btn.back {
+  margin-right: 20px; /* Space between the button and other elements */
+}
+
+
 
   
 
@@ -73,7 +92,7 @@ header .agent-profile a:hover {
 }
 
 .sidebar {
-    width: 250px;
+    width: 2o0px;
     background-color: #34495e;
     height: 100vh;
     position: fixed;
@@ -201,7 +220,7 @@ input:invalid, select:invalid {
 }
 
 input:valid, select:valid {
-  border-color: green; /* Green border for valid fields */
+  border-color: hsl(134, 95%, 50%); /* Green border for valid fields */
 }
 
   

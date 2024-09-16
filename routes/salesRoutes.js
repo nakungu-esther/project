@@ -110,7 +110,7 @@ router.post('/sales-form', connectEnsureLogin.ensureLoggedIn(), async (req, res)
     });
 
     // Redirect or send populated sale
-    res.redirect("/salesList");
+    res.redirect("/sales-form");
   } catch (error) {
     console.error("Error processing sale:", error.message);
     res.status(500).send("Internal server error");

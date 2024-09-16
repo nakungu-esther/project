@@ -2,9 +2,27 @@
 function validateSaleForm() {
   let isValid = true;
 
-  // Clear previous error messages
+    // Automatically set current date and time for the "Date and Time" field
+    const dateTimeInput = document.getElementById('dateTime');
+    const now = new Date();
+    
+    // Format the date and time to match the `datetime-local` input format
+    const formattedDateTime = now.toISOString().slice(0, 16);
+    dateTimeInput.value = formattedDateTime;
+    
+    // Form validation function (if you already have one)
+    document.getElementById('Form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        // Add validation and form submission logic here, if necessary
+        const formData = new FormData(this);
+        // Proceed with form submission logic or validation
+    });
+
+  // Clear previous error messages and success message
   document.querySelectorAll('small.error').forEach(el => el.textContent = '');
-  document.querySelectorAll('small.success').forEach(el => el.textContent = '');
+  const successMessage = document.querySelector('small.success');
+  if (successMessage) successMessage.remove();
 
   // Get form values
   const produceName = document.getElementById('produceName').value;
@@ -57,12 +75,12 @@ function validateSaleForm() {
     isValid = false;
   }
 
-  // Display success message if the form is valid
+  // If form is valid, display success message
   if (isValid) {
-    document.querySelector('form').insertAdjacentHTML('beforeend', '<small class="success">Form submitted successfully!</small>');
+    document.getElementById('Form').insertAdjacentHTML('beforeend', '<small class="success" style="color:green;">Form submitted successfully!</small>');
   }
 
-  return isValid;
+  return isValid; // Return the form's validity status
 }
 
 // Function to clear the form fields
@@ -71,7 +89,8 @@ function clearForm() {
 
   // Clear any error or success messages
   document.querySelectorAll('small.error').forEach(el => el.textContent = '');
-  document.querySelectorAll('small.success').forEach(el => el.textContent = '');
+  const successMessage = document.querySelector('small.success');
+  if (successMessage) successMessage.remove();
 }
 
 // Function to update the total payment automatically

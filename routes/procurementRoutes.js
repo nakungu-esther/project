@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const connectEnsureLogin = require("connect-ensure-login");
+const Signup = require('../models/signup');
 
 const Procurement = require('../models/procurement'); // Ensure correct capitalization
 const Sale = require('../models/sale');
@@ -19,7 +20,7 @@ router.post("/addProcurement", connectEnsureLogin.ensureLoggedIn(),  async (req,
     const newProcurement = new Procurement(req.body);
     console.log("This is the data being sent to the DB:", newProcurement);
     await newProcurement.save();
-    res.redirect("/cropProcurementList");
+    res.redirect("/addProcurement");
   } catch (error) {
     console.error("Error registering the crops:", error);
     res.status(400).send("An error occurred while registering the crop.");
@@ -128,15 +129,24 @@ router.get("/cropProcurementList",  connectEnsureLogin.ensureLoggedIn(), async (
 
 
 // get produce update form
-router.get("/updateProcurement/:id",  connectEnsureLogin.ensureLoggedIn(),  async (req, res) => {
+
+
+router.get("/updateProcurement/:id", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
   try {
-    const  procurement = await Procurement.findOne({ _id: req.params.id });
+    const procurement = await Procurement.findById(req.params.id);
+    
+    if (!procurement) {
+      return res.status(404).send("Procurement not found");
+    }
+
     const manager = await Signup.find({ role: 'manager' });
-    res.render("Update_procurement",  {
+    
+    res.render("Update_procurement", {
       title: "Update procurement",
-      procurement:  procurement,
+      procurement: procurement,
     });
   } catch (err) {
+    console.error(err);  // Log error for debugging
     res.status(400).send("Unable to find item in the database");
   }
 });

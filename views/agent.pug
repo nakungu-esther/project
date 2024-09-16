@@ -1,6 +1,5 @@
 doctype html
 html
-if user.role === "sales_agent" 
   head
     meta(charset='UTF-8')
     meta(name='viewport' content='width=device-width, initial-scale=1.0')
@@ -35,6 +34,14 @@ if user.role === "sales_agent"
               a#showCreditFormBtn(href='/debit')
                 i.fas.fa-credit-card(style='padding-right:15px;')
                 | Credit Sales
+            li
+              a#showCreditFormBtn(href='/salesList')
+                i.fas.fa-credit-card(style='padding-right:15px;')
+                |  Sales List
+            li
+              a#showCreditFormBtn(href='/mylist')
+                i.fas.fa-credit-card(style='padding-right:15px;')
+                | Credit List
 
     br
     br

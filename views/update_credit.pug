@@ -21,14 +21,16 @@ html
               a(href='/overView')
                 i.fas.fa-clipboard-list(style='padding-right: 9px;')
                 | Record Sales
+            
             li
               a(href='/addProcurement')
                 i.fas.fa-file-archive(style='padding-right: 9px;')
                 | Credit Sales
             li
-              a(href='#')
-                i.fas.fa-chart-bar(style='padding-right: 9px;')
-                | Reports
+              a#showCreditFormBtn(href='/mylist')
+                i.fas.fa-credit-card(style='padding-right:15px;')
+                | Credit List
+            
 
             
 .form-container

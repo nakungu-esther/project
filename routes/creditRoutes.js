@@ -12,10 +12,10 @@ router.get('/debit', (req, res) => {
   res.render('credit', { title: "Sales", user: req.user });
 });
 
-// Check if the buyer is trusted
-const checkTrustedBuyer = async (buyerName) => {
+// Check if the buyer is eligible for credit
+const checkBuyerEligibility = async (buyerName) => {
   try {
-    console.log('Checking trusted buyer for:', buyerName);
+    console.log('Checking buyer eligibility for:', buyerName);
 
     // Sum the total tonnage of sales for the buyer
     const totalPurchased = await Sale.aggregate([
@@ -26,48 +26,21 @@ const checkTrustedBuyer = async (buyerName) => {
     const totalTonnage = totalPurchased.length ? totalPurchased[0].totalTonnage : 0;
     console.log('Total tonnage purchased:', totalTonnage);
 
-    // Fetch all credits for the buyer by name
-    const buyerCredits = await Credit.find({ buyerName });
-    console.log('Buyer credits:', buyerCredits);
-
-    // Determine if this is the buyer's first credit request
-    const isFirstTimeCredit = buyerCredits.length === 0;
-    console.log('Is first-time credit:', isFirstTimeCredit);
-
-    // First-time credit eligibility
-    if (isFirstTimeCredit) {
-      if (totalPurchased[0].totalTonnage >= 10) { // Example threshold of 10 tons
-        console.log('First-time buyer eligible for credit');
-        return true;
-      } else {
-        console.log('First-time buyer not eligible for credit');
-        return false;
-      }
-    }
-
-    // Returning buyer eligibility check
-    const hasGoodHistory = buyerCredits.every(credit => credit.status === 'paid');
-    const totalCreditTransactions = buyerCredits.length;
-    const creditLimit = 5;
-
-    if (hasGoodHistory && totalTonnage >= 10 && totalCreditTransactions < creditLimit) {
-      console.log('Returning buyer eligible for credit');
-      return true;
-    } else {
-      console.log('Returning buyer not eligible for credit');
-      return false;
-    }
+    // Check if the buyer has purchased 10 or more tons and the total tonnage is at least 1000 tons
+    return totalTonnage >= 1000 && totalTonnage >= 10;
   } catch (error) {
-    console.error("Error checking buyer trust status:", error);
-    throw new Error("Unable to verify buyer credit history");
+    console.error("Error checking buyer eligibility:", error);
+    throw new Error("Unable to verify buyer eligibility");
   }
 };
 
 // Handle credit requests
 router.post('/debit', async (req, res) => {
-  const { buyerName, produceName, tonnage } = req.body;
+  console.log(req.body); // Debugging: log the request body
 
-  if (!buyerName || !produceName || !tonnage) {
+  const { buyerName, produceName, tonnage, nationalid, contact } = req.body;
+
+  if (!buyerName || !produceName || !tonnage || !nationalid || !contact) {
     return res.status(400).send('Missing required fields');
   }
 
@@ -78,16 +51,13 @@ router.post('/debit', async (req, res) => {
   }
 
   try {
-    // Check if the buyer is trusted
-    const isEligible = await checkTrustedBuyer(buyerName);
+    const isEligible = await checkBuyerEligibility(buyerName);
 
     if (isEligible) {
-      // Additional logic before redirecting
       const creditSale = new Credit(req.body);
       await creditSale.save();
       res.redirect('/mylist');
     } else {
-      // Handle ineligibility
       res.status(403).send('Buyer is not eligible for credit');
     }
   } catch (error) {
@@ -120,7 +90,7 @@ router.get("/updateCredit/:id", async (req, res) => {
 router.post("/updateCredit", async (req, res) => {
   try {
     await Credit.findOneAndUpdate({ _id: req.query.id }, req.body);
-    res.redirect("/mylist");
+    res.redirect("/updateCredit");
   } catch (err) {
     res.status(404).send("Unable to update item in the database");
   }

@@ -19,7 +19,7 @@ html
               th(scope='col') Amount Paid
               th(scope='col') Buyer's Name
               th(scope='col') Date and Time
-              th(scope='col') Sales Agent
+             
               th(scope='col') Total Payment
               th(scope='col') Action
               th
@@ -32,7 +32,7 @@ html
                 td #{sale.amountPaid} 
                 td #{sale.buyerName} 
                 td #{moment(sale.dateTime).format('DD-MM-YYYY')} 
-                td #{sale.salesAgent.username} 
+               
                 td #{sale.Totalpayment}
                 td
                   a.btn.btn-primary.btn-sm(href='/updateSales/' + sale._id) View

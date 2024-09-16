@@ -20,7 +20,6 @@ div(style='display: flex; flex: 1')
           a(href='#')
             i.fas.fa-clipboard-list(style='padding-right: 9px')
             | Overview
-       
         li
           a(href='/cropProcurementList')
             i.fas.fa-file-archive(style='padding-right: 9px')
@@ -33,35 +32,27 @@ div(style='display: flex; flex: 1')
           a(href='/reports')
             i.fas.fa-envelope-open(style='padding-right: 9px')
             | Reports
-        //- li
-        //-   a#notificationButton(href='#')
-        //-     i.fas.fa-bell(style='padding-right: 9px')
-        //-     |                 Notifications
-        //-     span#notificationCount.notification-count 0
-        //-   #notificationPopup.notification-popup
-        //-     p No new notifications
 main
   .main-cards(action="/admindashboard" method='POST')
-    .card
-      .card-inner
-        p.text-primary Products
-        span.material-icons-outlined.text-green.icon-right
-      span.text-primary.font-weight-bold 90%
+    
     .card
       .card-inner
         p.text-primary Procurements
         span.material-icons-outlined.text-blue.icon-right
-      span.text-primary.font-weight-bold 240%
+        span.text-primary.font-weight-bold= procurementCount
+        p Total Procurement Tonnage: #{totalProcurementTonnage}
     .card
       .card-inner
         p.text-primary Sales
         span.material-icons-outlined.text-orange.icon-right
-      span.text-primary.font-weight-bold 83%
+        span.text-primary.font-weight-bold= salesCount
+        p Total Sales Tonnage: #{totalSalesTonnage}
     .card
       .card-inner
         p.text-primary Credit Sales
         span.material-icons-outlined.text-green.icon-right
-      span.text-primary.font-weight-bold 79%
+        span.text-primary.font-weight-bold= creditCount
+        p Total Amount Due: #{totalAmountDue}
   .charts
     .charts-card
       p.chart-title Top 5 Products

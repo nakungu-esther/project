@@ -8,7 +8,7 @@ body {
 }
 
 
-.btn-back {
+ .sidebar nav ul li .abtn-back {
     display: inline-block;
     padding: 10px 20px;
     background-color: hsl(10, 91%, 51%);
@@ -16,6 +16,7 @@ body {
     text-decoration: none;
     border-radius: 4px;
     margin-left: 20px;
+    bottom: 500%;
   }
   
   .btn-back:hover {
@@ -115,12 +116,16 @@ header .manager-profile a:hover {
     top: 55%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: rgba(23, 15, 15, 0.566);
+    background-color: rgba(23, 15, 15, 0.146);
     padding: 30px;
     border-radius: 30px;
     width: 600px; /* Adjusted for a wider form */
 
 }
+#procurementFormSection h2 {
+    color: #fff;
+}
+
 
 /* Styling for the Form */
 .form-row {
@@ -138,6 +143,7 @@ header .manager-profile a:hover {
 .form-group label {
     font-weight: bold;
     margin-bottom: 5px;
+    color: aliceblue;
 }
 
 .form-group input,
