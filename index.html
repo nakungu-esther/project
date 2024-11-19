@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Grocery Store</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    header {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      background-color: #333;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 14px 20px;
+      display: inline-block;
+    }
+    nav a:hover {
+      background-color: #ddd;
+      color: black;
+    }
+    .hero {
+      text-align: center;
+      padding: 50px 20px;
+      background-color: #f4f4f4;
+    }
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+    .product-card {
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 15px;
+      text-align: center;
+      background: white;
+    }
+    .product-card img {
+      max-width: 100%;
+      border-radius: 5px;
+    }
+    footer {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 10px 0;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Welcome to My Grocery Store</h1>
+</header>
+
+<nav>
+  <a href="#home">Home</a>
+  <a href="#products">Products</a>
+  <a href="#contact">Contact</a>
+  <a href="#about">About</a>
+</nav>
+
+<section class="hero">
+  <h2>Your One-Stop Shop for Fresh Produce</h2>
+  <p>Discover the best quality groceries delivered straight to your door.</p>
+</section>
+
+<section id="products" class="products">
+  <div class="product-card">
+    <img src="https://via.placeholder.com/150" alt="Apples">
+    <h3>Apples</h3>
+    <p>Fresh and juicy apples - $3 per kg</p>
+    <button>Add to Cart</button>
+  </div>
+  <div class="product-card">
+    <img src="https://via.placeholder.com/150" alt="Bananas">
+    <h3>Bananas</h3>
+    <p>Ripe bananas - $2 per kg</p>
+    <button>Add to Cart</button>
+  </div>
+  <div class="product-card">
+    <img src="https://via.placeholder.com/150" alt="Tomatoes">
+    <h3>Tomatoes</h3>
+    <p>Fresh tomatoes - $4 per kg</p>
+    <button>Add to Cart</button>
+  </div>
+  <div class="product-card">
+    <img src="https://via.placeholder.com/150" alt="Carrots">
+    <h3>Carrots</h3>
+    <p>Crunchy carrots - $2.5 per kg</p>
+    <button>Add to Cart</button>
+  </div>
+</section>
+
+<footer>
+  <p>© 2024 My Grocery Store. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

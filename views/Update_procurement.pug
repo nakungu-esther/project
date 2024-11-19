@@ -31,7 +31,19 @@ html
               a(href='#')
                 i.fas.fa-chart-bar(style='padding-right: 9px;')
                 | Reports
-              a.btn.back(href='javascript:history.back()', style='margin-right: 50px;') Back
+            li
+             a(href='/cropProcurementList')
+               i.fas.fa-print(style='padding-right:9px;')
+               | Produce List
+            li
+             a(href='/sales-form')
+               i.fas.fa-shopping-cart(style='padding-right:9px;')
+               | Record Sales
+            li
+             a(href='/salesList')
+               i.fas.fa-shopping-cart(style='padding-right:9px;')
+               | Sales List  
+             a.btn.back(href='javascript:history.back()', style='margin-right: 50px;') Back
       section#procurementFormSection.dashboard-section
         h2 Edit Procurement Entry
         form#procurementForm(action="/UpdateProcurement?id="+procurement._id method="POST")

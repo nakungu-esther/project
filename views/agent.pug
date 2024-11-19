@@ -19,7 +19,8 @@ html
           span.agent-name Welcome, Sales Agent
         else if user.role === 'manager'
           span.agent-name Welcome, Manager
-        a(href='/') Logout
+
+        a.btn.back(href='javascript:history.back()', style='margin-right: 50px;') Back
 
     aside.sidebar
       nav
@@ -34,6 +35,11 @@ html
               a#showCreditFormBtn(href='/debit')
                 i.fas.fa-credit-card(style='padding-right:15px;')
                 | Credit Sales
+
+            li
+              a#showCreditFormBtn(href='/cropProcurementList')
+                i.fas.fa-print(style='padding-right: 9px;')
+                |  Procurement List   
             li
               a#showCreditFormBtn(href='/salesList')
                 i.fas.fa-credit-card(style='padding-right:15px;')
@@ -42,6 +48,7 @@ html
               a#showCreditFormBtn(href='/mylist')
                 i.fas.fa-credit-card(style='padding-right:15px;')
                 | Credit List
+              a(href='/') Logout  
 
     br
     br

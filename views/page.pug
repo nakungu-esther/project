@@ -1,0 +1,14 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  title Error - Page Not Found
+  link(rel='stylesheet' href='/css/page.css')
+.error-container(action='/error' method='POST')
+  h1 Oops! Something went wrong.
+  p The page you&apos;re looking for cannot be found.
+  button(onclick='goBack()') Go Back
+script.
+  function goBack() {
+  window.history.back();
+  }

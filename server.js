@@ -33,6 +33,7 @@ const procurementRoutes = require('./routes/procurementRoutes');
 const mineRoutes = require('./routes/mineRoutes');
 const salesRoutes = require('./routes/salesRoutes');
 const creditRoutes = require('./routes/creditRoutes');
+const pageRoutes = require('./routes/pageRoutes');
 
 // const { Manager } = require('session');
 
@@ -93,6 +94,7 @@ app.use('/', procurementRoutes);
 app.use('/', mineRoutes);
 app.use('/', salesRoutes);
 app.use('/', creditRoutes);
+app.use('/', pageRoutes);
 
 app.get("*", (req, res) => {
   res.send("error! page does not exist");

@@ -58,7 +58,7 @@ router.post('/debit', async (req, res) => {
       await creditSale.save();
       res.redirect('/mylist');
     } else {
-      res.status(403).send('Buyer is not eligible for credit');
+      res.redirect('/error');
     }
   } catch (error) {
     console.error('Error in /debit route:', error);
